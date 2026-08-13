@@ -1,0 +1,47 @@
+Asunto: Propuesta para crear bootcamps tech prácticos desde Sevilla
+
+Hola [Nombre]:
+
+Me llamo Fernando y le escribo con respecto a la idea de lanzar en Sevilla bootcamps de desarrollo de aplicaciones
+de muy alto nivel, tanto presenciales como online.
+
+Vivo en Reino Unido desde hace 25 años y he trabajado como ingeniero de software en grandes empresas y startups
+del entorno FAANG (Facebook, Amazon, Apple, Netflix, Google).
+
+Por circunstancias personales (tengo dos niños pequeños), actualmente paso más tiempo en Sevilla, en Nervión, que
+en Londres. Acabo de abrir mi empresa de software en Reino Unido y estoy lanzando aplicaciones SaaS para gestionar
+clubes, tiendas retail y bares, con más productos en camino: www.alamedasoftware.co.uk
+
+Mientras trabajaba en UCL (University College London) tuve la suerte de conocer a juniors que venían de un bootcamp
+especializado en lo que el mercado pide para trabajar en ese tipo de empresas, y llegaban bastante bien preparados.
+
+Llevo tiempo pensando en crear el contenido y lanzar la página web de cursos, pero me atrae más la parte presencial.
+Seguramente acabemos también en formato web, aunque lo presencial tiene su encanto y puede aportar más valor al alumno.
+
+El temario está bastante claro. Es lo que uso a diario y lo que ya he puesto en práctica con algunos alumnos que me
+piden consejo:
+
+- Frontend: React, JavaScript/TypeScript, Expo para móvil, Tailwind CSS
+- Backend: Python, FastAPI
+- Bases de datos: PostgreSQL
+- Desarrollo: GitHub, Agile/Jira, CI/CD
+- DevOps y cloud: Docker, Terraform, AWS, OVH/Dokploy
+- Testing: Pytest y testing de React
+- IA: LLMs, LangChain, RAG
+- Entornos: Cursor, Visual Studio Code, Codex
+- Búsqueda de empleo: LeetCode/AlgoExpert, live coding y entrevistas simuladas
+
+La duración prevista es de 9 meses como mínimo y hasta 2 años, y se podría cursar por módulos o de forma comprimida.
+Esa es precisamente la apuesta: donde casi todos ofrecen 10 o 12 semanas, aquí hay tiempo real para que el alumno
+salga con oficio.
+
+Sobre los precios, estoy revisando el tema de subvenciones y programas públicos, porque parece que sí hay líneas
+reales vinculadas a fondos europeos, a Andalucía y a formación bonificada para empresas. Prefiero hablar de esto con
+rigor y no dar nada por cerrado hasta comprobar bien qué encaja. Los bootcamps suelen ser caros (en Reino Unido
+rondan las 10.000 libras), pero con subvenciones podríamos hacerlos mucho más accesibles.
+
+Si le parece bien la idea, podríamos vernos esta semana y valorar si tiene sentido explorar esto juntos.
+
+Un saludo,
+
+Fernando Cabello

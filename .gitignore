@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Temporales
+*.tmp
+*.bak
+~$*
+
+# Secretos — nunca subir credenciales
+.env
+.env.local
+*.pem
+*.key
+
+# Artefactos de producción de video (pesados, se regeneran)
+/build/
+/render/
+*.mp4
+*.mov
+*.wav
+*.mp3
