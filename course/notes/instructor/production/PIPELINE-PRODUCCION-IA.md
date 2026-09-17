@@ -2,7 +2,7 @@
 
 > Documento de trabajo. Creado el 31 de julio de 2026.
 >
-> Cómo fabricar las ~95 guías del [índice maestro](../../../curriculum/INDICE-MAESTRO-CONTENIDO.md) —texto, guion,
+> Cómo fabricar las 58 guías del [índice maestro](../../../curriculum/INDICE-MAESTRO-CONTENIDO.md) —texto, guion,
 > voz, video e imágenes— sin que se coma dos años de trabajo manual.
 >
 > Premisa fija: **el profesor eres tú.** No es un avatar genérico de stock leyendo un temario.
@@ -207,7 +207,7 @@ La solución es un **kit de marca del curso** versionado en el repo, que aliment
 | Tema de código | El mismo esquema de colores en todos los screencasts |
 | Reglas de voz | Variante de español, tratamiento, ritmo, muletillas prohibidas |
 | Plantillas de escena | Intro, concepto, demo, aviso, cierre |
-| Prompt de guion | Las reglas pedagógicas, idénticas para las 95 guías |
+| Prompt de guion | Las reglas pedagógicas, idénticas para las 58 guías |
 | Plantilla de diagrama | Estilo Mermaid común |
 
 Esto no es decoración: es la diferencia entre un curso y una colección de videos.
@@ -244,7 +244,7 @@ técnica) no es la suya (marketing de marca), pero eso hay que dejarlo claro por
 
 La idea de "de camino vendemos la herramienta" es sólida, con una condición: **que salga de
 construir el bootcamp de verdad, no en lugar de construirlo.** Un pipeline diseñado en abstracto no
-vale nada; uno que ha producido 95 guías es un producto con caso de uso demostrado.
+vale nada; uno que ha producido 58 guías es un producto con caso de uso demostrado.
 
 ## Qué sería exactamente
 

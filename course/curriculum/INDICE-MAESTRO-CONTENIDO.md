@@ -1,366 +1,184 @@
-# Índice maestro de contenido — Bootcamp Full Stack + AI
+# Índice maestro de contenido — Bootcamp Full Stack + IA
 
-> Documento de trabajo. Creado el 31 de julio de 2026.
->
-> Este es el **esqueleto completo del temario**. No hay que escribirlo de golpe: la idea es
-> ir rellenando guía a guía, marcando estado en las tablas.
->
-> Documentos relacionados:
-> - [Propuesta completa](../notes/instructor/business/propuesta-bootcamp-sevilla.md) — negocio, pricing, subvenciones.
-> - [Propuesta ejecutiva para el socio](../notes/instructor/business/propuesta-ejecutiva-socio-bootcamp-sevilla.md)
-> - [Pipeline de producción con IA](../notes/instructor/production/PIPELINE-PRODUCCION-IA.md) — cómo se fabrica cada pieza.
+> Documento de producción alineado con el [curriculum maestro](CURRICULUM-Full-Stack-AI-Bootcamp.md).
 
----
+## Modelo del programa
 
-## Índice
+- **58 guías = 58 días de curso**, numerados de 00 a 57.
+- **Una guía = un día = un tema principal + un resultado práctico.**
+- Orden: configuración/Claude → conceptos web → primer proyecto guiado → Python → FastAPI → PostgreSQL → TypeScript → React → testing → despliegue → IA aplicada → mobile → empleabilidad → proyecto final.
+- Python es el primer lenguaje y el lenguaje principal de backend e IA.
+- TypeScript es el segundo lenguaje y se introduce cuando llega el momento de construir el frontend.
+- No existe un bloque independiente de JavaScript. Solo se explica el contexto mínimo necesario dentro de TypeScript, navegador y React.
+- Frontend se enseña de forma práctica y condensada; no se busca especialización profunda en HTML o CSS.
+- Terminal, instalaciones, comandos exactos, scaffolding y configuración repetitiva se realizan con ayuda de Claude. El alumno debe entender el propósito, el riesgo y el resultado, pero no memorizar sintaxis de bajo valor.
+- Git y GitHub aparecen dentro del trabajo real desde el primer proyecto, no como una larga fase aislada.
 
-- [1. La unidad de trabajo: una guía = una clase](#1-la-unidad-de-trabajo-una-guía--una-clase)
-- [2. Anatomía de una guía](#2-anatomía-de-una-guía)
-- [3. Estados de producción](#3-estados-de-producción)
-- [4. Mapa de bloques](#4-mapa-de-bloques)
-- [5. El índice, bloque a bloque](#5-el-índice-bloque-a-bloque)
-- [6. Los dos ritmos: 9 meses y 2 años](#6-los-dos-ritmos-9-meses-y-2-años)
-- [7. Proyectos troncales](#7-proyectos-troncales)
-- [8. Orden de producción recomendado](#8-orden-de-producción-recomendado)
-- [9. Decisiones pendientes](#9-decisiones-pendientes)
+## Estados de producción
 
----
-
-# 1. La unidad de trabajo: una guía = una clase
-
-Ya está validado con un alumno real: [GUIA-00](../guides/GUIA-00-Que-es-una-App-Web-FE-y-BE.md) y
-[GUIA-01](../guides/GUIA-01-Terminal-y-Primeros-Proyectos.md) son la primera clase del bootcamp, dada de verdad.
-
-Eso fija la unidad atómica de todo el programa:
-
-**1 guía = 1 clase = 1 documento markdown + sus videos + sus ejercicios.**
-
-Todo lo demás (módulos, bloques, ritmos, precios por módulo) se construye agrupando guías. No hay
-que inventar un formato nuevo: hay que replicar el que ya funciona, unas 95 veces.
-
-Ventajas de mantener esta unidad:
-
-- cada guía se produce, se revisa y se vende por separado,
-- un bloque de guías = un módulo vendible suelto (ver pricing por módulo en la propuesta),
-- si el temario cambia, se toca una guía, no el programa entero,
-- el alumno tiene un entregable claro por clase.
-
----
-
-# 2. Anatomía de una guía
-
-Estructura extraída de las dos guías ya escritas. Es la plantilla:
-
-| Sección | Qué lleva |
-|---|---|
-| Cabecera | Fecha, a quién va dirigida, qué guía va antes y después, si hay que instalar algo |
-| Índice | Enlaces internos a cada sección |
-| Contenido | Numerado. Concepto → analogía → ejemplo concreto |
-| ⚠️ Avisos | Las trampas donde todo el mundo se cae |
-| 🔬 Ejercicio estrella | Uno solo, el que de verdad fija el concepto |
-| Ejercicios por módulo | Práctica corta y repetible |
-| 🎬 Videos | Tabla de videos con nota de por qué está cada uno |
-| Chuleta | Comandos o sintaxis de referencia rápida |
-| Errores comunes | El error literal + cómo leerlo |
-| Glosario | Tabla término → significado |
-| Checklist | Casillas de autoevaluación antes de pasar a la siguiente |
-
-> **Nota sobre los videos.** Ahora mismo las dos guías enlazan a videos de YouTube de terceros,
-> con el aviso honesto de que no están vistos. Eso está bien como punto de partida, pero el
-> objetivo es sustituirlos por video propio. Ese es todo el contenido de
-> [PIPELINE-PRODUCCION-IA.md](../notes/instructor/production/PIPELINE-PRODUCCION-IA.md).
-
----
-
-# 3. Estados de producción
-
-Cada guía pasa por estos estados. Se marcan en las tablas del punto 5:
-
-| Marca | Estado | Significa |
+| Marca | Estado | Significado |
 |---|---|---|
-| `—` | Sin empezar | No existe nada |
-| `ESQ` | Esquema | Solo el índice de la guía, sin desarrollar |
-| `TXT` | Texto | Guía escrita y revisada, con ejercicios |
-| `GUI` | Guion | Guion de video escrito a partir del texto |
-| `VID` | Video | Video producido y montado |
-| `OK` | Cerrada | Texto + video + ejercicios corregidos, dada en clase al menos una vez |
-
-Las columnas de las tablas son: **Txt** (documento), **Gui** (guion), **Vid** (video).
+| `—` | Sin empezar | No existe contenido desarrollado |
+| `ESQ` | Esquema | Estructura definida |
+| `TXT` | Texto | Guía escrita y revisada |
+| `GUI` | Guion | Guion de vídeo preparado |
+| `VID` | Vídeo | Vídeo producido |
+| `OK` | Cerrada | Texto, práctica y vídeo validados con alumnos |
 
 ---
 
-# 4. Mapa de bloques
+## Mapa de fases
 
-| # | Bloque | Guías | Nº | Vendible suelto |
-|---|---|---|---|---|
-| 0 | Fundamentos y entorno | 00-02 | 3 | Sí — curso de entrada gratuito o de captación |
-| 1 | HTML, CSS y Bootstrap | 03-08 | 6 | Sí |
-| 2 | JavaScript | 09-16 | 8 | Sí |
-| 3 | Git y GitHub | 17-20 | 4 | Sí — el corto que mejor vende a empresas |
-| 4 | React | 21-30 | 10 | Sí — el buque insignia de los cortos |
-| 5 | TypeScript | 31-34 | 4 | Sí |
-| 6 | Python | 35-40 | 6 | Sí |
-| 7 | FastAPI y APIs | 41-48 | 8 | Sí |
-| 8 | PostgreSQL y datos | 49-54 | 6 | Sí |
-| 9 | Testing | 55-60 | 6 | Sí |
-| 10 | Docker, cloud y despliegue | 61-68 | 8 | Sí |
-| 11 | Expo y mobile | 69-74 | 6 | Sí |
-| 12 | IA aplicada al desarrollo | 75-82 | 8 | Sí — el que más demanda tiene ahora |
-| 13 | Empleabilidad y entrevistas | 83-90 | 8 | Sí — diferencial fuerte, casi nadie lo hace bien |
-| 14 | Proyecto final | 91-95 | 5 | No — cierre del programa |
-| | **Total** | | **95** | |
-
-95 guías. A 2 clases por semana son unas 48 semanas, que encaja con el recorrido part-time de
-casi un año; a ritmo intensivo comprimido, con los 9 meses mínimo. Ver punto 6.
+| Fase | Guías | Días | Resultado |
+|---|---:|---:|---|
+| 0. Configuración, Claude y primer proyecto | 00–03 | 4 | Entorno listo y primer sistema web comprendido |
+| 1. Fundamentos de Python | 04–08 | 5 | Programas pequeños escritos y razonados |
+| 2. FastAPI e ingeniería backend | 09–14 | 6 | API REST estructurada y validada |
+| 3. PostgreSQL y persistencia | 15–19 | 5 | Datos relacionales modelados, consultados y migrados |
+| 4. TypeScript como segundo lenguaje | 20–24 | 5 | Código tipado para navegador y frontend |
+| 5. React con TypeScript | 25–30 | 6 | Frontend usable conectado a la API |
+| 6. Testing y calidad | 31–34 | 4 | Backend, frontend y flujos completos validados |
+| 7. Docker y despliegue | 35–39 | 5 | Sistema empaquetado, automatizado y desplegado |
+| 8. Ingeniería de IA aplicada | 40–45 | 6 | Funciones de IA seguras, evaluadas y conectadas a datos |
+| 9. Mobile con Expo | 46–49 | 4 | Cliente móvil conectado al backend |
+| 10. Empleabilidad | 50–52 | 3 | Perfil profesional y defensa técnica preparados |
+| 11. Proyecto final | 53–57 | 5 | Producto definido, construido, desplegado y presentado |
+| | **Total** | **58** | |
 
 ---
 
-# 5. El índice, bloque a bloque
+## Índice de producción, guía a guía
 
-## Bloque 0 — Fundamentos y entorno
+### Fase 0 — Configuración, Claude y primer proyecto
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 00 | [¿Qué es una app web? Frontend y Backend](../guides/GUIA-00-Que-es-una-App-Web-FE-y-BE.md) | TXT | — | — |
-| 01 | [La terminal y tus primeros proyectos](../guides/GUIA-01-Terminal-y-Primeros-Proyectos.md) | TXT | — | — |
-| 02 | El editor: VS Code, extensiones y atajos que sí importan | — | — | — |
+| # | Guía | Estado | Resultado práctico |
+|---:|---|---|---|
+| 00 | [VS Code, Claude, GitHub y aprendizaje seguro con un agente](../00-onboarding/CLASS-00-First-Contact-VS-Code-Claude-and-Starter-Prompt.md) | TXT | Repositorio descargado y agente de aprendizaje configurado |
+| 01 | [Qué es un sistema web: frontend, backend, HTTP, JSON y APIs](../guides/GUIA-00-Que-es-una-App-Web-FE-y-BE.md) | TXT | Trazar una petición y una respuesta completas |
+| 02 | [Flujo local con terminal y Git asistidos por Claude](../guides/GUIA-01-Terminal-y-Primeros-Proyectos.md) | TXT | Abrir, ejecutar, inspeccionar, detener y guardar un proyecto |
+| 03 | [Primer proyecto guiado: arquitectura antes que sintaxis](../guides/GUIA-03-Conceptos-Para-Tu-Primer-Proyecto.md) | TXT | Construir y explicar una pequeña funcionalidad de extremo a extremo |
 
-> **[TAREA-01 — La Cesta](../projects/TAREA-01-La-Cesta-FE-BE-y-GitHub.md)** va después de la guía 01. Es la
-> primera app completa del alumno: React + FastAPI + PostgreSQL en Docker, sin auth, entregada por
-> GitHub. Adelanta a propósito parte del bloque 3 (Git), del 8 (base de datos) y del 10 (Docker),
-> porque el alumno necesita entregar trabajo desde el primer mes.
+> La [TAREA-01 — La Cesta](../projects/TAREA-01-La-Cesta-FE-BE-y-GitHub.md) y el [PROYECTO-01 — App de Salud](../projects/PROYECTO-01-App-de-Salud-Paso-a-Paso.md) son material práctico existente. Deben revisarse para encajar como proyectos progresivos del nuevo recorrido y no como prerequisitos desalineados.
 
-## Bloque 1 — HTML, CSS y Bootstrap
+### Fase 1 — Fundamentos de Python
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 03 | HTML: la estructura. Etiquetas, semántica y formularios | — | — | — |
-| 04 | CSS: selectores, caja, colores y tipografía | — | — | — |
-| 05 | CSS layout: Flexbox | — | — | — |
-| 06 | CSS layout: Grid y responsive | — | — | — |
-| 07 | Bootstrap a fondo: grid, componentes y utilidades | — | — | — |
-| 08 | Tailwind CSS: el enfoque de utilidades | — | — | — |
+| # | Tema principal | Estado | Resultado práctico |
+|---:|---|---|---|
+| 04 | Valores, variables, tipos y expresiones | — | Transformar datos de entrada |
+| 05 | Decisiones, bucles y flujo del programa | — | Implementar reglas de negocio pequeñas |
+| 06 | Listas, diccionarios, sets y tuplas | — | Procesar una colección de registros |
+| 07 | Funciones, módulos y estructura legible | — | Separar un programa en unidades comprensibles |
+| 08 | Errores, archivos, entornos, dependencias y logging | — | Ejecutar y diagnosticar una aplicación resistente |
 
-## Bloque 2 — JavaScript
+### Fase 2 — FastAPI e ingeniería backend
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 09 | Variables, tipos y operadores | — | — | — |
-| 10 | Condicionales, bucles y funciones | — | — | — |
-| 11 | Arrays y objetos | — | — | — |
-| 12 | Métodos de array: map, filter, reduce | — | — | — |
-| 13 | El DOM: leer y modificar la página | — | — | — |
-| 14 | Eventos y formularios | — | — | — |
-| 15 | Asincronía: callbacks, promesas y async/await | — | — | — |
-| 16 | Fetch: hablar con una API de verdad | — | — | — |
+| # | Tema principal | Estado | Resultado práctico |
+|---:|---|---|---|
+| 09 | Aplicación FastAPI y primer endpoint | — | Ejecutar e inspeccionar una API |
+| 10 | Rutas, parámetros y validación con Pydantic | — | Aceptar y rechazar datos correctamente |
+| 11 | Recursos REST, verbos, respuestas y códigos de estado | — | Diseñar un contrato CRUD coherente |
+| 12 | Estructura backend y límites de servicios | — | Organizar una API mantenible |
+| 13 | Autenticación, autorización y seguridad | — | Proteger una ruta y sus permisos |
+| 14 | Errores, middleware, async, logging y observabilidad | — | Diagnosticar peticiones y fallos previsibles |
 
-## Bloque 3 — Git y GitHub
+### Fase 3 — PostgreSQL y persistencia
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 17 | Git: por qué existe, commits y el flujo básico | — | — | — |
-| 18 | Ramas, merge y resolución de conflictos | — | — | — |
-| 19 | GitHub: remotos, pull requests y revisión de código | — | — | — |
-| 20 | Trabajo en equipo: GitFlow, issues y tableros | — | — | — |
+| # | Tema principal | Estado | Resultado práctico |
+|---:|---|---|---|
+| 15 | Tablas, claves, relaciones y constraints | — | Diseñar el modelo de datos |
+| 16 | SQL esencial: CRUD, filtros, joins y agregaciones | — | Resolver preguntas útiles en SQL |
+| 17 | SQLAlchemy, sesiones y transacciones | — | Persistir datos desde la API |
+| 18 | Migraciones Alembic y datos semilla | — | Evolucionar la base de datos de forma reproducible |
+| 19 | Índices, rendimiento, conexiones y copias | — | Mejorar y proteger un flujo de datos |
 
-## Bloque 4 — React
+### Fase 4 — TypeScript como segundo lenguaje
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 21 | Qué problema resuelve React. JSX y el primer componente | — | — | — |
-| 22 | Props y composición de componentes | — | — | — |
-| 23 | Estado: useState | — | — | — |
-| 24 | Listas, claves y renderizado condicional | — | — | — |
-| 25 | Formularios controlados | — | — | — |
-| 26 | Efectos: useEffect y el ciclo de vida | — | — | — |
-| 27 | Consumir una API desde React | — | — | — |
-| 28 | Rutas: React Router | — | — | — |
-| 29 | Estado global: context y cuándo NO usarlo | — | — | — |
-| 30 | Hooks propios y organización de un proyecto React | — | — | — |
+| # | Tema principal | Estado | Resultado práctico |
+|---:|---|---|---|
+| 20 | Valores, inferencia, operadores y contexto mínimo de JavaScript | — | Escribir un programa tipado pequeño |
+| 21 | Funciones, control de flujo, arrays y objetos tipados | — | Transformar datos de la API de forma segura |
+| 22 | Interfaces, uniones, genéricos y narrowing | — | Modelar estados y respuestas |
+| 23 | Async/await, Fetch, HTTP y respuestas tipadas | — | Consumir la API desde TypeScript |
+| 24 | Eventos, formularios, tooling y DevTools | — | Crear y depurar una interacción de navegador |
 
-## Bloque 5 — TypeScript
+### Fase 5 — React con TypeScript
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 31 | Por qué TypeScript. Tipos básicos e inferencia | — | — | — |
-| 32 | Interfaces, tipos y genéricos | — | — | — |
-| 33 | TypeScript en React: props, estado y eventos tipados | — | — | — |
-| 34 | Configuración, errores típicos y migración de JS a TS | — | — | — |
+| # | Tema principal | Estado | Resultado práctico |
+|---:|---|---|---|
+| 25 | JSX, componentes, props y composición | — | Construir la primera interfaz tipada |
+| 26 | Estado, eventos, listas, condiciones y feedback | — | Crear una pantalla interactiva completa |
+| 27 | Formularios, validación y accesibilidad esencial | — | Enviar datos válidos mediante un formulario usable |
+| 28 | Efectos e integración con la API | — | Conectar React con FastAPI |
+| 29 | Routing, autenticación y estado compartido | — | Navegar por áreas protegidas |
+| 30 | Hooks, organización, estilos esenciales y UI de producción | — | Entregar un frontend coherente sin crear un design system |
 
-## Bloque 6 — Python
+### Fase 6 — Testing y calidad
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 35 | Python: sintaxis, tipos y control de flujo | — | — | — |
-| 36 | Estructuras de datos: listas, diccionarios, sets y tuplas | — | — | — |
-| 37 | Funciones, módulos y paquetes | — | — | — |
-| 38 | Clases y objetos, lo justo y necesario | — | — | — |
-| 39 | Entornos virtuales, pip y gestión de dependencias | — | — | — |
-| 40 | Ficheros, errores y logging | — | — | — |
+| # | Tema principal | Estado | Resultado práctico |
+|---:|---|---|---|
+| 31 | Estrategia de pruebas, riesgo y pirámide | — | Crear el plan de pruebas del proyecto |
+| 32 | Pytest e integración FastAPI | — | Validar comportamiento backend |
+| 33 | Vitest y React Testing Library | — | Validar comportamiento visible al usuario |
+| 34 | Playwright y TDD práctico | — | Automatizar un recorrido crítico completo |
 
-## Bloque 7 — FastAPI y APIs
+### Fase 7 — Docker y despliegue
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 41 | FastAPI: primer endpoint y documentación automática | — | — | — |
-| 42 | Rutas, parámetros y validación con Pydantic | — | — | — |
-| 43 | Diseño de una API REST: recursos, verbos y códigos | — | — | — |
-| 44 | Autenticación: JWT, login y protección de rutas | — | — | — |
-| 45 | Estructura de un proyecto backend serio | — | — | — |
-| 46 | Async en Python y cuándo sirve de verdad | — | — | — |
-| 47 | Conectar el frontend React con tu API | — | — | — |
-| 48 | Errores, middlewares y observabilidad básica | — | — | — |
+| # | Tema principal | Estado | Resultado práctico |
+|---:|---|---|---|
+| 35 | Imágenes y contenedores Docker | — | Empaquetar un componente |
+| 36 | Docker Compose para frontend, API y base de datos | — | Ejecutar el sistema completo localmente |
+| 37 | CI/CD con GitHub Actions | — | Validar cambios automáticamente |
+| 38 | Arquitectura cloud, AWS, dominios, HTTPS y configuración | — | Dibujar y explicar producción |
+| 39 | Despliegue, secretos, monitoring, rollback y recuperación | — | Publicar y verificar una release segura |
 
-## Bloque 8 — PostgreSQL y datos
+### Fase 8 — Ingeniería de IA aplicada
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 49 | Bases de datos relacionales: por qué tablas y no ficheros | — | — | — |
-| 50 | SQL: SELECT, WHERE, JOIN y agregaciones | — | — | — |
-| 51 | Modelado de datos: claves, relaciones y normalización útil | — | — | — |
-| 52 | SQLAlchemy: el ORM y cómo no pelearse con él | — | — | — |
-| 53 | Migraciones con Alembic sin romper producción | — | — | — |
-| 54 | Índices, rendimiento y consultas que van lentas | — | — | — |
+| # | Tema principal | Estado | Resultado práctico |
+|---:|---|---|---|
+| 40 | Modelos, tokens, contexto, capacidades y límites | — | Seleccionar y justificar un modelo |
+| 41 | APIs de modelos, salida estructurada, retries y proveedores | — | Añadir un endpoint fiable con IA |
+| 42 | Prompts, privacidad, prompt injection y aprobación humana | — | Crear una interacción restringida y revisable |
+| 43 | Embeddings, búsqueda vectorial y RAG | — | Responder usando datos aprobados |
+| 44 | Tool calling, Agentic RAG, LangGraph y agentes acotados | — | Crear un agente con herramientas permitidas |
+| 45 | Evaluación, tracing, calidad, latencia y coste | — | Medir la función de IA antes de publicarla |
 
-## Bloque 9 — Testing
+### Fase 9 — Mobile con Expo
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 55 | Por qué se testea. Tipos de test y la pirámide | — | — | — |
-| 56 | Pytest: primeros tests, fixtures y parametrización | — | — | — |
-| 57 | Testear una API: base de datos de test y mocks | — | — | — |
-| 58 | Vitest y React Testing Library | — | — | — |
-| 59 | End-to-end con Playwright | — | — | — |
-| 60 | TDD en la práctica: una kata de principio a fin | — | — | — |
+| # | Tema principal | Estado | Resultado práctico |
+|---:|---|---|---|
+| 46 | Expo y diferencias entre React Native y web | — | Ejecutar la primera pantalla móvil |
+| 47 | Componentes, estilos, navegación y formularios | — | Construir un flujo móvil navegable |
+| 48 | API, autenticación, almacenamiento y permisos | — | Conectar la app al backend con seguridad |
+| 49 | Notificaciones, builds y publicación | — | Producir una build instalable |
 
-## Bloque 10 — Docker, cloud y despliegue
+### Fase 10 — Empleabilidad
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 61 | Docker: imágenes, contenedores y por qué "en mi máquina funciona" | — | — | — |
-| 62 | Docker Compose: levantar app + base de datos | — | — | — |
-| 63 | CI/CD con GitHub Actions | — | — | — |
-| 64 | Desplegar de verdad: primer deploy con Dokploy | — | — | — |
-| 65 | AWS: los servicios que se usan y para qué | — | — | — |
-| 66 | Terraform: infraestructura como código | — | — | — |
-| 67 | Dominios, HTTPS, Nginx y variables de entorno | — | — | — |
-| 68 | Secretos, seguridad básica y qué NO subir nunca a un repo | — | — | — |
+| # | Tema principal | Estado | Resultado práctico |
+|---:|---|---|---|
+| 50 | Portfolio, CV, LinkedIn, GitHub y narrativa | — | Publicar un perfil profesional coherente |
+| 51 | Complejidad, estructuras y patrones de entrevista | — | Resolver y explicar un problema en voz alta |
+| 52 | System design junior, live coding y defensa técnica | — | Completar una entrevista simulada |
 
-## Bloque 11 — Expo y mobile
+### Fase 11 — Proyecto final
 
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 69 | React Native y Expo: qué cambia respecto a React web | — | — | — |
-| 70 | Componentes, estilos y navegación en mobile | — | — | — |
-| 71 | Consumir tu API desde la app | — | — | — |
-| 72 | Cámara, almacenamiento y permisos del dispositivo | — | — | — |
-| 73 | Notificaciones push | — | — | — |
-| 74 | Build y publicación en las tiendas | — | — | — |
-
-## Bloque 12 — IA aplicada al desarrollo
-
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 75 | Qué es un LLM y qué no. Tokens, contexto y límites | — | — | — |
-| 76 | Llamar a un modelo desde tu código | — | — | — |
-| 77 | Prompt engineering con criterio de ingeniero | — | — | — |
-| 78 | RAG: embeddings, búsqueda vectorial y por qué se usa | — | — | — |
-| 79 | LangChain y LangGraph: agentes y el patrón ReAct | — | — | — |
-| 80 | Tool calling: dar acceso seguro a datos reales | — | — | — |
-| 81 | Evaluación de salidas y control de coste | — | — | — |
-| 82 | Agentes de código (Cursor, Claude Code, Codex) en flujo real | — | — | — |
-
-## Bloque 13 — Empleabilidad y entrevistas
-
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 83 | Big O y complejidad, explicado sin matemáticas | — | — | — |
-| 84 | Estructuras de datos para entrevistas | — | — | — |
-| 85 | Patrones de problemas: dos punteros, ventana, hash, recursión | — | — | — |
-| 86 | Cómo atacar un problema de LeetCode en voz alta | — | — | — |
-| 87 | Live coding: qué evalúan de verdad | — | — | — |
-| 88 | System design nivel junior/junior+ | — | — | — |
-| 89 | CV, LinkedIn, GitHub y portfolio que se leen en 20 segundos | — | — | — |
-| 90 | Entrevistas simuladas y defensa técnica del proyecto | — | — | — |
-
-## Bloque 14 — Proyecto final
-
-| # | Guía | Txt | Gui | Vid |
-|---|---|---|---|---|
-| 91 | Elegir proyecto y escribir el alcance | — | — | — |
-| 92 | Del alcance a los tickets: planificar como en una empresa | — | — | — |
-| 93 | Semanas de construcción con revisión de código | — | — | — |
-| 94 | Despliegue, dominio y puesta en producción | — | — | — |
-| 95 | Demo day: presentar y defender lo construido | — | — | — |
+| # | Tema principal | Estado | Resultado práctico |
+|---:|---|---|---|
+| 53 | Problema, usuarios, restricciones y alcance | — | Aprobar un scope de una página |
+| 54 | Arquitectura, datos, contrato API, frontera IA y tickets | — | Crear diagramas y plan ordenado |
+| 55 | Construcción de backend y datos con revisión | — | Entregar el núcleo probado |
+| 56 | Cliente, IA, despliegue y validación | — | Publicar el producto completo |
+| 57 | Demo, retrospectiva, portfolio y defensa | — | Presentar y defender con evidencias |
 
 ---
 
-# 6. Los dos ritmos: 9 meses y 2 años
+## Regla de condensación
 
-Mismo contenido, distinta intensidad. Es lo que se acordó en la propuesta.
+Cada día introduce **un solo tema principal**. Configuración, comandos, boilerplate y detalles secundarios se subordinan al resultado de ese día y pueden realizarse con Claude. Si una guía requiere más tiempo, se extiende el trabajo práctico; no se añaden varios temas principales no relacionados al mismo día.
 
-| | Comprimido | Extendido |
-|---|---|---|
-| Duración | 9-10 meses | 18-24 meses |
-| Clases por semana | 3 | 1 |
-| Horas semanales estimadas | 12-15 | 4-6 |
-| Perfil | Reskilling a tiempo completo, desempleado, dedicación total | Compatible con trabajo o estudios |
-| Riesgo principal | Saturación y abandono por ritmo | Abandono por pérdida de impulso |
+## Documentos internos relacionados
 
-El bloque 13 (empleabilidad) no va al final en ninguno de los dos: conviene arrancarlo en paralelo
-hacia la mitad del programa, porque preparar entrevistas es una habilidad que necesita meses de
-repetición, no un módulo de tres semanas.
+Los documentos del instructor están en `course/notes/instructor`:
 
----
-
-# 7. Proyectos troncales
-
-Las guías enseñan piezas. Los proyectos son lo que el alumno enseña en una entrevista. Propuesta
-de tres, encadenados:
-
-| Proyecto | Después del bloque | Qué demuestra |
-|---|---|---|
-| **P1 — Página personal desplegada** | 1 | HTML, CSS, responsive, un dominio real funcionando |
-| **P2 — App con API propia** | 8 | React + FastAPI + PostgreSQL hablando entre sí, con auth |
-| **P3 — Producto con IA desplegado** | 12 | El anterior + agente, RAG, Docker y despliegue en cloud |
-| **P4 — Proyecto final libre** | 14 | Todo, más autonomía y defensa técnica |
-
-La ventaja competitiva declarada en la propuesta —que detrás hay una empresa que ya desarrolla
-software— se materializa aquí: los proyectos deberían apoyarse en dinámicas reales de los
-productos de Alameda (leer código ajeno, coger un ticket, abrir una PR, desplegar).
-
----
-
-# 8. Orden de producción recomendado
-
-No producir en orden 00 → 95. El orden que conviene es el que antes genera ingresos:
-
-1. **Bloques 0 y 3** (fundamentos + Git). Baratos de producir, sirven de curso gratuito de captación
-   y de corto vendible a empresas. Además ya tienes 2 de las 3 guías del bloque 0 escritas.
-2. **Bloque 4 (React)** y **bloque 12 (IA)**. Son los dos cortos con más demanda y los que mejor
-   posicionan la marca. Vendibles sueltos a `300-900€` según la propuesta.
-3. **Bloques 1, 2, 6, 7** — el troncal que sostiene el programa largo.
-4. **Bloques 8, 9, 10** — profundidad.
-5. **Bloques 5, 11, 13, 14** — cierre.
-
-Regla práctica: **una guía no se produce en video hasta que se ha dado en clase al menos una vez.**
-La clase real es la que revela dónde el alumno se atasca, y eso cambia el guion. Grabar antes de
-dar la clase es la forma más rápida de tener 95 videos que hay que rehacer.
-
----
-
-# 9. Decisiones pendientes
-
-Cosas que hay que cerrar y que afectan al contenido:
-
-- **Nivel de entrada.** Las guías 00 y 01 asumen cero conocimiento. ¿Se mantiene eso para todo el
-  bootcamp o habrá una prueba de acceso?
-- **Windows, Mac o los dos.** La GUIA-01 usa `winget`, que es Windows. Si hay alumnos en Mac hace
-  falta la rama paralela de cada guía de entorno, o decidir que se trabaja sobre una única
-  plataforma.
-- **Español neutro o rioplatense.** Las guías actuales usan voseo ("mirá", "terminás"), que encaja
-  con el alumno actual pero no con un aula en Sevilla. Hay que fijar la variante antes de grabar
-  voz, porque rehacer audio es caro.
-- **Idioma del bootcamp.** Si se produce también en inglés, hay que decidirlo antes de grabar
-  (ver la sección de doblaje en el pipeline).
-- **Qué parte de los repos reales de Alameda se abre a los alumnos** y bajo qué acuerdo.
+- Producción de contenido: [pipeline de producción con IA](../notes/instructor/production/PIPELINE-PRODUCCION-IA.md).
+- Propuesta y negocio: [propuesta completa](../notes/instructor/business/propuesta-bootcamp-sevilla.md).
+- Mensaje inicial: [WhatsApp listo para enviar](../notes/instructor/WHATSAPP-First-Contact-Ready-to-Send.md).

@@ -1,255 +1,220 @@
-# Full Stack + AI Bootcamp — Course Curriculum
+# Full Stack + AI Bootcamp — Condensed Course Curriculum
 
-> **"Engineering is the art of designing, testing, and validating new solutions under constraints — and with AI as your co-pilot, you'll learn to fly on your own."**
+> **Engineering means designing, testing, and validating solutions under constraints. AI is the copilot; the student remains the engineer.**
 
-English master version of the course content (the *syllabus*). Spanish translation to follow.
-
+English master syllabus. The program is AI-first, backend-first, and organized around **one major topic per day**.
 
 ---
 
-## Overview
+## Program model
 
-- **92 classes** *(draft fix: was 96 — guides 00–95; now 92 — guides 00–91 after Block 1 went 6→3 and Blocks 2+5 merged 12→11 — please verify)*, grouped into **15 blocks** (0–14).
-- The atomic unit of the program: **1 guide = 1 class = one markdown document + its videos + its exercises.**
-- Every class follows the same structure: concept → analogy → worked example, one flagship exercise, short repeatable drills, videos, a cheat sheet, literal common errors and how to read them, a glossary, and a self-check checklist before moving on.
-- Same content, two pacing tracks (see [Pacing options](#pacing-options)).
+- **58 guides = 58 course days**, numbered continuously from 00 to 57.
+- **One guide = one day = one major topic + one practical outcome.**
+- The order is: setup/Claude → web concepts → first guided project → Python → FastAPI → PostgreSQL → TypeScript → React → testing → deployment → applied AI → mobile → employability → final project.
+- Python is the first programming language and the primary backend/AI language.
+- TypeScript is the second programming language and is introduced when the student is ready to build the frontend.
+- There is **no standalone JavaScript block**. Only the small amount of JavaScript context needed to understand TypeScript, browser APIs, and React is explained where it appears.
+- Frontend is intentionally practical and condensed. Students learn enough HTML, CSS, TypeScript, and React to build usable interfaces; deep frontend specialization is outside the core program.
+- Terminal syntax, installation details, scaffolding commands, configuration boilerplate, and similar low-retention tasks are **Claude-assisted**. Students must understand each command's purpose and validate its result, but memorization is not the goal.
+- Git and GitHub are taught in context from the first project rather than isolated in a long standalone block.
+
+---
+
+## How each day works
+
+Each guide follows the same learning loop:
+
+1. **Concept** — one major idea in plain language.
+2. **Architecture** — where it fits in the complete system.
+3. **Claude-assisted setup** — commands and boilerplate explained one step at a time.
+4. **Worked example** — the smallest useful implementation.
+5. **Student build** — one observable practical outcome.
+6. **Validation** — tests, output, logs, or visible behavior.
+7. **Reflection** — the student explains what happened and completes a self-check.
+
+A topic may reappear later in greater depth, but each day has only one primary learning objective.
 
 ---
 
 ## Curriculum at a glance
 
-| # | Block | Guides | Count |
-|---|---|---|---|
-| 0 | Fundamentals & environment | 00–02 | 3 |
-| 1 | HTML as a wrapper + CSS essentials | 03–05 | 3 |
-| 2 | TypeScript fundamentals | 06–11 | 6 |
-| 3 | TypeScript in the browser | 12–16 | 5 |
-| 4 | Git & GitHub | 17–20 | 4 |
-| 5 | React with TypeScript | 21–30 | 10 |
-| 6 | Python | 31–36 | 6 |
-| 7 | FastAPI & APIs | 37–44 | 8 |
-| 8 | PostgreSQL & data | 45–50 | 6 |
-| 9 | Testing | 51–56 | 6 |
-| 10 | Docker, cloud & deployment | 57–64 | 8 |
-| 11 | Expo & mobile | 65–70 | 6 |
-| 12 | AI applied to development | 71–78 | 8 |
-| 13 | Employability & interviews | 79–86 | 8 |
-| 14 | Final project | 87–91 | 5 |
-| | **Total** | | **92** |
+| Phase | Guides | Days | Outcome |
+|---|---:|---:|---|
+| 0. Setup, Claude, and first project | 00–03 | 4 | Workspace ready and first guided web system understood |
+| 1. Python foundations | 04–08 | 5 | Write and reason about small Python programs |
+| 2. FastAPI and backend engineering | 09–14 | 6 | Build a structured, validated REST API |
+| 3. PostgreSQL and persistent data | 15–19 | 5 | Model, store, query, and migrate relational data |
+| 4. TypeScript as the second language | 20–24 | 5 | Use typed code for browser and frontend work |
+| 5. React with TypeScript | 25–30 | 6 | Build a usable frontend connected to the API |
+| 6. Testing and quality | 31–34 | 4 | Validate backend, frontend, and complete user flows |
+| 7. Docker and deployment | 35–39 | 5 | Package, secure, automate, and deploy the system |
+| 8. Applied AI engineering | 40–45 | 6 | Add evaluated, safe, data-connected AI features |
+| 9. Mobile with Expo | 46–49 | 4 | Deliver a mobile client for the same backend |
+| 10. Employability | 50–52 | 3 | Present skills and defend engineering decisions |
+| 11. Final project | 53–57 | 5 | Scope, build, deploy, and present a production project |
+| | **Total** | **58** | |
 
 ---
 
-## Block-by-block syllabus
+## Day-by-day syllabus
 
-### Block 0 — Fundamentals & environment
+### Phase 0 — Setup, Claude, and first guided project
 
-| # | Class |
-|---|---|
-| 00 | Set up your AI-assisted workspace: install VS Code, add Claude, and use the course starter prompt |
-| 01 | The terminal and your first projects |
-| 02 | What is a web app? Frontend, backend, architecture, and the essential VS Code workflow |
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 00 | VS Code, Claude, GitHub, and learning safely with an agent | Download the course, configure the learning agent, and validate the workspace |
+| 01 | What a web system is: frontend, backend, HTTP, JSON, and APIs | Trace one complete request and response through a system |
+| 02 | Local project workflow with Claude-assisted terminal and Git | Open, run, inspect, stop, and save a project without memorizing commands |
+| 03 | First guided project: architecture before syntax | Build and explain a small end-to-end feature with heavy scaffolding |
 
-> **Class 00 — Learning how to learn with AI:** Every student begins by installing and configuring VS Code and adding Claude to the editor. The class then introduces a shared starter prompt that helps the student reason, ask useful questions, break work into steps, validate generated code, interpret errors, and learn rather than blindly copy AI output. See [Class 00 — First Contact: VS Code, Claude, and Your Starter Prompt](../00-onboarding/CLASS-00-First-Contact-VS-Code-Claude-and-Starter-Prompt.md) for the ready-to-send WhatsApp message, setup instructions, first prompt, safety rules, and instructor checklist.
+> Terminal commands, Git setup, package installation, and environment checks are introduced only as tools needed to complete the project. Claude may provide the exact syntax, but must explain what each command changes and help the student verify the result.
 
-> **TAREA-01 — The Shopping Basket** comes right after class 01. It is the student's first complete app: React + FastAPI + PostgreSQL in Docker, no auth, delivered via GitHub. It deliberately pulls forward part of block 4 (Git), block 8 (database), and block 10 (Docker), because students need to ship work from month one.
+### Phase 1 — Python foundations
 
-> 📝 **DRAFT NOTE (your words — edit later):** "Fundamentals Miro AWS everyhitng Architectutra is the firast thisng really
-> we will create this with React the toool.."
-> *(Interpretation: architecture comes first — fundamentals, Miro, AWS; the whiteboard/diagram tool itself will be built with React.)*
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 04 | Python values, variables, types, and expressions | Transform input data into a useful result |
+| 05 | Decisions, loops, and program flow | Implement a small rule-driven program |
+| 06 | Lists, dictionaries, sets, and tuples | Model and process a collection of records |
+| 07 | Functions, modules, and readable program structure | Split a program into understandable reusable units |
+| 08 | Errors, files, environments, dependencies, and logging | Run a small resilient Python application and diagnose a failure |
 
-> 📝 **DRAFT NOTE (your words — edit later):** "Local setup for dev"
-> *(Interpretation: local development setup belongs in Block 0.)*
+> Virtual environments, package-manager commands, and repetitive setup are Claude-assisted. Students learn why isolation and dependency tracking matter, not a list of commands by heart.
 
-### Block 1 — HTML as a wrapper + CSS essentials
+### Phase 2 — FastAPI and backend engineering
 
-*Enough HTML/CSS to host and style a real app — HTML is the wrapper, the app itself is TypeScript + React. Deep CSS mastery is not a goal of this block.*
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 09 | FastAPI application and first endpoint | Run and inspect an API through automatic documentation |
+| 10 | Routes, parameters, and Pydantic validation | Accept and reject request data correctly |
+| 11 | REST resources, HTTP verbs, responses, and status codes | Design a coherent CRUD API contract |
+| 12 | Backend project structure and service boundaries | Refactor the API into a maintainable structure |
+| 13 | Authentication, authorization, and security fundamentals | Protect a route and distinguish identity from permission |
+| 14 | Errors, middleware, async work, logging, and observability | Diagnose requests and return predictable failures |
 
-| # | Class |
-|---|---|
-| 03 | HTML as a wrapper: the shell around the app |
-| 04 | CSS essentials: selectors, box model, Flexbox, and responsive survival kit |
-| 05 | Bootstrap + Tailwind: use component and utility libraries, don't build design systems |
+### Phase 3 — PostgreSQL and persistent data
 
-### Block 2 — TypeScript fundamentals
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 15 | Relational thinking: tables, keys, relationships, and constraints | Design the project's data model |
+| 16 | Essential SQL: CRUD, filtering, joins, and aggregations | Answer useful questions directly in SQL |
+| 17 | SQLAlchemy models, sessions, and transactions | Persist API data safely |
+| 18 | Alembic migrations and seed data | Evolve the database reproducibly |
+| 19 | Indexes, query performance, connection handling, and backups | Inspect and improve one realistic data workflow |
 
-| # | Class |
-|---|---|
-| 06 | Why TypeScript. Variables, types, inference, and operators |
-| 07 | Conditionals, loops, and functions with typed signatures |
-| 08 | Arrays, objects, and typed collections: intro to interfaces |
-| 09 | Array methods: map, filter, reduce with typed callbacks |
-| 10 | Interfaces, types, and generics |
-| 11 | Tooling: the compiler, tsconfig, typical errors — and how to read JavaScript you find in the wild |
+### Phase 4 — TypeScript as the second language
 
-### Block 3 — TypeScript in the browser
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 20 | TypeScript values, inference, operators, and the minimum JavaScript context | Read and write a small typed program |
+| 21 | Typed functions, control flow, arrays, and objects | Transform API-shaped data safely |
+| 22 | Interfaces, unions, generics, and narrowing | Model frontend states and backend responses |
+| 23 | Async/await, Fetch, HTTP errors, and typed responses | Call the bootcamp API from TypeScript |
+| 24 | Browser events, forms, tooling, and debugging | Build one typed browser interaction and inspect it with DevTools |
 
-| # | Class |
-|---|---|
-| 12 | The DOM in TypeScript: reading and modifying the page |
-| 13 | Events and forms with typed events |
-| 14 | Asynchrony: callbacks, promises, and async/await |
-| 15 | Fetch: talking to a real API with typed responses |
-| 16 | TypeScript in React: typed props, state, and events (bridge to Block 5) |
+> JavaScript is explained only when needed to understand TypeScript runtime behavior. It is not treated as a separate language phase or a prerequisite block.
 
-### Block 4 — Git & GitHub
+### Phase 5 — React with TypeScript
 
-| # | Class |
-|---|---|
-| 17 | Git: why it exists, commits, and the basic workflow |
-| 18 | Branches, merge, and conflict resolution |
-| 19 | GitHub: remotes, pull requests, and code review |
-| 20 | Working as a team: GitFlow, issues, and boards |
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 25 | React, JSX, components, props, and composition | Build the first typed interface from components |
+| 26 | State, events, lists, conditions, and user feedback | Create an interactive screen with loading, empty, error, and success states |
+| 27 | Forms, validation, and accessible HTML essentials | Submit valid data through a usable form |
+| 28 | Effects and API integration | Connect the React interface to FastAPI |
+| 29 | Routing, authentication flow, and shared state | Navigate protected application areas |
+| 30 | Custom hooks, project organization, styling survival kit, and production UI | Deliver a coherent frontend without building a design system |
 
-### Block 5 — React with TypeScript
+> CSS, Tailwind, component libraries, and build-tool configuration are practical support topics. Claude can generate or explain boilerplate; students focus on usability, data flow, accessibility, and validation.
 
-| # | Class |
-|---|---|
-| 21 | What problem does React solve? JSX and your first component |
-| 22 | Props and component composition |
-| 23 | State: useState |
-| 24 | Lists, keys, and conditional rendering |
-| 25 | Controlled forms |
-| 26 | Effects: useEffect and the component lifecycle |
-| 27 | Consuming an API from React |
-| 28 | Routing: React Router |
-| 29 | Global state: context, and when NOT to use it |
-| 30 | Custom hooks and organizing a React project |
+### Phase 6 — Testing and quality
 
-### Block 6 — Python
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 31 | Test strategy, risk, and the testing pyramid | Write a focused test plan for the project |
+| 32 | Pytest and FastAPI integration tests | Test backend behavior with isolated data |
+| 33 | Vitest and React Testing Library | Test behavior visible to a frontend user |
+| 34 | Playwright end-to-end testing and practical TDD | Automate one critical journey through the complete system |
 
-| # | Class |
-|---|---|
-| 31 | Python: syntax, types, and control flow |
-| 32 | Data structures: lists, dictionaries, sets, and tuples |
-| 33 | Functions, modules, and packages |
-| 34 | Classes and objects: just what you need |
-| 35 | Virtual environments, pip, and dependency management |
-| 36 | Files, errors, and logging |
+### Phase 7 — Docker and deployment
 
-> 📝 **DRAFT NOTE (your words — edit later):** "Python as main language.. brief super fast how to program, you can skip but need to finish this the sooner the better"
-> *(Interpretation: positioning note for Block 6 — Python is the main language; keep it brief and fast; skippable, but it should be finished as soon as possible.)*
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 35 | Docker images and containers | Package one application component reproducibly |
+| 36 | Docker Compose for API, frontend, and database | Run the complete system as one local stack |
+| 37 | CI/CD with GitHub Actions | Validate every proposed change automatically |
+| 38 | Cloud architecture, AWS essentials, domains, HTTPS, and environment configuration | Draw and explain the production architecture |
+| 39 | Production deployment, secrets, monitoring, rollback, and recovery | Deploy and verify a secure release |
 
-### Block 7 — FastAPI & APIs
+> Docker, CI, cloud, and server commands are Claude-assisted because exact syntax is searchable and changes over time. Students remain responsible for architecture, security decisions, evidence, and recovery plans.
 
-| # | Class |
-|---|---|
-| 37 | FastAPI: your first endpoint and automatic documentation |
-| 38 | Routes, parameters, and validation with Pydantic |
-| 39 | Designing a REST API: resources, verbs, and status codes |
-| 40 | Authentication: JWT, login, and protecting routes |
-| 41 | The structure of a serious backend project |
-| 42 | Async in Python, and when it actually helps |
-| 43 | Connecting your React frontend to your API |
-| 44 | Errors, middleware, and basic observability |
+### Phase 8 — Applied AI engineering
 
-### Block 8 — PostgreSQL & data
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 40 | LLM foundations: models, tokens, context, capabilities, and limits | Select a model and explain the trade-offs |
+| 41 | Model APIs, structured outputs, retries, and provider boundaries | Add one reliable model-backed endpoint |
+| 42 | Prompt design, data privacy, prompt injection, and human approval | Build a constrained and reviewable AI interaction |
+| 43 | Embeddings, vector search, and RAG | Answer questions using approved project data |
+| 44 | Tool calling, agentic RAG, LangGraph, and bounded agents | Build a small agent that uses explicitly permitted tools |
+| 45 | Evaluation datasets, tracing, quality gates, latency, and cost | Measure the AI feature before releasing it |
 
-| # | Class |
-|---|---|
-| 45 | Relational databases: why tables and not files |
-| 46 | SQL: SELECT, WHERE, JOIN, and aggregations |
-| 47 | Data modeling: keys, relationships, and useful normalization |
-| 48 | SQLAlchemy: the ORM, and how not to fight it |
-| 49 | Migrations with Alembic without breaking production |
-| 50 | Indexes, performance, and slow queries |
+### Phase 9 — Mobile with Expo
 
-### Block 9 — Testing
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 46 | Expo and React Native differences from web React | Run the first mobile screen |
+| 47 | Mobile components, styling, navigation, and forms | Build a navigable mobile workflow |
+| 48 | API integration, authentication, storage, and device permissions | Connect the app safely to the existing backend |
+| 49 | Notifications, builds, and store delivery | Produce and test an installable build |
 
-| # | Class |
-|---|---|
-| 51 | Why we test. Types of tests and the testing pyramid |
-| 52 | Pytest: first tests, fixtures, and parametrization |
-| 53 | Testing an API: test database and mocks |
-| 54 | Vitest and React Testing Library |
-| 55 | End-to-end with Playwright |
-| 56 | TDD in practice: a kata from start to finish |
+### Phase 10 — Employability
 
-### Block 10 — Docker, cloud & deployment
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 50 | Portfolio, CV, LinkedIn, GitHub, and project storytelling | Publish a coherent professional profile |
+| 51 | Coding interviews: complexity, data structures, and practical patterns | Explain and solve a problem aloud with evidence |
+| 52 | Junior system design, live coding, and technical project defense | Complete a realistic mock interview |
 
-| # | Class |
-|---|---|
-| 57 | Docker: images, containers, and why "it works on my machine" |
-| 58 | Docker Compose: running app + database |
-| 59 | CI/CD with GitHub Actions |
-| 60 | Real deployment: your first deploy with Dokploy |
-| 61 | AWS: the services people actually use, and what for |
-| 62 | Terraform: infrastructure as code |
-| 63 | Domains, HTTPS, Nginx, and environment variables |
-| 64 | Secrets, basic security, and what you must NEVER push to a repo |
+> Employability checkpoints also occur throughout the course through readable repositories, reviewed commits, demos, architecture explanations, and project retrospectives.
 
-> 📝 **DRAFT NOTE (your words — edit later):** "AWS architecture deeper,
-> AI ML"
-> *(Interpretation: go deeper on AWS architecture in Block 10, and/or add AI/ML content as its own block or classes.)*
+### Phase 11 — Final project
 
-### Block 11 — Expo & mobile
-
-| # | Class |
-|---|---|
-| 65 | React Native and Expo: what changes from web React |
-| 66 | Components, styles, and navigation on mobile |
-| 67 | Consuming your API from the app |
-| 68 | Camera, storage, and device permissions |
-| 69 | Push notifications |
-| 70 | Building and publishing to the app stores |
-
-### Block 12 — AI applied to development
-
-| # | Class |
-|---|---|
-| 71 | What an LLM is — and isn't. Tokens, context, and limits |
-| 72 | Calling a model from your code |
-| 73 | Prompt engineering with an engineer's judgment |
-| 74 | RAG: embeddings, vector search, and why it's used |
-| 75 | LangChain and LangGraph: agents and the ReAct pattern |
-| 76 | Tool calling: giving models safe access to real data |
-| 77 | Evaluating outputs and controlling cost |
-| 78 | Coding agents (Cursor, Claude Code, Codex) in a real workflow |
-
-> 📝 **DRAFT NOTE (your words — edit later):** "Agentic RAGS"
-> *(Interpretation: add Agentic RAG as its own class or extend classes 74–75; matches the "Agentic RAG" change you made in the Sevilla proposal.)*
-
-> 📝 **DRAFT NOTE (your words — edit later):** "This at the beginigng.."
-> *(Interpretation: you want class 78 — coding agents (Cursor, Claude Code, Codex) — taught at the BEGINNING of the course, not at the end; consider moving it into Block 0.)*
-
-### Block 13 — Employability & interviews
-
-| # | Class |
-|---|---|
-| 79 | Big O and complexity, explained without math |
-| 80 | Data structures for interviews |
-| 81 | Problem patterns: two pointers, sliding window, hashing, recursion |
-| 82 | How to attack a LeetCode problem out loud |
-| 83 | Live coding: what they actually evaluate |
-| 84 | System design at junior / junior+ level |
-| 85 | A CV, LinkedIn, GitHub, and portfolio readable in 20 seconds |
-| 86 | Mock interviews and technical defense of your project |
-
-### Block 14 — Final project
-
-| # | Class |
-|---|---|
-| 87 | Choosing a project and writing the scope |
-| 88 | From scope to tickets: planning like a real company |
-| 89 | Build weeks with code review |
-| 90 | Deployment, domain, and going to production |
-| 91 | Demo day: presenting and defending what you built |
+| Guide | Major topic | Practical outcome |
+|---:|---|---|
+| 53 | Problem selection, users, constraints, and scope | Produce an approved one-page project scope |
+| 54 | Architecture, data model, API contract, AI boundary, and delivery plan | Convert scope into diagrams and ordered tickets |
+| 55 | Backend and data build with review | Deliver the tested core system |
+| 56 | Client, AI feature, deployment, and production validation | Release the complete product |
+| 57 | Demo, retrospective, portfolio packaging, and technical defense | Present and defend the project with evidence |
 
 ---
 
-## Pacing options
+## Pacing
 
-Same content, two intensities:
+### Standard condensed track
 
-> 📝 **DRAFT NOTE (your words — edit later):** "Despite this should be a bootcampo for months, we should compress this in each day one big topic..
-> or similar.."
-> *(Interpretation: even though this is designed as a multi-month bootcamp, consider a compressed format of one big topic per day, or similar.)*
+- One guide and one major topic per course day.
+- A course day combines instruction, Claude-assisted setup, building, validation, and reflection.
+- Project work continues between topic days so skills are integrated rather than studied in isolation.
 
-> 📝 **DRAFT NOTE (your words — edit later):** "Employabolity at the ned"
-> *(Interpretation: the Employability block goes at the end of the program.)*
+### Flexible track
 
+- The guide order remains the same.
+- A difficult guide may use more than one calendar day, but a calendar day should not introduce multiple unrelated major topics.
+- Students with prior experience may validate a guide through its practical outcome and self-check rather than repeat familiar setup.
 
 ---
 
-## Capstone projects
+## Claude-assisted versus student-owned work
 
-*(Section pending — to be filled in.)*
+| Claude may assist heavily with | The student must own and explain |
+|---|---|
+| Exact terminal and Git syntax | Why the command is needed and what changed |
+| Installation and configuration steps | Whether the environment is correct and safe |
+| Boilerplate and repetitive scaffolding | Architecture, behavior, and data flow |
+| Reading long error output | The relevant error, hypothesis, and verified fix |
+| Current library or cloud syntax | Trade-offs, security, cost, and operational impact |
+| Draft tests and documentation | What is being validated and whether evidence is sufficient |
+
+The goal is not command memorization or manually reproducing boilerplate. The goal is independent engineering judgment supported by AI and verified evidence.

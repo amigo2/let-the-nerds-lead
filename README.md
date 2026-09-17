@@ -29,14 +29,21 @@ Do not use Claude through the terminal for this setup. Use a **New Agent** in th
 
 ## How to follow the course
 
+The bootcamp contains **58 guides across 58 course days**. Each day has one major topic and one practical outcome.
+
+The learning order is: **setup and Claude → web concepts → first guided project → Python → FastAPI → PostgreSQL → TypeScript → React → testing → deployment → applied AI → mobile → employability → final project**.
+
 1. Begin with [Class 00](course/00-onboarding/CLASS-00-First-Contact-VS-Code-Claude-and-Starter-Prompt.md).
-2. Work through the curriculum and guides in order.
+2. Work through the curriculum and guides in numeric order.
 3. Read the current guide before asking Claude to make changes.
 4. Attempt each exercise yourself and ask for progressive hints when blocked.
-5. Read errors before trying fixes.
-6. Validate results using tests, command output, or visible behavior.
-7. Review changed files before committing them to Git.
-8. Complete each guide's self-check before moving forward.
+5. Use Claude for exact terminal commands, installation steps, scaffolding, and configuration boilerplate. Understand why each step is needed and validate its result; memorizing command syntax is not the goal.
+6. Read errors before trying fixes.
+7. Validate results using tests, command output, logs, or visible behavior.
+8. Review changed files before committing them to Git.
+9. Complete each guide's self-check before moving forward.
+
+Python is the first language. TypeScript is introduced later as the second language for React and frontend work. There is no standalone JavaScript phase, and frontend is taught as a practical product skill rather than a deep specialization.
 
 ## Main course documents
 
@@ -46,6 +53,6 @@ Do not use Claude through the terminal for this setup. Use a **New Agent** in th
 
 ## Current status
 
-The curriculum contains 92 planned classes across 15 blocks. Initial guides and projects are in production and will be expanded progressively.
+The condensed curriculum contains 58 planned guides across 12 phases. Initial guides and projects are in production and will be expanded progressively.
 
 > **Private repository:** it contains course strategy, pricing, and business correspondence. Do not make it public or share its contents without authorization.
