@@ -6,9 +6,9 @@
 > ir rellenando guía a guía, marcando estado en las tablas.
 >
 > Documentos relacionados:
-> - [Propuesta completa](../business/propuesta-bootcamp-sevilla.md) — negocio, pricing, subvenciones.
-> - [Propuesta ejecutiva para el socio](../business/propuesta-ejecutiva-socio-bootcamp-sevilla.md)
-> - [Pipeline de producción con IA](../production/PIPELINE-PRODUCCION-IA.md) — cómo se fabrica cada pieza.
+> - [Propuesta completa](../notes/instructor/business/propuesta-bootcamp-sevilla.md) — negocio, pricing, subvenciones.
+> - [Propuesta ejecutiva para el socio](../notes/instructor/business/propuesta-ejecutiva-socio-bootcamp-sevilla.md)
+> - [Pipeline de producción con IA](../notes/instructor/production/PIPELINE-PRODUCCION-IA.md) — cómo se fabrica cada pieza.
 
 ---
 
@@ -68,7 +68,7 @@ Estructura extraída de las dos guías ya escritas. Es la plantilla:
 > **Nota sobre los videos.** Ahora mismo las dos guías enlazan a videos de YouTube de terceros,
 > con el aviso honesto de que no están vistos. Eso está bien como punto de partida, pero el
 > objetivo es sustituirlos por video propio. Ese es todo el contenido de
-> [PIPELINE-PRODUCCION-IA.md](../production/PIPELINE-PRODUCCION-IA.md).
+> [PIPELINE-PRODUCCION-IA.md](../notes/instructor/production/PIPELINE-PRODUCCION-IA.md).
 
 ---
 
