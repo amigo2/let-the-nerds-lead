@@ -1,5 +1,7 @@
 # Propuesta inicial: bootcamps tech de formación profunda en Sevilla
 
+> **"La ingeniería es el arte de diseñar y validar nuevas soluciones bajo restricciones. Con la IA como copiloto, aprenderás a volar por ti mismo."**
+
 ## 1. Resumen ejecutivo
 
 La oportunidad no es crear "otro curso de programación", sino una oferta de formación muy aplicada y con recorrido largo real, orientada a empleabilidad y a perfiles que hoy están creciendo en empresa: desarrollo web moderno, mobile, backend, cloud, Git/GitHub, IA aplicada y uso profesional de agentes de desarrollo como Cursor o similares.
@@ -47,6 +49,8 @@ Esto es precisamente lo que justifica el formato largo: un programa de 9 a 24 me
 ### Posicionamiento
 
 Formación técnica larga, práctica y orientada a empleo/proyecto, con foco en tecnología actual y ejecución. Modular, para que el alumno pueda entrar por una pieza concreta y quedarse el programa completo.
+
+Nuestra filosofía: no enseñamos a seguir pasos, enseñamos a pensar como un ingeniero. La ingeniería es el arte de diseñar y validar nuevas soluciones bajo restricciones, y la mejor parte es que cada decisión se prueba y se valida. Las herramientas de IA no reemplazan ese pensamiento: lo amplifican, dando una eficiencia sin precedentes y la libertad de innovar. Al terminar el programa, el alumno no solo construye apps: las ingenia, por sí mismo.
 
 ### Diferenciales potenciales
 
@@ -134,7 +138,7 @@ Propuesta de temario estructurada:
 
 - fundamentos de LLMs
 - LangChain
-- RAG
+- Agentic RAG
 - uso de IA en flujos reales de desarrollo
 
 #### Entornos y herramientas

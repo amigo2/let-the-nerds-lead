@@ -2,7 +2,7 @@
 
 > Documento de trabajo. Creado el 31 de julio de 2026.
 >
-> Cómo fabricar las ~95 guías del [índice maestro](INDICE-MAESTRO-CONTENIDO.md) —texto, guion,
+> Cómo fabricar las ~95 guías del [índice maestro](../curriculum/INDICE-MAESTRO-CONTENIDO.md) —texto, guion,
 > voz, video e imágenes— sin que se coma dos años de trabajo manual.
 >
 > Premisa fija: **el profesor eres tú.** No es un avatar genérico de stock leyendo un temario.
@@ -331,7 +331,7 @@ argumento.
 
 No montar el pipeline entero. Hacer **una guía completa de punta a punta** y medir cuánto cuesta.
 
-Candidata: la [GUIA-00](GUIA-00-Que-es-una-App-Web-FE-y-BE.md), porque ya está escrita, es
+Candidata: la [GUIA-00](../guides/GUIA-00-Que-es-una-App-Web-FE-y-BE.md), porque ya está escrita, es
 conceptual (mucho diagrama, poca terminal) y sus videos actuales son enlaces a terceros que
 conviene sustituir cuanto antes.
 

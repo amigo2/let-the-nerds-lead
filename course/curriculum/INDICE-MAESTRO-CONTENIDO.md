@@ -6,9 +6,9 @@
 > ir rellenando guía a guía, marcando estado en las tablas.
 >
 > Documentos relacionados:
-> - [Propuesta completa](BOOTCAMPS/propuesta-bootcamp-sevilla.md) — negocio, pricing, subvenciones.
-> - [Propuesta ejecutiva para el socio](BOOTCAMPS/propuesta-ejecutiva-socio-bootcamp-sevilla.md)
-> - [Pipeline de producción con IA](PIPELINE-PRODUCCION-IA.md) — cómo se fabrica cada pieza.
+> - [Propuesta completa](../business/propuesta-bootcamp-sevilla.md) — negocio, pricing, subvenciones.
+> - [Propuesta ejecutiva para el socio](../business/propuesta-ejecutiva-socio-bootcamp-sevilla.md)
+> - [Pipeline de producción con IA](../production/PIPELINE-PRODUCCION-IA.md) — cómo se fabrica cada pieza.
 
 ---
 
@@ -28,8 +28,8 @@
 
 # 1. La unidad de trabajo: una guía = una clase
 
-Ya está validado con un alumno real: [GUIA-00](GUIA-00-Que-es-una-App-Web-FE-y-BE.md) y
-[GUIA-01](GUIA-01-Terminal-y-Primeros-Proyectos.md) son la primera clase del bootcamp, dada de verdad.
+Ya está validado con un alumno real: [GUIA-00](../guides/GUIA-00-Que-es-una-App-Web-FE-y-BE.md) y
+[GUIA-01](../guides/GUIA-01-Terminal-y-Primeros-Proyectos.md) son la primera clase del bootcamp, dada de verdad.
 
 Eso fija la unidad atómica de todo el programa:
 
@@ -68,7 +68,7 @@ Estructura extraída de las dos guías ya escritas. Es la plantilla:
 > **Nota sobre los videos.** Ahora mismo las dos guías enlazan a videos de YouTube de terceros,
 > con el aviso honesto de que no están vistos. Eso está bien como punto de partida, pero el
 > objetivo es sustituirlos por video propio. Ese es todo el contenido de
-> [PIPELINE-PRODUCCION-IA.md](PIPELINE-PRODUCCION-IA.md).
+> [PIPELINE-PRODUCCION-IA.md](../production/PIPELINE-PRODUCCION-IA.md).
 
 ---
 
@@ -121,11 +121,11 @@ casi un año; a ritmo intensivo comprimido, con los 9 meses mínimo. Ver punto 6
 
 | # | Guía | Txt | Gui | Vid |
 |---|---|---|---|---|
-| 00 | [¿Qué es una app web? Frontend y Backend](GUIA-00-Que-es-una-App-Web-FE-y-BE.md) | TXT | — | — |
-| 01 | [La terminal y tus primeros proyectos](GUIA-01-Terminal-y-Primeros-Proyectos.md) | TXT | — | — |
+| 00 | [¿Qué es una app web? Frontend y Backend](../guides/GUIA-00-Que-es-una-App-Web-FE-y-BE.md) | TXT | — | — |
+| 01 | [La terminal y tus primeros proyectos](../guides/GUIA-01-Terminal-y-Primeros-Proyectos.md) | TXT | — | — |
 | 02 | El editor: VS Code, extensiones y atajos que sí importan | — | — | — |
 
-> **[TAREA-01 — La Cesta](TAREA-01-La-Cesta-FE-BE-y-GitHub.md)** va después de la guía 01. Es la
+> **[TAREA-01 — La Cesta](../projects/TAREA-01-La-Cesta-FE-BE-y-GitHub.md)** va después de la guía 01. Es la
 > primera app completa del alumno: React + FastAPI + PostgreSQL en Docker, sin auth, entregada por
 > GitHub. Adelanta a propósito parte del bloque 3 (Git), del 8 (base de datos) y del 10 (Docker),
 > porque el alumno necesita entregar trabajo desde el primer mes.

@@ -2,8 +2,8 @@
 
 > Para Enmanuel. Creado el 31 de julio de 2026.
 >
-> **Antes de esto tenés que haber terminado la [GUIA-00](GUIA-00-Que-es-una-App-Web-FE-y-BE.md) y
-> la [GUIA-01](GUIA-01-Terminal-y-Primeros-Proyectos.md).** Todo lo que hay acá se apoya en eso.
+> **Antes de esto tenés que haber terminado la [GUIA-00](../guides/GUIA-00-Que-es-una-App-Web-FE-y-BE.md) y
+> la [GUIA-01](../guides/GUIA-01-Terminal-y-Primeros-Proyectos.md).** Todo lo que hay acá se apoya en eso.
 >
 > Esta ya no es una guía: es una **tarea**. Hay cosas que te doy hechas para que no te trabes, y
 > hay cosas marcadas con **🔧 TU TURNO** que tenés que resolver vos. Esas son las que valen.
