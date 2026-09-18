@@ -2,7 +2,7 @@
 
 > Documento de trabajo. Creado el 31 de julio de 2026.
 >
-> Cómo fabricar las 58 guías del [índice maestro](../../../curriculum/INDICE-MAESTRO-CONTENIDO.md) —texto, guion,
+> Cómo fabricar las 65 guías del [índice maestro](../../../curriculum/INDICE-MAESTRO-CONTENIDO.md) —texto, guion,
 > voz, video e imágenes— sin que se coma dos años de trabajo manual.
 >
 > Premisa fija: **el profesor eres tú.** No es un avatar genérico de stock leyendo un temario.
@@ -26,7 +26,7 @@
 
 # 1. El principio: el markdown es la fuente de la verdad
 
-La tentación es abrir una herramienta de video y empezar a grabar. Eso genera 95 videos que no se
+La tentación es abrir una herramienta de video y empezar a grabar. Eso genera 65 videos que no se
 pueden mantener: cambia una versión de React y hay que regrabar, y como regrabar duele, el curso
 envejece.
 
@@ -139,7 +139,7 @@ Solo para ese 10-15% de metraje.
   tuyo, no solo usar actores de stock. D-ID es la opción ligera.
 - **Decisión:** avatar propio entrenado con tu cara y tu voz. Un avatar de stock rompe la promesa de
   "el profesor es un ingeniero con 25 años en UK y FAANG" — que es justo lo que se vende.
-- **Alternativa a considerar:** grabar tú mismo las intros con una cámara decente. Son 95 clips de
+- **Alternativa a considerar:** grabar tú mismo las intros con una cámara decente. Son 65 clips de
   1-2 minutos. Es asumible, sale mejor, y el avatar queda como recurso para correcciones y para la
   versión en inglés.
 
@@ -166,7 +166,7 @@ Para lo que no es terminal (navegador, VS Code, Figma):
 Para contenido técnico, **diagramas como código** gana a imágenes generadas:
 
 - **Mermaid** para arquitecturas, flujos y secuencias; se escribe en texto, se versiona y se
-  regenera. Un diagrama cliente-servidor de la GUIA-00 son seis líneas.
+  regenera. Un diagrama cliente-servidor de la GUIA-01 son seis líneas.
 - **Excalidraw** para lo que necesita aspecto dibujado a mano.
 - **Generación de imágenes** solo para portadas, miniaturas y material de marketing — no para
   explicar conceptos técnicos, donde la IA todavía comete errores de detalle que confunden al
@@ -207,7 +207,7 @@ La solución es un **kit de marca del curso** versionado en el repo, que aliment
 | Tema de código | El mismo esquema de colores en todos los screencasts |
 | Reglas de voz | Variante de español, tratamiento, ritmo, muletillas prohibidas |
 | Plantillas de escena | Intro, concepto, demo, aviso, cierre |
-| Prompt de guion | Las reglas pedagógicas, idénticas para las 58 guías |
+| Prompt de guion | Las reglas pedagógicas, idénticas para las 65 guías |
 | Plantilla de diagrama | Estilo Mermaid común |
 
 Esto no es decoración: es la diferencia entre un curso y una colección de videos.
@@ -223,7 +223,7 @@ Publicación multicanal la anuncian como "coming soon".
 
 Lo relevante para ti: **el problema que resuelve SecretSauce es exactamente el del punto 5**, solo
 que aplicado a marcas de consumo en vez de a cursos. Aprender una identidad y mantenerla constante
-a escala. Ellos mencionan haber trabajado a escala de 25 millones de modelos 3D; tu escala son 95
+a escala. Ellos mencionan haber trabajado a escala de 25 millones de modelos 3D; tu escala son 65
 guías. Mismo problema, tres órdenes de magnitud menos.
 
 Eso significa dos cosas:
@@ -244,7 +244,7 @@ técnica) no es la suya (marketing de marca), pero eso hay que dejarlo claro por
 
 La idea de "de camino vendemos la herramienta" es sólida, con una condición: **que salga de
 construir el bootcamp de verdad, no en lugar de construirlo.** Un pipeline diseñado en abstracto no
-vale nada; uno que ha producido 58 guías es un producto con caso de uso demostrado.
+vale nada; uno que ha producido 65 guías es un producto con caso de uso demostrado.
 
 ## Qué sería exactamente
 
@@ -331,15 +331,15 @@ argumento.
 
 No montar el pipeline entero. Hacer **una guía completa de punta a punta** y medir cuánto cuesta.
 
-Candidata: la [GUIA-00](../../../guides/GUIA-00-Que-es-una-App-Web-FE-y-BE.md), porque ya está escrita, es
+Candidata: la [GUIA-01](../../../guides/GUIA-01-Que-es-una-App-Web-FE-y-BE.md), porque ya está escrita, es
 conceptual (mucho diagrama, poca terminal) y sus videos actuales son enlaces a terceros que
 conviene sustituir cuanto antes.
 
 Secuencia:
 
 1. Clonar tu voz con una muestra de audio limpio.
-2. Generar el guion de la GUIA-00 con un prompt escrito por ti, y corregirlo a mano anotando qué ha
-   fallado — esas correcciones son las que mejoran el prompt para las otras 94.
+2. Generar el guion de la GUIA-01 con un prompt escrito por ti, y corregirlo a mano anotando qué ha
+   fallado — esas correcciones son las que mejoran el prompt para las otras 64.
 3. Hacer los diagramas de las secciones 1, 5 y 10 en Mermaid.
 4. Locutar el guion con tu voz clonada.
 5. Grabar el ejercicio estrella (abrir las DevTools) como screencast mudo.

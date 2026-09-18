@@ -8,9 +8,9 @@ English master syllabus. The program is AI-first, backend-first, and organized a
 
 ## Program model
 
-- **58 guides = 58 course days**, numbered continuously from 00 to 57.
+- **65 guides = 65 course days**, numbered continuously from 00 to 64.
 - **One guide = one day = one major topic + one practical outcome.**
-- The order is: setup/Claude → web concepts → first guided project → Python → FastAPI → PostgreSQL → TypeScript → React → testing → deployment → applied AI → mobile → employability → final project.
+- The order is: setup/Claude → web concepts → first guided project → Python → FastAPI → PostgreSQL → TypeScript → React → testing → containers and DevOps → applied AI → mobile → employability → final project.
 - Python is the first programming language and the primary backend/AI language.
 - TypeScript is the second programming language and is introduced when the student is ready to build the frontend.
 - There is **no standalone JavaScript block**. Only the small amount of JavaScript context needed to understand TypeScript, browser APIs, and React is explained where it appears.
@@ -47,27 +47,31 @@ A topic may reappear later in greater depth, but each day has only one primary l
 | 4. TypeScript as the second language | 20–24 | 5 | Use typed code for browser and frontend work |
 | 5. React with TypeScript | 25–30 | 6 | Build a usable frontend connected to the API |
 | 6. Testing and quality | 31–34 | 4 | Validate backend, frontend, and complete user flows |
-| 7. Docker and deployment | 35–39 | 5 | Package, secure, automate, and deploy the system |
-| 8. Applied AI engineering | 40–45 | 6 | Add evaluated, safe, data-connected AI features |
-| 9. Mobile with Expo | 46–49 | 4 | Deliver a mobile client for the same backend |
-| 10. Employability | 50–52 | 3 | Present skills and defend engineering decisions |
-| 11. Final project | 53–57 | 5 | Scope, build, deploy, and present a production project |
-| | **Total** | **58** | |
+| 7. Containers, DevOps, and deployment | 35–46 | 12 | Operate the system on infrastructure the student controls |
+| 8. Applied AI engineering | 47–52 | 6 | Add evaluated, safe, data-connected AI features |
+| 9. Mobile with Expo | 53–56 | 4 | Deliver a mobile client for the same backend |
+| 10. Employability | 57–59 | 3 | Present skills and defend engineering decisions |
+| 11. Final project | 60–64 | 5 | Scope, build, deploy, and present a production project |
+| | **Total** | **65** | |
 
 ---
 
 ## Day-by-day syllabus
 
-### Phase 0 — Setup, Claude, and first guided project
+### Phase 0 — Setup, Claude Code, and first guided project
 
 | Guide | Major topic | Practical outcome |
 |---:|---|---|
-| 00 | VS Code, Claude, GitHub, and learning safely with an agent | Download the course, configure the learning agent, and validate the workspace |
+| 00 | VS Code, Claude Code, GitHub, and learning safely with an agent | Clone the course, confirm the agent configured itself from `CLAUDE.md`, and validate the workspace |
 | 01 | What a web system is: frontend, backend, HTTP, JSON, and APIs | Trace one complete request and response through a system |
 | 02 | Local project workflow with Claude-assisted terminal and Git | Open, run, inspect, stop, and save a project without memorizing commands |
 | 03 | First guided project: architecture before syntax | Build and explain a small end-to-end feature with heavy scaffolding |
 
 > Terminal commands, Git setup, package installation, and environment checks are introduced only as tools needed to complete the project. Claude may provide the exact syntax, but must explain what each command changes and help the student verify the result.
+
+> **The agent is configured, not prompted.** This repository ships `CLAUDE.md`, seven Agent Skills, seven slash commands, two subagents, permission rules, and safety hooks. Students do not paste a behaviour prompt: the teaching contract, the evidence requirement, and the guardrails are version-controlled and load automatically. Class 00 verifies this rather than configuring it by hand.
+
+> **The course is delivered continuously.** Material is written while students are enrolled, so a clone goes stale within days. A `SessionStart` hook detects this and Claude offers `/update-course`, which pulls with `git pull --ff-only` after protecting any local edits. Students are taught from day 00 to keep their own notes and code **outside** this repository, which keeps every update a clean fast-forward. A missing guide means the student is behind, not that the course is broken.
 
 ### Phase 1 — Python foundations
 
@@ -136,45 +140,56 @@ A topic may reappear later in greater depth, but each day has only one primary l
 | 33 | Vitest and React Testing Library | Test behavior visible to a frontend user |
 | 34 | Playwright end-to-end testing and practical TDD | Automate one critical journey through the complete system |
 
-### Phase 7 — Docker and deployment
+### Phase 7 — Containers, DevOps, and deployment
+
+The longest phase in the course, and deliberately so. A student who can build a system but cannot run it in production is not yet employable. The hands-on track is **Dokploy on an OVH VPS**: infrastructure the student provisions, pays for, breaks, and recovers. Managed cloud is taught afterwards as a comparison with real numbers, not as the default.
 
 | Guide | Major topic | Practical outcome |
 |---:|---|---|
-| 35 | Docker images and containers | Package one application component reproducibly |
+| 35 | Docker images, layers, and containers | Package one application component reproducibly |
 | 36 | Docker Compose for API, frontend, and database | Run the complete system as one local stack |
 | 37 | CI/CD with GitHub Actions | Validate every proposed change automatically |
-| 38 | Cloud architecture, AWS essentials, domains, HTTPS, and environment configuration | Draw and explain the production architecture |
-| 39 | Production deployment, secrets, monitoring, rollback, and recovery | Deploy and verify a secure release |
+| 38 | Production architecture: reverse proxy, load balancer, managed database, DNS, and TLS | Draw and defend the production architecture before building it |
+| 39 | Linux servers on OVH: provisioning, SSH keys, users, firewall, and hardening | Reach a hardened server the student controls and can explain |
+| 40 | Dokploy: self-hosted PaaS, and the first real deployment | Serve the application from the student's own infrastructure |
+| 41 | Environments, secrets, domains, and HTTPS in Dokploy | Release a configured environment with valid TLS and no secret in Git |
+| 42 | Load balancing and horizontal scaling: health checks, sessions, and zero-downtime releases | Run two application instances behind one entry point |
+| 43 | Databases in production: managed versus self-hosted, backups, restore, and migrations under load | Restore from a backup and prove with queries that the data survived |
+| 44 | Operations: logs, metrics, alerting, rollback, and incident response | Recover the system from a deliberately broken release |
+| 45 | Infrastructure as Code: Terraform providers, state, and provisioning OVH from code | Rebuild the same infrastructure from versioned code |
+| 46 | AWS depth: IAM, VPC, ALB, RDS, ECS Fargate, and Lambda | Compare the VPS deployment against a managed AWS stack on cost, latency, and operational burden |
 
-> Docker, CI, cloud, and server commands are Claude-assisted because exact syntax is searchable and changes over time. Students remain responsible for architecture, security decisions, evidence, and recovery plans.
+> Docker, Terraform, cloud, and server commands are Claude-assisted because exact syntax is searchable and changes often. Students remain responsible for architecture, security decisions, cost, evidence, and recovery plans. Every student pays for their own OVH VPS and AWS sandbox, and is taught to tear both down; cost control is part of the phase, not an afterthought.
 
 ### Phase 8 — Applied AI engineering
 
 | Guide | Major topic | Practical outcome |
 |---:|---|---|
-| 40 | LLM foundations: models, tokens, context, capabilities, and limits | Select a model and explain the trade-offs |
-| 41 | Model APIs, structured outputs, retries, and provider boundaries | Add one reliable model-backed endpoint |
-| 42 | Prompt design, data privacy, prompt injection, and human approval | Build a constrained and reviewable AI interaction |
-| 43 | Embeddings, vector search, and RAG | Answer questions using approved project data |
-| 44 | Tool calling, agentic RAG, LangGraph, and bounded agents | Build a small agent that uses explicitly permitted tools |
-| 45 | Evaluation datasets, tracing, quality gates, latency, and cost | Measure the AI feature before releasing it |
+| 47 | LLM foundations: models, tokens, context, capabilities, and limits | Select a model and explain the trade-offs |
+| 48 | Model APIs and provider boundaries: direct APIs, Amazon Bedrock, and self-hosted inference | Add one reliable model-backed endpoint behind a provider-agnostic interface |
+| 49 | Prompt design, data privacy, prompt injection, and human approval | Build a constrained and reviewable AI interaction |
+| 50 | Embeddings, vector search, and RAG | Answer questions using approved project data |
+| 51 | Tool calling, agentic RAG, LangGraph, and bounded agents | Build a small agent that uses explicitly permitted tools |
+| 52 | Evaluating and operating AI in production: datasets, tracing, quality gates, latency, and cost | Measure the AI feature, then ship it through the Phase 7 pipeline |
+
+> **Agent configuration as engineering.** Students have been *using* a configured agent since day 00. In this phase they learn to *build* one: authoring `CLAUDE.md` project memory, writing Agent Skills with useful trigger descriptions, defining slash commands, scoping subagent tools, setting `allow`/`ask`/`deny` permissions, and adding hooks that enforce a rule deterministically instead of hoping the model complies. The course repository is the reference implementation — students read `.claude/` as a worked example, then configure their own project.
 
 ### Phase 9 — Mobile with Expo
 
 | Guide | Major topic | Practical outcome |
 |---:|---|---|
-| 46 | Expo and React Native differences from web React | Run the first mobile screen |
-| 47 | Mobile components, styling, navigation, and forms | Build a navigable mobile workflow |
-| 48 | API integration, authentication, storage, and device permissions | Connect the app safely to the existing backend |
-| 49 | Notifications, builds, and store delivery | Produce and test an installable build |
+| 53 | Expo and React Native differences from web React | Run the first mobile screen |
+| 54 | Mobile components, styling, navigation, and forms | Build a navigable mobile workflow |
+| 55 | API integration, authentication, storage, and device permissions | Connect the app safely to the existing backend |
+| 56 | Notifications, builds, and store delivery | Produce and test an installable build |
 
 ### Phase 10 — Employability
 
 | Guide | Major topic | Practical outcome |
 |---:|---|---|
-| 50 | Portfolio, CV, LinkedIn, GitHub, and project storytelling | Publish a coherent professional profile |
-| 51 | Coding interviews: complexity, data structures, and practical patterns | Explain and solve a problem aloud with evidence |
-| 52 | Junior system design, live coding, and technical project defense | Complete a realistic mock interview |
+| 57 | Portfolio, CV, LinkedIn, GitHub, and project storytelling | Publish a coherent professional profile |
+| 58 | Coding interviews: complexity, data structures, and practical patterns | Explain and solve a problem aloud with evidence |
+| 59 | Junior system design, live coding, and technical project defense | Complete a realistic mock interview |
 
 > Employability checkpoints also occur throughout the course through readable repositories, reviewed commits, demos, architecture explanations, and project retrospectives.
 
@@ -182,11 +197,11 @@ A topic may reappear later in greater depth, but each day has only one primary l
 
 | Guide | Major topic | Practical outcome |
 |---:|---|---|
-| 53 | Problem selection, users, constraints, and scope | Produce an approved one-page project scope |
-| 54 | Architecture, data model, API contract, AI boundary, and delivery plan | Convert scope into diagrams and ordered tickets |
-| 55 | Backend and data build with review | Deliver the tested core system |
-| 56 | Client, AI feature, deployment, and production validation | Release the complete product |
-| 57 | Demo, retrospective, portfolio packaging, and technical defense | Present and defend the project with evidence |
+| 60 | Problem selection, users, constraints, and scope | Produce an approved one-page project scope |
+| 61 | Architecture, data model, API contract, AI boundary, and delivery plan | Convert scope into diagrams and ordered tickets |
+| 62 | Backend and data build with review | Deliver the tested core system |
+| 63 | Client, AI feature, deployment, and production validation | Release the complete product |
+| 64 | Demo, retrospective, portfolio packaging, and technical defense | Present and defend the project with evidence |
 
 ---
 
@@ -218,3 +233,22 @@ A topic may reappear later in greater depth, but each day has only one primary l
 | Draft tests and documentation | What is being validated and whether evidence is sufficient |
 
 The goal is not command memorization or manually reproducing boilerplate. The goal is independent engineering judgment supported by AI and verified evidence.
+
+### How the boundary is enforced
+
+The distinction above is not left to goodwill. It is implemented in this repository:
+
+| Mechanism | What it enforces |
+|---|---|
+| `CLAUDE.md` | Loads every session: teaching contract, evidence rule, privacy of `course/notes/**` |
+| `socratic-tutor` skill | A six-rung hint ladder; no finished assignment before a genuine attempt |
+| `verify-before-claiming` skill | Per-claim evidence table; no "it works" without output |
+| `error-triage` skill | One hypothesis and one fix at a time, so debugging is learned |
+| `course-navigator` skill | No teaching ahead of the student's current day |
+| `git-safety` skill | Diff reviewed before every commit; safe undo paths |
+| `course-sync` skill | Student's copy kept current; local notes never discarded to force an update |
+| `.claude/settings.json` | `allow` / `ask` / `deny` permissions; secrets and `sudo` denied; `git fetch` and `pull --ff-only` free, generic `pull` asks |
+| `.claude/hooks/` | Scripts that block `rm -rf`, `git push --force`, `git reset --hard`, `curl \| sh`, catch API keys before a commit, and flag a stale course copy at session start |
+| `code-reviewer` subagent | Read-only teaching review; reports findings, never rewrites student code |
+
+A student who removes or ignores this configuration gets a code-writing tool. A student who keeps it gets a teacher. The difference is deliberate and part of what the course teaches.
