@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Glob(**)",
+      "Grep(**)",
+      "Bash(pwd)",
+      "Bash(ls:*)",
+      "Bash(cd:*)",
+      "Bash(cat:*)",
+      "Bash(echo:*)",
+      "Bash(which:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch)",
+      "Bash(git remote -v)",
+      "Bash(git show:*)",
+      "Bash(git fetch:*)",
+      "Bash(git rev-list:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git pull --ff-only:*)",
+      "Bash(python --version)",
+      "Bash(python3 --version)",
+      "Bash(pip list)",
+      "Bash(node --version)",
+      "Bash(npm --version)",
+      "Bash(npm ls:*)",
+      "Bash(pytest:*)",
+      "Bash(npm test:*)",
+      "Bash(npx vitest:*)",
+      "Bash(docker ps)",
+      "Bash(docker compose ps)",
+      "Bash(git check-ignore *)"
+    ],
+    "deny": [
+      "Bash(sudo:*)",
+      "Bash(su:*)",
+      "Bash(rm -rf:*)",
+      "Bash(rm -fr:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean -fd:*)",
+      "Bash(git filter-branch:*)",
+      "Bash(git branch -D:*)",
+      "Bash(history:*)",
+      "Bash(env)",
+      "Bash(printenv:*)",
+      "Bash(cat .env*)",
+      "Bash(eval:*)",
+      "Bash(curl * | sh)",
+      "Bash(curl * | bash)",
+      "Bash(wget * | sh)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/id_rsa*)",
+      "Read(**/.aws/**)",
+      "Read(**/.ssh/**)",
+      "Read(**/credentials)",
+      "Write(.env)",
+      "Write(**/.env)",
+      "Write(**/*.pem)",
+      "Write(**/*.key)"
+    ],
+    "ask": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git clone:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(git rebase:*)",
+      "Bash(git stash:*)",
+      "Bash(git restore:*)",
+      "Bash(pip install:*)",
+      "Bash(pip3 install:*)",
+      "Bash(npm install:*)",
+      "Bash(npm i:*)",
+      "Bash(npx create-:*)",
+      "Bash(brew:*)",
+      "Bash(apt:*)",
+      "Bash(apt-get:*)",
+      "Bash(winget:*)",
+      "Bash(choco:*)",
+      "Bash(docker:*)",
+      "Bash(docker compose:*)",
+      "Bash(alembic:*)",
+      "Bash(psql:*)",
+      "Bash(createdb:*)",
+      "Bash(dropdb:*)",
+      "Bash(gh auth:*)",
+      "Bash(gh repo:*)",
+      "Bash(aws:*)",
+      "Bash(terraform:*)",
+      "Bash(mv:*)",
+      "Bash(cp:*)",
+      "Bash(mkdir:*)",
+      "Bash(chmod:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "WebFetch",
+      "Write(course/notes/**)",
+      "Edit(course/notes/**)",
+      "Write(CLAUDE.md)",
+      "Edit(CLAUDE.md)",
+      "Write(.claude/**)",
+      "Edit(.claude/**)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "enableAllProjectMcpServers": false,
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-course-updates.sh",
+            "timeout": 20
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/guard-dangerous-command.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/scan-for-secrets.sh",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
