@@ -31,47 +31,64 @@ Install **Visual Studio Code**, not Visual Studio—they are different applicati
 
 - Create an empty folder named `full-stack-ai-bootcamp` on your computer.
 - In VS Code, select **File → Open Folder…** and open that folder.
-- Open Claude as an agent panel on the **right side** of VS Code. Do not use Claude in the terminal.
-- Select **New Agent**.
+- Open the **Claude Code panel on the right side** of VS Code. Do not use it in the terminal.
 
 Your VS Code layout should be:
 
-**Explorer on the left → working area in the center → Claude agent on the right**
+**Explorer on the left → working area in the center → Claude Code on the right**
 
-**4. Copy and paste this prompt into the new Claude agent:**
+**4. Copy and paste this prompt into Claude Code:**
 
 ```text
-Hello, Claude. I am starting the Full Stack + AI Bootcamp. Help me connect this VS Code workspace to the private course repository and download its contents.
+Hello. I am starting the Full Stack + AI Bootcamp and this workspace is empty.
 
-The repository is:
+Clone the private course repository into this workspace:
 https://github.com/amigo2/let-the-nerds-lead
 
-I may have no programming experience. Guide me one step at a time and ask only one question at a time.
+I may have no programming experience. Guide me one step at a time and ask only one question
+at a time.
 
-Help me:
-1. Identify whether I use Windows, macOS, or Linux.
-2. Verify whether Git is installed.
-3. Install Git from its official source if it is missing.
-4. Verify that I have a GitHub account and access to the private repository.
-5. Sign in to GitHub safely.
-6. Clone the repository into my current course workspace without creating confusing nested folders.
-7. Open the downloaded repository root in VS Code.
-8. Verify that README.md, .gitignore, and the course folder are visible in Explorer.
-9. Open course/00-onboarding/CLASS-00-First-Contact-VS-Code-Claude-and-Starter-Prompt.md in the center editor while keeping your agent panel visible on the right.
+Steps:
+1. Tell me which operating system I am on and check whether Git is installed.
+2. If Git is missing, help me install it from its official source.
+3. Help me sign in to GitHub safely and confirm I can access the private repository.
+4. Clone the repository here, without creating a confusing nested folder.
+5. Confirm that README.md, CLAUDE.md, the .claude folder, and the course folder exist.
+6. Read CLAUDE.md and tell me, in your own words, the rules you will now follow.
+7. Open course/00-onboarding/CLASS-00-First-Contact-VS-Code-Claude-and-Starter-Prompt.md
+   in the center editor.
 
-Never ask me to paste a password, access token, private key, payment information, or another secret into this chat.
+Explain in one short sentence what each command does before you run it. Ask my confirmation
+before installing anything, authenticating, or changing settings. Never ask me to paste a
+password, token, or key into this chat. Do not tell me a step worked unless we can see proof.
 
-Before every command, explain in one short sentence what it does. Ask for my confirmation before installing software, authenticating an account, overwriting or deleting files, spending money, changing system settings, or using administrator permission.
-
-If an error appears, help me identify and understand its important part before suggesting one fix. Do not claim that a step worked unless we verify it from visible output or files.
-
-Start by introducing yourself in two sentences. Then ask which operating system I use. Do not give me all the steps at once, and ask only one question at a time.
+Start by introducing yourself in two sentences, then ask which operating system I use.
 ```
 
-Follow Claude one step at a time. When the repository opens, read `README.md` and then continue with **Class 00**.
+**5. Important — start a new session after the download finishes**
+
+Once the course files appear, **open a new Claude Code session**. The course includes a file called `CLAUDE.md` that configures your tutor automatically, and it is read when a session starts. Your first session began in an empty folder, so it did not see it yet.
+
+In the new session, type:
+
+```text
+/start-session
+```
+
+That is the only prompt you need from now on. This course already contains its own instructions for Claude, so you will never have to paste long prompts.
+
+**6. The course updates while you study it**
+
+New guides and corrections are added regularly. Claude checks for you at the start of every session, and you download them with:
+
+```text
+/update-course
+```
+
+One important habit: **keep your notes and your code in your own folders, outside the course folder.** If you write inside the course files, updating gets messy. If you do not, it takes one second.
 
 If you get stuck, take a screenshot of the complete VS Code window. Before sharing it, check that it does not show a password, token, payment information, or another secret. We will finish the setup together.
 
-✅ **Your goal:** Explorer is visible on the left, Class 00 is open in the center, and the Claude agent is visible on the right.
+✅ **Your goal:** Explorer on the left showing `CLAUDE.md` and the `course` folder, Class 00 open in the center, and Claude Code on the right responding to `/start-session`.
 
 ## END OF MESSAGE

@@ -44,7 +44,8 @@ Actualmente contamos con una base real para ello:
 - Docker, Terraform, AWS, OVHcloud y Dokploy
 - testing con Pytest y herramientas modernas de frontend
 - IA aplicada al desarrollo: LLMs, LangChain y RAG
-- entornos de trabajo como Cursor, Visual Studio Code y Codex
+- entorno de trabajo profesional con Visual Studio Code y **Claude Code** (Anthropic) como agente de desarrollo
+- ingeniería de agentes: `CLAUDE.md`, Agent Skills, subagentes, permisos y hooks versionados en el repositorio
 - preparación para entrevistas técnicas y live coding
 
 ### Formato y duración

@@ -4,7 +4,7 @@
 
 ## 1. Resumen ejecutivo
 
-La oportunidad no es crear "otro curso de programación", sino una oferta de formación muy aplicada y con recorrido largo real, orientada a empleabilidad y a perfiles que hoy están creciendo en empresa: desarrollo web moderno, mobile, backend, cloud, Git/GitHub, IA aplicada y uso profesional de agentes de desarrollo como Cursor o similares.
+La oportunidad no es crear "otro curso de programación", sino una oferta de formación muy aplicada y con recorrido largo real, orientada a empleabilidad y a perfiles que hoy están creciendo en empresa: desarrollo web moderno, mobile, backend, cloud, Git/GitHub, IA aplicada y uso profesional de agentes de desarrollo, con **Claude Code** como herramienta de referencia del programa.
 
 El formato de referencia es un programa de `9 meses mínimo` y hasta `2 años`, cursable por módulos o de forma comprimida. Es una apuesta deliberada contra el bootcamp de 12 semanas: el problema del mercado no es que falte gente que haya hecho un curso, sino que falta gente con oficio, y el oficio no se adquiere en tres meses.
 
@@ -143,9 +143,10 @@ Propuesta de temario estructurada:
 
 #### Entornos y herramientas
 
-- Cursor
 - Visual Studio Code
-- Codex
+- Claude Code (Anthropic) como agente de desarrollo principal
+- configuración de agentes como parte del repositorio: `CLAUDE.md`, Agent Skills, slash commands, subagentes y hooks
+- permisos, límites y trazabilidad del trabajo asistido por IA
 
 #### Empleabilidad y entrevistas
 
