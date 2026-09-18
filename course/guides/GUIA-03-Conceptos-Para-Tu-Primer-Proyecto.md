@@ -1,618 +1,623 @@
-# Guía 03 — Los conceptos para tu primer proyecto
+# Guide 03 — The concepts for your first project
 
-> Documento de estudio de Enmanuel. Creado el 8 de agosto de 2026.
+> Enmanuel's study document. Created 8 August 2026.
 >
-> **Va después de la GUIA-02 *(pending production)*.** El orden completo es:
+> **This comes after GUIA-02.** The complete order is:
 >
 > ```
-> GUIA-00  →  GUIA-01  →  GUIA-02  →  GUIA-03  +  PROYECTO-01
-> qué es      terminal    inglés      conceptos    tu primera
-> una app     y las       técnico     del primer   app, paso
-> web         3 bases                 proyecto     a paso
+> GUIA-01  →  GUIA-02  →  GUIA-03  +  PROYECTO-01
+> what a      terminal    concepts     your first
+> web app     and the     of the       app, step
+> is          3 bases     first one    by step
 > ```
 >
-> **Guía compañera de [PROYECTO-01 — Mi App de Salud](../projects/PROYECTO-01-App-de-Salud-Paso-a-Paso.md).**
-> Se leen **juntas**: el proyecto te dice *qué escribir*, esta te dice *por qué funciona*.
+> **Companion guide to [PROYECTO-01 — My Health App](../projects/PROYECTO-01-App-de-Salud-Paso-a-Paso.md).**
+> They are read **together**: the project tells you *what to write*, this one tells you *why it
+> works*.
 
 ---
 
-## Cómo usar esta guía
+## How to use this guide
 
-No la leas de corrido. **Funciona mejor así:**
+Do not read it straight through. **It works better like this:**
 
-1. Abrí el PROYECTO-01 y empezá a hacer los pasos.
-2. Cuando aparezca algo que no entendés, buscalo acá.
-3. Volvé al proyecto.
+1. Open PROYECTO-01 and start doing the steps.
+2. When something you do not understand shows up, look it up here.
+3. Go back to the project.
 
-Las secciones están **en el mismo orden en que las cosas aparecen en el proyecto**, así que
-podés ir bajando en paralelo.
+The sections are **in the same order things appear in the project**, so you can scroll down in
+parallel.
 
-| Si estás en… | Leé las secciones |
+| If you are on… | Read sections |
 |---|---|
-| Paso 2 — `datos.py` | 1, 2 |
-| Pasos 3-5 — `logica.py` | 3, 4, 5, 6 |
-| Paso 6 — `probar.py` | 7 |
-| Paso 7 — `main.py` | 8, 9 |
-| Pasos 8-9 — `index.html` | 10, 11, 12, 13 |
-| Cuando algo falle | 14 |
-| Al terminar | 15 |
+| Step 2 — `data.py` | 1, 2 |
+| Steps 3-5 — `logic.py` | 3, 4, 5, 6 |
+| Step 6 — `try_it.py` | 7 |
+| Step 7 — `main.py` | 8, 9 |
+| Steps 8-9 — `index.html` | 10, 11, 12, 13 |
+| When something fails | 14 |
+| When you finish | 15 |
 
 ---
 
-## Índice
+## Index
 
-- [1. Los tipos de datos de Python](#1-los-tipos-de-datos-de-python)
-- [2. 🔑 Listas y diccionarios](#2--listas-y-diccionarios)
-- [3. Los bucles `for`](#3-los-bucles-for)
-- [4. Funciones: parámetros y `return`](#4-funciones-parámetros-y-return)
-- [5. Varios archivos: `import` y separar responsabilidades](#5-varios-archivos-import-y-separar-responsabilidades)
-- [6. Detalles de Python que vas a ver](#6-detalles-de-python-que-vas-a-ver)
-- [7. `print` y probar cosas sueltas](#7-print-y-probar-cosas-sueltas)
-- [8. FastAPI: GET vs POST y Pydantic](#8-fastapi-get-vs-post-y-pydantic)
-- [9. 🚧 CORS: por qué el navegador te bloquea](#9--cors-por-qué-el-navegador-te-bloquea)
-- [10. El DOM: la página como objetos](#10-el-dom-la-página-como-objetos)
-- [11. Eventos: reaccionar a los clics](#11-eventos-reaccionar-a-los-clics)
-- [12. 🔑 `fetch`, `async` y `await`](#12--fetch-async-y-await)
-- [13. Dibujar HTML desde JavaScript](#13-dibujar-html-desde-javascript)
-- [14. 🔍 Depurar: encontrar el problema](#14--depurar-encontrar-el-problema)
-- [15. Git: guardar tu trabajo](#15-git-guardar-tu-trabajo)
-- [Qué mirar y dónde buscar](#qué-mirar-y-dónde-buscar)
-- [Glosario](#glosario-de-la-guía-03)
-- [Checklist de comprensión](#checklist-de-comprensión)
+- [1. Python data types](#1-python-data-types)
+- [2. 🔑 Lists and dictionaries](#2--lists-and-dictionaries)
+- [3. `for` loops](#3-for-loops)
+- [4. Functions: parameters and `return`](#4-functions-parameters-and-return)
+- [5. Several files: `import` and separating responsibilities](#5-several-files-import-and-separating-responsibilities)
+- [6. Python details you will run into](#6-python-details-you-will-run-into)
+- [7. `print` and trying things out](#7-print-and-trying-things-out)
+- [8. FastAPI: GET vs POST and Pydantic](#8-fastapi-get-vs-post-and-pydantic)
+- [9. 🚧 CORS: why the browser blocks you](#9--cors-why-the-browser-blocks-you)
+- [10. The DOM: the page as objects](#10-the-dom-the-page-as-objects)
+- [11. Events: reacting to clicks](#11-events-reacting-to-clicks)
+- [12. 🔑 `fetch`, `async` and `await`](#12--fetch-async-and-await)
+- [13. Drawing HTML from JavaScript](#13-drawing-html-from-javascript)
+- [14. 🔍 Debugging: finding the problem](#14--debugging-finding-the-problem)
+- [15. Git: saving your work](#15-git-saving-your-work)
+- [What to watch and where to look](#what-to-watch-and-where-to-look)
+- [Glossary](#glossary-for-guide-03)
+- [Comprehension checklist](#comprehension-checklist)
 
 ---
 
-# 1. Los tipos de datos de Python
+# 1. Python data types
 
-Todo valor en Python es de algún **tipo**. Estos cinco te alcanzan para el proyecto entero:
+Every value in Python has a **type**. These five are enough for the entire project:
 
-| Tipo | Qué es | Ejemplo |
+| Type | What it is | Example |
 |---|---|---|
-| `int` | Número entero | `20`, `450`, `-5` |
-| `float` | Número con decimales | `70.5`, `1.55`, `6.25` |
-| `str` | Texto (*string*) | `"hombre"`, `"avena"` |
-| `bool` | Verdadero o falso | `True`, `False` |
-| `None` | "nada", ausencia de valor | `None` |
+| `int` | Whole number | `20`, `450`, `-5` |
+| `float` | Number with decimals | `70.5`, `1.55`, `6.25` |
+| `str` | Text (*string*) | `"male"`, `"oatmeal"` |
+| `bool` | True or false | `True`, `False` |
+| `None` | "nothing", absence of a value | `None` |
 
-Dos avisos que te van a ahorrar errores:
+Two warnings that will save you errors:
 
-**`True` y `False` van en mayúscula en Python.** En JavaScript y en JSON son `true` y `false`
-en minúscula. Es la fuente de error más tonta y más frecuente cuando trabajás con los dos
-lenguajes el mismo día.
+**`True` and `False` are capitalised in Python.** In JavaScript and in JSON they are `true` and
+`false` in lower case. It is the silliest and most frequent source of error when you work with
+both languages on the same day.
 
-**`"20"` no es `20`.** El primero es texto, el segundo es un número. `"20" + "5"` te da `"205"`;
-`20 + 5` te da `25`. Esto va a importar cuando el frontend te mande datos (sección 12).
+**`"20"` is not `20`.** The first is text, the second is a number. `"20" + "5"` gives you `"205"`;
+`20 + 5` gives you `25`. This will matter when the frontend sends you data (section 12).
 
 ---
 
-# 2. 🔑 Listas y diccionarios
+# 2. 🔑 Lists and dictionaries
 
-Esta sección es la más importante de la guía. **El 90% de la programación es meter datos en
-estas dos cosas y sacarlos.**
+This section is the most important one in the guide. **90% of programming is putting data into
+these two things and taking it out.**
 
-## La lista: cosas en orden
+## The list: things in order
 
 ```python
-tipos = ["desayuno", "almuerzo", "cena", "snack"]
+meal_types = ["breakfast", "lunch", "dinner", "snack"]
 ```
 
-- Va entre **corchetes** `[ ]`
-- Tiene **orden**, y se accede por **posición** (índice)
-- **Los índices empiezan en 0.** Siempre. Es la convención universal.
+- It goes in **square brackets** `[ ]`
+- It has **order**, and you access it by **position** (index)
+- **Indexes start at 0.** Always. It is the universal convention.
 
 ```python
-tipos[0]        # "desayuno"    ← el primero es el CERO
-tipos[3]        # "snack"
-tipos[4]        # 💥 IndexError: list index out of range
-len(tipos)      # 4  ← cuántos hay
-tipos.append("postre")   # agregar uno al final
+meal_types[0]        # "breakfast"   ← the first one is ZERO
+meal_types[3]        # "snack"
+meal_types[4]        # 💥 IndexError: list index out of range
+len(meal_types)      # 4  ← how many there are
+meal_types.append("dessert")   # add one at the end
 ```
 
-> **El error clásico:** una lista de 4 elementos tiene los índices **0, 1, 2, 3**. El índice 4
-> no existe. Por eso el último válido siempre es `len(lista) - 1`. Este es el motivo del truco
-> del `%` en el Paso 4 del proyecto.
+> **The classic error:** a list of 4 elements has indexes **0, 1, 2, 3**. Index 4 does not exist.
+> That is why the last valid one is always `len(list) - 1`. This is the reason for the `%` trick
+> in Step 4 of the project.
 
-## El diccionario: cosas con nombre
+## The dictionary: things with names
 
 ```python
-comida = {
-    "nombre": "Avena con banana",
-    "calorias": 450,
+meal = {
+    "name": "Oatmeal with banana",
+    "calories": 450,
 }
 ```
 
-- Va entre **llaves** `{ }`
-- **No importa el orden**: se accede por **nombre** (clave), no por posición
-- Cada entrada es un par `"clave": valor`
+- It goes in **curly braces** `{ }`
+- **Order does not matter**: you access it by **name** (key), not by position
+- Each entry is a `"key": value` pair
 
 ```python
-comida["nombre"]         # "Avena con banana"
-comida["calorias"]       # 450
-comida["proteina"]       # 💥 KeyError: 'proteina'   ← esa clave no existe
+meal["name"]          # "Oatmeal with banana"
+meal["calories"]      # 450
+meal["protein"]       # 💥 KeyError: 'protein'   ← that key does not exist
 
-comida["proteina"] = 12  # crear o cambiar una clave
-"calorias" in comida     # True  ← preguntar si existe, SIN romper
+meal["protein"] = 12  # create or change a key
+"calories" in meal    # True  ← ask whether it exists, WITHOUT breaking
 ```
 
-Ese `in` es lo que usás en `armar_lista_compras()` para preguntar "¿ya anoté este alimento?"
-sin que explote.
+That `in` is what you use in `build_shopping_list()` to ask "have I already written this food
+down?" without it blowing up.
 
-## Cuál usar
+## Which one to use
 
-| Usá **lista** cuando… | Usá **diccionario** cuando… |
+| Use a **list** when… | Use a **dictionary** when… |
 |---|---|
-| Tenés **muchas cosas del mismo tipo** | Tenés **una cosa con varias propiedades** |
-| El orden importa | Cada dato tiene un nombre propio |
-| "las comidas", "los días", "los ingredientes" | "una comida", "un usuario", "un perfil" |
+| You have **many things of the same kind** | You have **one thing with several properties** |
+| Order matters | Each piece of data has its own name |
+| "the meals", "the days", "the ingredients" | "a meal", "a user", "a profile" |
 
-## Y ahora, la combinación estrella
+## And now, the star combination
 
-Casi nunca vas a usar una lista o un diccionario solos. Vas a usar **listas de diccionarios**:
+You will almost never use a list or a dictionary on their own. You will use **lists of
+dictionaries**:
 
 ```python
-COMIDAS = [
-    {"nombre": "Avena", "calorias": 450},
-    {"nombre": "Pollo", "calorias": 650},
+MEALS = [
+    {"name": "Oatmeal", "calories": 450},
+    {"name": "Chicken", "calories": 650},
 ]
 ```
 
-*Una lista (muchas comidas) de diccionarios (cada una con sus propiedades).*
+*A list (many meals) of dictionaries (each with its properties).*
 
-**Esa forma es una tabla.** Cada diccionario es una fila, cada clave es una columna. Es la
-estructura de una base de datos, de un Excel, de la respuesta de cualquier API del mundo.
-Cuando la reconozcas a simple vista, vas a poder leer código de cualquier lado.
+**That shape is a table.** Each dictionary is a row, each key is a column. It is the structure of
+a database, of a spreadsheet, of the response of any API in the world. Once you recognise it at a
+glance, you will be able to read code from anywhere.
 
-## 🔗 Y por eso el JSON se parece tanto
+## 🔗 And that is why JSON looks so similar
 
-Volvé un segundo a la
-[GUIA-00 sección 7](GUIA-00-Que-es-una-App-Web-FE-y-BE.md#7-json-el-idioma-entre-fe-y-be) —
-la duda que tenías. Mirá los dos lado a lado:
+Go back for a second to
+[GUIA-01 section 7](GUIA-01-Que-es-una-App-Web-FE-y-BE.md#7-json-the-language-between-fe-and-be) —
+the thing you were unsure about. Look at the two side by side:
 
 ```python
-# Diccionario de Python           # El mismo dato en JSON
+# Python dictionary                # The same data as JSON
 {                                 {
-  "nombre": "Enmanuel",             "nombre": "Enmanuel",
-  "activo": True,                   "activo": true,
-  "materias": ["Prog", "BD"]        "materias": ["Prog", "BD"]
+  "name": "Enmanuel",               "name": "Enmanuel",
+  "active": True,                   "active": true,
+  "subjects": ["Prog", "DB"]        "subjects": ["Prog", "DB"]
 }                                 }
 ```
 
-Casi idénticos. Las diferencias son estas:
+Almost identical. These are the differences:
 
-| | Diccionario Python | JSON |
+| | Python dictionary | JSON |
 |---|---|---|
-| Qué es | Un **objeto vivo** en la memoria | **Texto**, y nada más |
-| Booleanos | `True` / `False` | `true` / `false` |
-| Vacío | `None` | `null` |
-| Comillas | Simples o dobles | **Solo dobles** |
+| What it is | A **live object** in memory | **Text**, nothing more |
+| Booleans | `True` / `False` | `true` / `false` |
+| Empty | `None` | `null` |
+| Quotes | Single or double | **Double only** |
 
-Y por eso, cuando en `main.py` hacés `return {...}`, **FastAPI convierte solo tu diccionario a
-texto JSON** antes de mandarlo. Ese paso se llama **serializar**. No tenés que hacer nada: es
-automático porque las dos estructuras son casi la misma cosa.
+And that is why, when you write `return {...}` in `main.py`, **FastAPI converts your dictionary
+to JSON text by itself** before sending it. That step is called **serialising**. You do not have
+to do anything: it is automatic because the two structures are almost the same thing.
 
 ---
 
-# 3. Los bucles `for`
+# 3. `for` loops
 
-Un `for` significa: *"hacé esto una vez por cada elemento"*.
+A `for` means: *"do this once for each element"*.
 
 ```python
-for comida in COMIDAS:
-    print(comida["nombre"])
+for meal in MEALS:
+    print(meal["name"])
 ```
 
-Se lee literal: **"por cada `comida` dentro de `COMIDAS`, imprimí su nombre"**.
+It reads literally: **"for each `meal` inside `MEALS`, print its name"**.
 
-- `comida` es un nombre que inventás vos. Es la variable que en cada vuelta vale un elemento
-  distinto.
-- Lo que va **indentado** (con espacios) debajo, se repite. Lo que no está indentado, no.
+- `meal` is a name you invent. It is the variable that holds a different element on each pass.
+- What goes **indented** (with spaces) below is repeated. What is not indented is not.
 
-> ⚠️ **En Python la indentación no es estética: es sintaxis.** Los espacios definen qué está
-> adentro del bucle y qué está afuera. Cuatro espacios por nivel, siempre. Si te sale
-> `IndentationError`, es esto.
+> ⚠️ **In Python indentation is not decoration: it is syntax.** The spaces define what is inside
+> the loop and what is outside. Four spaces per level, always. If you get an `IndentationError`,
+> this is it.
 
-## `range()`: repetir N veces
+## `range()`: repeat N times
 
-Cuando querés repetir un número de veces en vez de recorrer una lista:
+When you want to repeat a number of times instead of walking through a list:
 
 ```python
-for numero_dia in range(3):
-    print(numero_dia)      # imprime 0, después 1, después 2
+for day_number in range(3):
+    print(day_number)      # prints 0, then 1, then 2
 ```
 
-`range(3)` da **0, 1, 2** — tres valores, empezando en cero. Por eso en el proyecto hacés
-`"dia": numero_dia + 1`: internamente contás desde 0, pero al usuario le mostrás "Día 1".
+`range(3)` gives **0, 1, 2** — three values, starting at zero. That is why in the project you
+write `"day": day_number + 1`: internally you count from 0, but you show the user "Day 1".
 
-## Bucles anidados
+## Nested loops
 
-Un `for` dentro de otro. Es lo que da miedo al principio y es lo más normal del mundo:
+A `for` inside another. It is what looks frightening at first and is the most normal thing in the
+world:
 
 ```python
-for dia in plan:                            # 3 vueltas
-    for comida in dia["comidas"]:           # 4 por cada día    →  12 en total
-        for ing in comida["ingredientes"]:  # ~4 por cada comida → ~48 en total
-            print(ing["alimento"])
+for day in plan:                          # 3 passes
+    for meal in day["meals"]:             # 4 per day        →  12 in total
+        for ing in meal["ingredients"]:   # ~4 per meal      → ~48 in total
+            print(ing["food"])
 ```
 
-**La clave para leerlos: seguí la indentación, no el texto.** Cada nivel de sangría es un nivel
-de profundidad. Y siempre son datos anidados: una lista dentro de una lista dentro de una lista.
+**The key to reading them: follow the indentation, not the text.** Each level of indentation is a
+level of depth. And it is always nested data: a list inside a list inside a list.
 
-## El patrón "acumulador"
+## The "accumulator" pattern
 
-Lo vas a escribir mil veces en tu vida. Se ve así:
+You will write this a thousand times in your life. It looks like this:
 
 ```python
-total = 0                                # 1. empezar en cero
-for comida in comidas:
-    total = total + comida["calorias"]   # 2. ir sumando
-# 3. después del bucle, total tiene el resultado
+total = 0                             # 1. start at zero
+for meal in meals:
+    total = total + meal["calories"]  # 2. keep adding
+# 3. after the loop, total holds the result
 ```
 
-Y su versión con diccionario, que es la de la lista de compras:
+And its dictionary version, which is the shopping-list one:
 
 ```python
-acumulado = {}                 # 1. empezar vacío
-for ing in ingredientes:
-    if ing["alimento"] in acumulado:
-        acumulado[ing["alimento"]] += ing["cantidad"]   # ya estaba → sumar
+totals = {}                  # 1. start empty
+for ing in ingredients:
+    if ing["food"] in totals:
+        totals[ing["food"]] += ing["amount"]   # already there → add
     else:
-        acumulado[ing["alimento"]] = ing["cantidad"]    # primera vez → anotar
+        totals[ing["food"]] = ing["amount"]    # first time → write it down
 ```
 
-> `+=` es un atajo: `x += 5` es exactamente lo mismo que `x = x + 5`.
+> `+=` is a shortcut: `x += 5` is exactly the same as `x = x + 5`.
 
 ---
 
-# 4. Funciones: parámetros y `return`
+# 4. Functions: parameters and `return`
 
-Una función es **un pedazo de código con nombre**, que podés ejecutar cuando quieras.
+A function is **a piece of code with a name**, that you can run whenever you want.
 
 ```python
-def calcular_calorias(peso, altura, edad):
-    resultado = 10 * peso + 6.25 * altura - 5 * edad
-    return resultado
+def calculate_calories(weight, height, age):
+    result = 10 * weight + 6.25 * height - 5 * age
+    return result
 ```
 
-| Parte | Qué es |
+| Part | What it is |
 |---|---|
-| `def` | "voy a definir una función" |
-| `calcular_calorias` | El nombre que le ponés |
-| `(peso, altura, edad)` | Los **parámetros**: lo que la función necesita recibir |
-| `return` | Lo que la función **devuelve** a quien la llamó |
+| `def` | "I am going to define a function" |
+| `calculate_calories` | The name you give it |
+| `(weight, height, age)` | The **parameters**: what the function needs to receive |
+| `return` | What the function **gives back** to whoever called it |
 
-## Definir ≠ ejecutar
-
-```python
-def saludar(nombre):           # ← esto NO ejecuta nada. Solo la define.
-    return "Hola, " + nombre
-
-mensaje = saludar("Enmanuel")  # ← ACÁ se ejecuta. mensaje vale "Hola, Enmanuel"
-```
-
-Una función definida y nunca llamada no hace absolutamente nada. Es una receta guardada en un
-cajón.
-
-## `return` termina la función
-
-En cuanto se ejecuta un `return`, la función se corta ahí. Lo que venga después no corre.
-
-Y una función sin `return` devuelve `None`. Si te pasa que "la función anda pero me da `None`",
-casi seguro te olvidaste el `return`.
-
-## Argumentos por nombre
-
-Estas dos llamadas hacen lo mismo:
+## Defining ≠ running
 
 ```python
-calcular_calorias(70, 175, 20)
-calcular_calorias(peso=70, altura=175, edad=20)     # ← más largo, mucho más claro
+def greet(name):              # ← this does NOT run anything. It only defines it.
+    return "Hello, " + name
+
+message = greet("Enmanuel")   # ← HERE it runs. message holds "Hello, Enmanuel"
 ```
 
-Cuando una función tiene más de tres parámetros, **usá siempre la segunda forma**. Es imposible
-confundir el orden, y dentro de seis meses vas a poder leer tu propio código. Por eso `probar.py`
-está escrito así.
+A function that is defined and never called does absolutely nothing. It is a recipe kept in a
+drawer.
 
-## Por qué separar en funciones
+## `return` ends the function
 
-Comparalo:
+As soon as a `return` runs, the function stops there. Anything after it does not run.
+
+And a function without a `return` returns `None`. If you find that "the function works but gives
+me `None`", you almost certainly forgot the `return`.
+
+## Arguments by name
+
+These two calls do the same thing:
+
+```python
+calculate_calories(70, 175, 20)
+calculate_calories(weight=70, height=175, age=20)   # ← longer, much clearer
+```
+
+When a function has more than three parameters, **always use the second form**. It is impossible
+to get the order wrong, and in six months you will still be able to read your own code. That is
+why `try_it.py` is written that way.
+
+## Why split into functions
+
+Compare them:
 
 ```
-UN SOLO BLOQUE GIGANTE          TRES FUNCIONES
+ONE GIANT BLOCK                 THREE FUNCTIONS
 
-todo mezclado                   calcular_calorias()  → la puedo probar sola
-                                armar_plan()         → la puedo probar sola
-si falla algo,                  armar_lista()        → la puedo probar sola
-¿dónde busco?
-                                si falla → sé exactamente cuál probar
+everything mixed together       calculate_calories()  → I can test it alone
+                                build_plan()          → I can test it alone
+if something fails,             build_shopping_list() → I can test it alone
+where do I look?
+                                if it fails → I know exactly which to test
 ```
 
-**Una función = una responsabilidad.** Si al describir lo que hace tenés que usar un "y", capaz
-son dos funciones.
+**One function = one responsibility.** If you have to use an "and" to describe what it does, it
+is probably two functions.
 
 ---
 
-# 5. Varios archivos: `import` y separar responsabilidades
+# 5. Several files: `import` and separating responsibilities
 
-## Cómo se importa
-
-```python
-# En logica.py:
-from datos import COMIDAS
-```
-
-Se lee: *"del archivo `datos.py`, traeme `COMIDAS`"*. Sin el `.py`, solo el nombre.
+## How importing works
 
 ```python
-from logica import calcular_calorias, armar_plan     # traer varias cosas, con comas
+# In logic.py:
+from data import MEALS
 ```
 
-Para que funcione, los archivos tienen que estar **en la misma carpeta**, y tenés que correr
-Python **desde esa carpeta**. Si te da `ModuleNotFoundError: No module named 'logica'`, hacé
-`pwd` — casi siempre estás parado en el lugar equivocado.
+It reads: *"from the file `data.py`, bring me `MEALS`"*. Without the `.py`, just the name.
 
-## Por qué tres archivos y no uno
-
-```
-datos.py    →  QUÉ HAY.        Solo información. Ni una decisión.
-logica.py   →  QUÉ SE HACE.    Los cálculos. No sabe que existe internet.
-main.py     →  CÓMO SE PIDE.   La puerta HTTP. No calcula nada por su cuenta.
+```python
+from logic import calculate_calories, build_plan     # bring several things, with commas
 ```
 
-Esto se llama **separación de responsabilidades**, y no es decoración. Mirá lo que te compra:
+For this to work, the files have to be **in the same folder**, and you have to run Python **from
+that folder**. If you get `ModuleNotFoundError: No module named 'logic'`, run `pwd` — you are
+almost always standing in the wrong place.
 
-- Agregar 50 comidas → tocás **solo** `datos.py`
-- Cambiar la fórmula → tocás **solo** `logica.py`
-- Mañana querés una app de escritorio en vez de web → tirás `main.py` y `logica.py` sigue
-  sirviendo intacta
+## Why three files and not one
 
-Es exactamente por eso que el **E1** del proyecto (agregar comidas sin tocar la lógica)
-funciona. Cuando lo hagas, vas a sentir la ventaja en vez de leerla.
+```
+data.py    →  WHAT THERE IS.   Information only. Not a single decision.
+logic.py   →  WHAT IS DONE.    The calculations. It does not know the internet exists.
+main.py    →  HOW IT IS ASKED. The HTTP door. It calculates nothing on its own.
+```
+
+This is called **separation of responsibilities**, and it is not decoration. Look at what it buys
+you:
+
+- Add 50 meals → you touch **only** `data.py`
+- Change the formula → you touch **only** `logic.py`
+- Tomorrow you want a desktop app instead of a web one → you throw away `main.py` and `logic.py`
+  still works untouched
+
+That is exactly why **E1** of the project (adding meals without touching the logic) works. When
+you do it, you will feel the advantage instead of reading about it.
 
 ---
 
-# 6. Detalles de Python que vas a ver
+# 6. Python details you will run into
 
-## `%` — el resto de la división
+## `%` — the remainder of a division
 
 ```python
-7 % 3     # 1   (7 dividido 3 da 2, y sobra 1)
-4 % 2     # 0   (exacto, no sobra nada)
+7 % 3     # 1   (7 divided by 3 gives 2, and 1 is left over)
+4 % 2     # 0   (exact, nothing left over)
 5 % 5     # 0
-2 % 5     # 2   (5 no entra en 2, sobra todo)
+2 % 5     # 2   (5 does not fit into 2, all of it is left over)
 ```
 
-Sus dos usos reales:
+Its two real uses:
 
 ```python
-lista[i % len(lista)]     # recorrer en círculo, sin salirse nunca
-if numero % 2 == 0:       # ¿es par?
+items[i % len(items)]     # go round in a circle, never running off the end
+if number % 2 == 0:       # is it even?
 ```
 
 ## `round()`
 
 ```python
 round(2233.0625)      # 2233
-round(2233.0625, 2)   # 2233.06   ← con 2 decimales
+round(2233.0625, 2)   # 2233.06   ← with 2 decimals
 ```
 
-## f-strings — meter variables dentro de un texto
+## f-strings — putting variables inside text
 
 ```python
-nombre = "Enmanuel"
-edad = 20
+name = "Enmanuel"
+age = 20
 
-f"Hola, {nombre}, tenés {edad} años"      # "Hola, Enmanuel, tenés 20 años"
+f"Hello, {name}, you are {age} years old"      # "Hello, Enmanuel, you are 20 years old"
 ```
 
-La `f` antes de la comilla es obligatoria. Sin ella, te imprime `{nombre}` literal.
-Es lo que usa el `@app.get("/saludo/{nombre}")` de la GUIA-01.
+The `f` before the quote is mandatory. Without it, it prints `{name}` literally.
+It is what the `@app.get("/greeting/{name}")` from GUIA-02 uses.
 
 ## `if` / `elif` / `else`
 
 ```python
 if total < 1200:
-    nivel = "muy bajo"
+    level = "very low"
 elif total < 2000:
-    nivel = "normal"
+    level = "normal"
 else:
-    nivel = "alto"
+    level = "high"
 ```
 
-Se evalúan **en orden** y **solo entra en uno**. El primero que da `True` gana; el resto ni se
-mira.
+They are evaluated **in order** and **only one is entered**. The first one that is `True` wins;
+the rest are not even looked at.
 
-> ⚠️ `=` asigna, `==` compara. `x = 5` guarda un 5. `x == 5` pregunta si vale 5. Confundirlos
-> es un clásico eterno.
+> ⚠️ `=` assigns, `==` compares. `x = 5` stores a 5. `x == 5` asks whether it is 5. Confusing them
+> is an eternal classic.
 
-## Adelanto: la versión corta de un `for` que filtra
+## A preview: the short version of a filtering `for`
 
-En el proyecto escribimos:
+In the project we write:
 
 ```python
-resultado = []
-for comida in COMIDAS:
-    if comida["tipo"] == tipo:
-        resultado.append(comida)
-return resultado
+result = []
+for meal in MEALS:
+    if meal["type"] == meal_type:
+        result.append(meal)
+return result
 ```
 
-Lo mismo se escribe en una línea:
+The same thing written on one line:
 
 ```python
-return [comida for comida in COMIDAS if comida["tipo"] == tipo]
+return [meal for meal in MEALS if meal["type"] == meal_type]
 ```
 
-Se llama **list comprehension** y es lo que vas a ver en el código de cualquier proyecto real.
-**No la uses todavía** — usá el `for` largo hasta que te salga solo. Pero cuando la veas en
-internet, ahora sabés que es exactamente eso.
+It is called a **list comprehension** and it is what you will see in the code of any real
+project. **Do not use it yet** — use the long `for` until it comes naturally. But when you see it
+on the internet, you now know that is exactly what it is.
 
 ---
 
-# 7. `print` y probar cosas sueltas
+# 7. `print` and trying things out
 
-`print()` es tu instrumento principal para entender qué está pasando. No es "para
-principiantes": todo el mundo lo usa, siempre.
-
-```python
-print("Mi plan:", plan)                      # con coma, mete un espacio solo
-print("Día", dia["dia"], "→", total, "kcal")
-```
-
-## El truco más útil: prints numerados
-
-Cuando algo no funciona y no sabés ni por dónde va el código:
+`print()` is your main instrument for understanding what is going on. It is not "for beginners":
+everyone uses it, always.
 
 ```python
-print("1 - entré a la función")
-print("2 - las opciones son:", opciones)
-print("3 - elegí:", elegida)
+print("My plan:", plan)                      # with a comma, it inserts one space
+print("Day", day["day"], "→", total, "kcal")
 ```
 
-Corrés, mirás hasta qué número imprimió, y ya sabés en qué línea murió. Es tosco y es efectivo.
-Después los borrás.
+## The most useful trick: numbered prints
 
-## El intérprete interactivo
+When something does not work and you do not even know where the code is going:
+
+```python
+print("1 - entered the function")
+print("2 - the options are:", options)
+print("3 - chose:", chosen)
+```
+
+You run it, look at which number it printed up to, and now you know which line it died on. It is
+crude and it is effective. Afterwards you delete them.
+
+## The interactive interpreter
 
 ```powershell
 python
 ```
 
-Se abre un `>>>` donde podés probar una línea suelta sin crear ningún archivo. Ideal para "¿qué
-me da `7 % 3`?" o para probar una función recién escrita. Salís con `exit()`.
+A `>>>` opens where you can try a single line without creating any file. Ideal for "what does
+`7 % 3` give me?" or for trying out a function you have just written. You leave with `exit()`.
 
-**Usalo mucho.** Es la diferencia entre suponer qué hace algo y saberlo en cinco segundos.
+**Use it a lot.** It is the difference between assuming what something does and knowing it in
+five seconds.
 
 ---
 
-# 8. FastAPI: GET vs POST y Pydantic
+# 8. FastAPI: GET vs POST and Pydantic
 
-## Por qué este endpoint es POST
+## Why this endpoint is POST
 
-Repasá la [GUIA-00 sección 6](GUIA-00-Que-es-una-App-Web-FE-y-BE.md#6-http-métodos-y-códigos):
+Review [GUIA-01 section 6](GUIA-01-Que-es-una-App-Web-FE-y-BE.md#6-http-methods-and-status-codes):
 
 | | GET | POST |
 |---|---|---|
-| Intención | **Leer** algo | **Enviar** datos |
-| Los datos van… | en la dirección | en el **cuerpo** (*body*) de la petición |
-| Se puede escribir en la barra del navegador | Sí | **No** |
+| Intention | **Read** something | **Send** data |
+| The data travels… | in the address | in the **body** of the request |
+| Can be typed in the browser bar | Yes | **No** |
 
-Tu `/api/plan` recibe seis datos: peso, altura, edad, sexo, actividad, objetivo. Podrías meterlos
-en la dirección (`/api/plan?peso=70&altura=175&...`), pero queda horrible y son datos personales
-que quedarían en el historial del navegador. **Van en el cuerpo → POST.**
+Your `/api/plan` receives six pieces of data: weight, height, age, sex, activity, goal. You could
+put them in the address (`/api/plan?weight=70&height=175&...`), but it looks awful and they are
+personal data that would end up in the browser history. **They go in the body → POST.**
 
-Consecuencia práctica: **no podés probar un POST escribiendo la dirección en el navegador.** Por
-eso `/docs` es tan importante.
+Practical consequence: **you cannot test a POST by typing the address in the browser.** That is
+why `/docs` is so important.
 
-## Pydantic: el contrato de entrada
+## Pydantic: the input contract
 
 ```python
-class Perfil(BaseModel):
-    peso: float
-    altura: float
-    edad: int
-    sexo: str
-    actividad: str
-    objetivo: str
+class Profile(BaseModel):
+    weight: float
+    height: float
+    age: int
+    sex: str
+    activity: str
+    goal: str
 ```
 
-Esto declara: *"cuando alguien llame a este endpoint, tiene que mandarme exactamente estos seis
-campos, con estos tipos"*.
+This declares: *"when someone calls this endpoint, they have to send me exactly these six fields,
+with these types"*.
 
-Y FastAPI, gratis, sin que escribas nada más:
+And FastAPI, for free, without you writing anything else:
 
-1. **Verifica** que llegaron todos los campos
-2. **Convierte** los tipos si puede (`"70"` → `70.0`)
-3. **Rechaza con un `422`** y un mensaje claro si algo no cuadra
-4. **Documenta** el endpoint en `/docs` con el formulario ya armado
+1. **Checks** that all the fields arrived
+2. **Converts** the types if it can (`"70"` → `70.0`)
+3. **Rejects with a `422`** and a clear message if something does not add up
+4. **Documents** the endpoint in `/docs` with the form already built
 
 ```
-Frontend manda:  {"peso": 70, "altura": 175, ...}
+Frontend sends:  {"weight": 70, "height": 175, ...}
                           │
                     ┌─────▼─────┐
-                    │  Perfil   │  ← ¿está todo? ¿los tipos están bien?
+                    │  Profile  │  ← is everything there? are the types right?
                     └─────┬─────┘
                      ✅   │   ❌
-                          │    └──► 422, y tu función NUNCA se ejecuta
+                          │    └──► 422, and your function NEVER runs
                           ▼
-                   tu función corre, con datos garantizados
+                  your function runs, with guaranteed data
 ```
 
-**Ese último punto es lo valioso.** Dentro de tu función ya no tenés que preguntarte "¿y si
-`peso` vino vacío?". No puede venir vacío: Pydantic lo frenó antes.
+**That last point is the valuable one.** Inside your function you no longer have to wonder "what
+if `weight` came in empty?". It cannot come in empty: Pydantic stopped it first.
 
-Y es la
-[regla de oro de la GUIA-00](GUIA-00-Que-es-una-App-Web-FE-y-BE.md#-la-regla-de-oro-de-la-seguridad)
-en la práctica: *el backend es la ley*. Aunque el frontend valide, el backend vuelve a validar.
+And it is the
+[golden rule from GUIA-01](GUIA-01-Que-es-una-App-Web-FE-y-BE.md#the-golden-rule-of-security)
+in practice: *the backend is the law*. Even if the frontend validates, the backend validates
+again.
 
-## La respuesta
+## The response
 
-En la otra dirección no hace falta declarar nada: devolvés un diccionario y FastAPI lo serializa
-a JSON solo, como vimos en la sección 2.
+In the other direction you do not need to declare anything: you return a dictionary and FastAPI
+serialises it to JSON by itself, as we saw in section 2.
 
 ---
 
-# 9. 🚧 CORS: por qué el navegador te bloquea
+# 9. 🚧 CORS: why the browser blocks you
 
-Este concepto frena a todo el mundo la primera vez y parece un bug. No lo es.
+This concept stops everyone the first time and looks like a bug. It is not.
 
-## Qué está pasando
+## What is happening
 
-Tu página está en un lado (`file:///...` o `localhost:5500`) y tu backend en otro
-(`127.0.0.1:8000`). **Son dos orígenes distintos.**
+Your page is in one place (`file:///...` or `localhost:5500`) and your backend in another
+(`127.0.0.1:8000`). **They are two different origins.**
 
-Los navegadores tienen una regla de seguridad vieja y muy importante:
+Browsers have an old and very important security rule:
 
-> Una página **no puede leer** la respuesta de un servidor de otro origen, a menos que ese
-> servidor **diga explícitamente que la autoriza**.
+> A page **cannot read** the response of a server from another origin, unless that server
+> **explicitly says it authorises it**.
 
-El motivo es real: sin esa regla, cualquier página maliciosa que abrieras podría hacerle
-peticiones a tu banco usando tus cookies y leer la respuesta.
+The reason is real: without that rule, any malicious page you opened could make requests to your
+bank using your cookies and read the response.
 
 ```
-   Tu página                        Tu backend
+   Your page                        Your backend
    localhost:5500                   127.0.0.1:8000
         │                                 │
         │  ── fetch ──────────────────►   │
-        │                                 │  el servidor responde normal
-        │  ◄─────── respuesta ─────────   │
+        │                                 │  the server responds normally
+        │  ◄─────── response ──────────   │
         │
    ┌────▼──────────────┐
-   │ EL NAVEGADOR mira │  ¿el servidor puso la cabecera que me autoriza?
-   │ la respuesta      │      NO → la tira y te escribe el error en rojo
-   └───────────────────┘      SÍ → te la entrega
+   │ THE BROWSER looks │  did the server add the header that authorises me?
+   │ at the response   │      NO → it throws it away and writes the error in red
+   └───────────────────┘      YES → it hands it to you
 ```
 
-## Los tres detalles que aclaran todo
+## The three details that clear it all up
 
-**1. El que bloquea es el navegador, no el servidor.** El servidor respondió perfecto. Es el
-navegador el que decide no dejarte leer la respuesta.
+**1. The one blocking is the browser, not the server.** The server answered perfectly. It is the
+browser that decides not to let you read the response.
 
-**2. Por eso `/docs` funciona igual.** `/docs` se sirve desde `127.0.0.1:8000` — el mismo origen
-que la API. No hay cruce, no hay CORS. **Esa es la razón por la que tu backend puede estar
-perfecto y la página fallar igual.**
+**2. That is why `/docs` works anyway.** `/docs` is served from `127.0.0.1:8000` — the same origin
+as the API. There is no crossing, there is no CORS. **That is the reason your backend can be
+perfect and the page fail anyway.**
 
-**3. `CORSMiddleware` no "arregla" nada.** Solo hace que tu servidor agregue la cabecera que le
-dice al navegador "esta página tiene permiso". Es un permiso, no un parche.
+**3. `CORSMiddleware` does not "fix" anything.** It only makes your server add the header that
+tells the browser "this page has permission". It is a permission, not a patch.
 
 ```python
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   # ← "*" = cualquier origen
+    allow_origins=["*"],   # ← "*" = any origin
     allow_methods=["*"],
     allow_headers=["*"],
 )
 ```
 
-> ⚠️ `allow_origins=["*"]` significa "que cualquier página del mundo pueda llamarme". Para
-> practicar en tu máquina está perfecto. **En una app real se pone la lista exacta de tus
-> dominios**, por ejemplo `allow_origins=["https://mi-app.com"]`.
+> ⚠️ `allow_origins=["*"]` means "let any page in the world call me". For practising on your
+> machine it is perfectly fine. **In a real app you put the exact list of your domains**, for
+> example `allow_origins=["https://my-app.com"]`.
 
 ---
 
-# 10. El DOM: la página como objetos
+# 10. The DOM: the page as objects
 
-Cuando el navegador lee tu HTML, no se queda con el texto: **construye un árbol de objetos** en
-memoria. Ese árbol se llama **DOM** (*Document Object Model*).
+When the browser reads your HTML, it does not keep the text: **it builds a tree of objects** in
+memory. That tree is called the **DOM** (*Document Object Model*).
 
 ```
 document
@@ -620,559 +625,557 @@ document
         └── body
              └── div.container
                   ├── h1
-                  ├── input#peso        ← cada etiqueta es un objeto
-                  └── div#resultado        que JavaScript puede tocar
+                  ├── input#weight      ← each tag is an object
+                  └── div#result           that JavaScript can touch
 ```
 
-Ese árbol es exactamente lo que ves en **F12 → Elements**. Y como es un objeto vivo, JavaScript
-lo puede leer y modificar — que es justo lo que comprobaste editando YouTube en el
-[ejercicio estrella de la GUIA-00](GUIA-00-Que-es-una-App-Web-FE-y-BE.md#-ejercicio-estrella-ver-el-fe-y-el-be-con-tus-propios-ojos).
+That tree is exactly what you see in **F12 → Elements**. And because it is a live object,
+JavaScript can read and modify it — which is just what you proved by editing YouTube in the
+[star exercise in GUIA-01](GUIA-01-Que-es-una-App-Web-FE-y-BE.md#-star-exercise-see-the-fe-and-the-be-with-your-own-eyes).
 
-## Agarrar un elemento
+## Grabbing an element
 
 ```html
-<input id="peso" type="number" value="70">
+<input id="weight" type="number" value="70">
 ```
 
 ```javascript
-const campo = document.getElementById("peso");   // buscar por su id
-const valor = campo.value;                       // leer lo que tiene escrito
+const field = document.getElementById("weight");   // find it by its id
+const value = field.value;                         // read what is typed in it
 ```
 
-El `id` en el HTML es el gancho. Por eso en el proyecto cada input tiene uno.
+The `id` in the HTML is the hook. That is why every input in the project has one.
 
-## ⚠️ `.value` SIEMPRE devuelve texto
+## ⚠️ `.value` ALWAYS returns text
 
-Aunque el input sea `type="number"`:
+Even if the input is `type="number"`:
 
 ```javascript
-document.getElementById("peso").value          // "70"  ← texto, con comillas
-Number(document.getElementById("peso").value)  // 70    ← ahora sí, número
+document.getElementById("weight").value          // "70"  ← text, with quotes
+Number(document.getElementById("weight").value)  // 70    ← now it is a number
 ```
 
-Por eso en el proyecto está el `Number(...)` envolviendo los tres campos numéricos. Sin eso
-mandarías `"70"` en el JSON. **Es la causa número uno de bugs raros con formularios.**
+That is why the project has `Number(...)` wrapping the three numeric fields. Without it you would
+send `"70"` in the JSON. **It is the number one cause of strange form bugs.**
 
-## Las tres cosas que le hacés a un elemento
+## The three things you do to an element
 
-| Código | Qué hace |
+| Code | What it does |
 |---|---|
-| `elemento.value` | Leer o escribir lo que hay en un input |
-| `elemento.innerHTML = "..."` | Reemplazar todo el contenido de un elemento |
-| `elemento.addEventListener(...)` | Escuchar algo que hace el usuario (sección 11) |
+| `element.value` | Read or write what is in an input |
+| `element.innerHTML = "..."` | Replace all the content of an element |
+| `element.addEventListener(...)` | Listen for something the user does (section 11) |
 
 ---
 
-# 11. Eventos: reaccionar a los clics
+# 11. Events: reacting to clicks
 
-Un frontend no corre de arriba abajo y termina. **Se queda esperando** a que el usuario haga
-algo. Cada cosa que el usuario hace es un **evento**.
-
-```javascript
-const boton = document.getElementById("boton");
-boton.addEventListener("click", pedirPlan);
-```
-
-Se lee: *"botón, cuando te hagan **click**, ejecutá `pedirPlan`"*.
-
-## El detalle que confunde a todo el mundo
+A frontend does not run top to bottom and finish. **It waits** for the user to do something.
+Every thing the user does is an **event**.
 
 ```javascript
-boton.addEventListener("click", pedirPlan);      // ✅ le paso LA FUNCIÓN
-boton.addEventListener("click", pedirPlan());    // ❌ la EJECUTO ahora mismo
+const button = document.getElementById("button");
+button.addEventListener("click", requestPlan);
 ```
 
-Con los paréntesis, la función corre **al cargar la página** y al botón le pasás el resultado
-(que no sirve para nada). Sin paréntesis, le pasás la función misma para que la guarde y la
-llame después.
+It reads: *"button, when you get **clicked**, run `requestPlan`"*.
 
-**La regla:** `pedirPlan` es la receta, `pedirPlan()` es cocinarla. A `addEventListener` le
-tenés que dar la receta.
+## The detail that confuses everyone
 
-Otros eventos que vas a usar: `"submit"` (enviar un formulario), `"input"` (mientras escribe),
-`"change"` (cambió un select).
+```javascript
+button.addEventListener("click", requestPlan);      // ✅ I pass THE FUNCTION
+button.addEventListener("click", requestPlan());    // ❌ I RUN it right now
+```
+
+With the parentheses, the function runs **when the page loads** and you pass the button the
+result (which is useless). Without parentheses, you pass it the function itself so it can store
+it and call it later.
+
+**The rule:** `requestPlan` is the recipe, `requestPlan()` is cooking it. You have to give
+`addEventListener` the recipe.
+
+Other events you will use: `"submit"` (sending a form), `"input"` (while typing), `"change"` (a
+select changed).
 
 ---
 
-# 12. 🔑 `fetch`, `async` y `await`
+# 12. 🔑 `fetch`, `async` and `await`
 
-Esta sección es la más importante del lado del frontend. Es **el momento exacto** en que tu
-frontend le habla a tu backend.
+This section is the most important one on the frontend side. It is **the exact moment** your
+frontend talks to your backend.
 
-## Las cosas que tardan
+## Things that take time
 
-Pedirle algo a un servidor puede tardar 50 ms o 3 segundos. Si el navegador se quedara parado
-esperando, la página se congelaría entera.
+Asking a server for something can take 50 ms or 3 seconds. If the browser sat still waiting, the
+whole page would freeze.
 
-Por eso `fetch` no devuelve el resultado: devuelve una **promesa** (*promise*) — un "te aviso
-cuando llegue".
+That is why `fetch` does not return the result: it returns a **promise** — an "I will let you know
+when it arrives".
 
-## `await`: esperá acá
+## `await`: wait here
 
 ```javascript
-async function pedirPlan() {
-  const respuesta = await fetch("http://127.0.0.1:8000/api/plan", { ... });
-  const datos = await respuesta.json();
-  dibujar(datos);
+async function requestPlan() {
+  const response = await fetch("http://127.0.0.1:8000/api/plan", { ... });
+  const data = await response.json();
+  render(data);
 }
 ```
 
-- **`await`** = "no sigas a la línea siguiente hasta que esto llegue". Convierte la promesa en el
-  valor de verdad.
-- **`async`** = obligatorio en la función que contiene un `await`. Es el permiso.
+- **`await`** = "do not move to the next line until this arrives". It turns the promise into the
+  real value.
+- **`async`** = mandatory on the function that contains an `await`. It is the permission.
 
-**La regla mecánica:** si escribís `await` adentro, ponele `async` a la función. Si te olvidás,
-el error te lo dice: `await is only valid in async functions`.
+**The mechanical rule:** if you write `await` inside, put `async` on the function. If you forget,
+the error tells you: `await is only valid in async functions`.
 
-## La llamada completa, línea por línea
+## The complete call, line by line
 
 ```javascript
-const respuesta = await fetch("http://127.0.0.1:8000/api/plan", {
+const response = await fetch("http://127.0.0.1:8000/api/plan", {
   method: "POST",                                    // 1
   headers: { "Content-Type": "application/json" },   // 2
-  body: JSON.stringify(perfil),                      // 3
+  body: JSON.stringify(profile),                     // 3
 });
 
-const datos = await respuesta.json();                // 4
+const data = await response.json();                  // 4
 ```
 
-| # | Qué es |
+| # | What it is |
 |---|---|
-| 1 | El **método** HTTP. Sin esto, `fetch` hace un GET y tu endpoint POST responde `405`. |
-| 2 | La **cabecera**: "lo que te mando es JSON". Sin esto, FastAPI no sabe cómo leerlo. |
-| 3 | El **cuerpo**: los datos. `JSON.stringify` convierte tu objeto de JavaScript en texto. |
-| 4 | La **respuesta**. `.json()` hace el camino inverso: texto → objeto de JavaScript. |
+| 1 | The HTTP **method**. Without this, `fetch` does a GET and your POST endpoint answers `405`. |
+| 2 | The **header**: "what I am sending you is JSON". Without this, FastAPI does not know how to read it. |
+| 3 | The **body**: the data. `JSON.stringify` converts your JavaScript object into text. |
+| 4 | The **response**. `.json()` does the reverse trip: text → JavaScript object. |
 
-## Las dos traducciones
+## The two translations
 
-Este es el concepto de la sección 2, ahora del lado de JavaScript:
+This is the concept from section 2, now on the JavaScript side:
 
 ```
-    OBJETO JS                     TEXTO JSON                  DICCIONARIO PYTHON
+     JS OBJECT                     JSON TEXT                 PYTHON DICTIONARY
 
-   {peso: 70}   ──stringify──►  '{"peso":70}'  ──Pydantic──►   {"peso": 70.0}
-                                    (el cable)
-   {plan:[…]}   ◄──.json()───   '{"plan":[…]}' ◄──FastAPI───   {"plan": [...]}
+  {weight: 70}  ──stringify──► '{"weight":70}' ──Pydantic──►  {"weight": 70.0}
+                                   (the cable)
+  {plan:[…]}    ◄──.json()───  '{"plan":[…]}'  ◄──FastAPI───  {"plan": [...]}
 ```
 
-**Por el cable solo viaja texto.** Los objetos y los diccionarios son cosas vivas en la memoria
-de cada programa. Las cuatro flechas del dibujo son las cuatro traducciones, y **tres son
-automáticas** — solo `JSON.stringify` la escribís vos.
+**Only text travels down the cable.** Objects and dictionaries are living things in the memory of
+each program. The four arrows in the drawing are the four translations, and **three are
+automatic** — you only write `JSON.stringify` yourself.
 
-## Ojo: `fetch` no falla con un 404
+## Careful: `fetch` does not fail on a 404
 
-Contraintuitivo, pero importante:
+Counter-intuitive, but important:
 
 ```javascript
-const respuesta = await fetch(url);
-// Si el servidor respondió 404 o 500, ACÁ NO PASA NADA. La promesa se cumplió.
-// El servidor contestó — contestó "error", pero contestó.
+const response = await fetch(url);
+// If the server answered 404 or 500, NOTHING HAPPENS HERE. The promise was kept.
+// The server answered — it answered "error", but it answered.
 
-if (!respuesta.ok) {                  // .ok es true solo si el código es 2xx
-  console.log("Falló:", respuesta.status);
+if (!response.ok) {                  // .ok is true only if the code is 2xx
+  console.log("Failed:", response.status);
   return;
 }
 ```
 
-`fetch` solo lanza un error de verdad si **no hubo respuesta**: el servidor está apagado, no hay
-red, o CORS la bloqueó. Ese es el `Failed to fetch` que ves en la consola.
+`fetch` only throws a real error if **there was no response**: the server is off, there is no
+network, or CORS blocked it. That is the `Failed to fetch` you see in the console.
 
-En el proyecto no pusimos ese `if` para no cargar el código. **Agregalo cuando te sientas
-cómodo** — es lo que separa una demo de algo usable.
+In the project we did not put that `if` in, so as not to overload the code. **Add it when you
+feel comfortable** — it is what separates a demo from something usable.
 
 ---
 
-# 13. Dibujar HTML desde JavaScript
+# 13. Drawing HTML from JavaScript
 
-## Template literals: los backticks
+## Template literals: the backticks
 
 ```javascript
-"Hola, " + nombre + ". Tenés " + edad + " años."     // ❌ lo viejo, ilegible
-`Hola, ${nombre}. Tenés ${edad} años.`               // ✅ template literal
+"Hello, " + name + ". You are " + age + " years old."   // ❌ the old way, unreadable
+`Hello, ${name}. You are ${age} years old.`             // ✅ template literal
 ```
 
-Se usan **comillas invertidas** `` ` `` (en tu teclado suele estar al lado del `1` o del `P`) y
-las variables van dentro de `${...}`.
+You use **backticks** `` ` `` (on your keyboard it is usually next to the `1` or the `P`) and the
+variables go inside `${...}`.
 
-Sus dos ventajas: metés variables sin cortar el texto, y **pueden ocupar varias líneas**. Por eso
-sirven tanto para armar HTML:
+Their two advantages: you insert variables without cutting the text, and **they can span several
+lines**. That is why they are so useful for building HTML:
 
 ```javascript
 html += `
   <div class="card mb-3">
-    <h5>Día ${dia.dia}</h5>
+    <h5>Day ${day.day}</h5>
   </div>
 `;
 ```
 
-Es el equivalente exacto de las f-strings de Python (sección 6). Mismo concepto, otra sintaxis.
+It is the exact equivalent of Python's f-strings (section 6). Same concept, different syntax.
 
-## Construir de a pedazos
+## Building piece by piece
 
-El patrón del proyecto es el acumulador de la sección 3, pero con texto:
+The project's pattern is the accumulator from section 3, but with text:
 
 ```javascript
-let items = "";                          // 1. empezar vacío
-for (const item of lista) {
-  items += `<li>${item.alimento}</li>`;  // 2. ir pegando
+let items = "";                       // 1. start empty
+for (const item of list) {
+  items += `<li>${item.food}</li>`;   // 2. keep gluing
 }
-elemento.innerHTML = items;              // 3. meterlo todo de una
+element.innerHTML = items;            // 3. put it all in at once
 ```
 
-## `innerHTML` reemplaza todo
+## `innerHTML` replaces everything
 
 ```javascript
-document.getElementById("resultado").innerHTML = html;
+document.getElementById("result").innerHTML = html;
 ```
 
-Borra lo que hubiera dentro de ese `<div>` y pone lo nuevo. Por eso podés apretar el botón muchas
-veces sin que se acumulen los resultados.
+It deletes whatever was inside that `<div>` and puts the new thing in. That is why you can press
+the button many times without the results piling up.
 
-> 🔒 **Nota de seguridad para más adelante:** `innerHTML` interpreta lo que le das como HTML de
-> verdad. Si algún día metés ahí texto que escribió un usuario, alguien puede inyectar código.
-> En tu app de práctica todo el contenido lo generás vos, así que no hay riesgo. Pero guardate el
-> dato: se llama **XSS**, y es la misma idea de la GUIA-00 —*nunca confíes en lo que llega de
-> afuera*.
+> 🔒 **Security note for later:** `innerHTML` interprets what you give it as real HTML. If one day
+> you put text written by a user in there, someone can inject code. In your practice app you
+> generate all the content yourself, so there is no risk. But keep the fact: it is called **XSS**,
+> and it is the same idea from GUIA-01 — *never trust what comes from outside*.
 
-## `let` y `const`
+## `let` and `const`
 
 ```javascript
-const boton = ...;   // no lo voy a reasignar
-let html = "";       // sí lo voy a ir cambiando
+const button = ...;  // I am not going to reassign it
+let html = "";       // I am going to keep changing it
 ```
 
-**Usá `const` por defecto.** Cambiá a `let` solo cuando el valor de verdad tenga que cambiar. Así,
-cuando leas `const`, sabés de un vistazo que esa variable no se mueve. (`var` es la forma vieja:
-si la ves en un tutorial, el tutorial es viejo.)
+**Use `const` by default.** Switch to `let` only when the value really has to change. That way,
+when you read `const`, you know at a glance that the variable does not move. (`var` is the old
+form: if you see it in a tutorial, the tutorial is old.)
 
 ---
 
-# 14. 🔍 Depurar: encontrar el problema
+# 14. 🔍 Debugging: finding the problem
 
-**Depurar no es un castigo por escribir mal el código. Es la mitad del trabajo.** Todos los
-programadores del mundo pasan más tiempo averiguando por qué algo falla que escribiendo cosas
-nuevas.
+**Debugging is not a punishment for writing bad code. It is half the job.** Every programmer in
+the world spends more time working out why something fails than writing new things.
 
-## Primero: ¿de qué lado está el problema?
+## First: which side is the problem on?
 
-Nunca busques en los dos lados a la vez.
+Never look on both sides at once.
 
 ```
-        ¿El endpoint funciona en /docs?
+        Does the endpoint work in /docs?
                     │
         ┌───────────┴───────────┐
-       NO                      SÍ
+       NO                      YES
         │                       │
-   BACKEND roto            FRONTEND roto
-   → Terminal 1            → F12 en el navegador
-   → El error de           → Console (errores de JS)
-     Python está ahí       → Network (la petición)
-     completo
+   BACKEND broken          FRONTEND broken
+   → Terminal 1            → F12 in the browser
+   → The Python error      → Console (JS errors)
+     is there in full      → Network (the request)
 ```
 
-## `console.log`: el `print` de JavaScript
+## `console.log`: JavaScript's `print`
 
 ```javascript
-console.log(datos);
-console.log("perfil que voy a mandar:", perfil);
+console.log(data);
+console.log("profile I am about to send:", profile);
 ```
 
-Aparece en **F12 → Console**. Y tiene una ventaja sobre el `print` de Python: si le pasás un
-objeto, la consola te lo muestra **desplegable**, para abrir y cerrar cada rama. Probá hacer clic
-en el resultado de tu `console.log(datos)`.
+It appears in **F12 → Console**. And it has an advantage over Python's `print`: if you pass it an
+object, the console shows it **expandable**, so you can open and close each branch. Try clicking
+on the result of your `console.log(data)`.
 
-## Los tres lugares donde mirar
+## The three places to look
 
-| Dónde | Qué te dice |
+| Where | What it tells you |
 |---|---|
-| **Terminal 1** (uvicorn) | Errores de Python, y una línea por cada petición que llega |
-| **F12 → Console** | Errores de JavaScript (en rojo) y tus `console.log` |
-| **F12 → Network** | La conversación completa: qué mandaste, qué te contestaron, con qué código |
+| **Terminal 1** (uvicorn) | Python errors, and one line per request that arrives |
+| **F12 → Console** | JavaScript errors (in red) and your `console.log`s |
+| **F12 → Network** | The complete conversation: what you sent, what answered, with what code |
 
-En **Network**, hacé clic en tu petición y mirá estas tres pestañas:
+In **Network**, click your request and look at these three tabs:
 
-- **Headers** → el código de estado (200, 422, 500…)
-- **Payload** → **lo que tu frontend envió**
-- **Response** → **lo que el backend contestó**
+- **Headers** → the status code (200, 422, 500…)
+- **Payload** → **what your frontend sent**
+- **Response** → **what the backend answered**
 
-Comparar Payload con lo que esperaba Pydantic resuelve casi todos los `422`.
+Comparing Payload against what Pydantic expected solves almost every `422`.
 
-## Cómo leer un error de Python
+## How to read a Python error
 
 ```
 Traceback (most recent call last):
-  File "logica.py", line 47, in armar_plan
-    elegida = opciones[numero_dia]
-              ~~~~~~~~^^^^^^^^^^^^
+  File "logic.py", line 47, in build_plan
+    chosen = options[day_number]
+             ~~~~~~~^^^^^^^^^^^^
 IndexError: list index out of range
 ```
 
-**Leé de abajo hacia arriba:**
+**Read from the bottom up:**
 
-1. La **última línea** es el error: `IndexError: list index out of range` → me pasé del final de
-   una lista
-2. La **anteúltima** es la línea exacta: `opciones[numero_dia]`
-3. Arriba, el archivo y el número: `logica.py`, línea 47
+1. The **last line** is the error: `IndexError: list index out of range` → I went past the end of
+   a list
+2. The **second to last** is the exact line: `options[day_number]`
+3. Above, the file and the number: `logic.py`, line 47
 
-Con esas tres cosas ya sabés qué pasó y dónde. Y si el mensaje en inglés no te cierra, tenés la
-GUIA-02, sección 6 *(pending production)*, que es exactamente esto.
+With those three things you already know what happened and where. And if the message does not
+make sense to you, do not guess: paste it to Claude with `/explain` and ask it to tell you what
+caused it.
 
-## Los tres errores que más te van a pasar
+## The three errors that will happen to you most
 
-| Error | Casi siempre es… |
+| Error | It is almost always… |
 |---|---|
-| `KeyError: 'algo'` | Escribiste mal el nombre de una clave, o no existe en ese diccionario |
-| `IndexError` | Te pasaste del final de una lista. Acordate: la última posición es `len - 1` |
-| `TypeError: unsupported operand type(s)` | Sumás un texto con un número. Falta un `Number()` o un `int()` |
+| `KeyError: 'something'` | You misspelled a key name, or it does not exist in that dictionary |
+| `IndexError` | You went past the end of a list. Remember: the last position is `len - 1` |
+| `TypeError: unsupported operand type(s)` | You are adding text to a number. A `Number()` or an `int()` is missing |
 
-## Cuando estés trabado de verdad
+## When you are really stuck
 
-1. **Leé el error completo.** Entero. La gente lo saltea y ahí estaba la respuesta.
-2. **`print` numerados** hasta encontrar la última línea que se ejecuta.
-3. **Comentá código** hasta que funcione, y volvé a agregarlo de a poco.
-4. **Explicáselo en voz alta**, aunque sea a la pared. En serio funciona: al forzarte a decirlo
-   en palabras, encontrás el hueco. Tiene nombre: *rubber duck debugging*.
-5. **Buscá el error literal en Google**, en inglés, sin tus nombres de variables.
-6. Recién ahí, preguntá.
+1. **Read the whole error.** All of it. People skip it and the answer was right there.
+2. **Numbered `print`s** until you find the last line that runs.
+3. **Comment out code** until it works, and add it back bit by bit.
+4. **Explain it out loud**, even to the wall. It genuinely works: forcing yourself to say it in
+   words, you find the gap. It has a name: *rubber duck debugging*.
+5. **Search the literal error on Google**, without your variable names.
+6. Only then, ask.
 
 ---
 
-# 15. Git: guardar tu trabajo
+# 15. Git: saving your work
 
-Lo instalaste en el Módulo 1 de la GUIA-01 y todavía no lo usaste. Es el momento: ahora tenés un
-proyecto que te dolería perder.
+You installed it in Module 1 of GUIA-02 and have not used it yet. Now is the moment: you now have
+a project it would hurt to lose.
 
-**Git guarda fotos de tu proyecto en el tiempo.** Podés volver a cualquiera. Es la red de
-seguridad que te deja romper cosas sin miedo, que es como se aprende.
+**Git saves photos of your project through time.** You can go back to any of them. It is the
+safety net that lets you break things without fear, which is how you learn.
 
-## Antes de nada: `.gitignore`
+## Before anything: `.gitignore`
 
-Creá un archivo llamado exactamente `.gitignore` (con el punto adelante) en tu carpeta:
+Create a file called exactly `.gitignore` (with the dot in front) in your folder:
 
 ```
 venv/
 __pycache__/
 ```
 
-Le dice a Git **qué NO guardar**. El `venv` son miles de archivos que se regeneran con un
-`pip install`; guardarlos no sirve de nada y hace el proyecto pesadísimo. Esto es lo primero que
-se hace en cualquier proyecto de Python.
+It tells Git **what NOT to save**. The `venv` is thousands of files that regenerate with a
+`pip install`; saving them is useless and makes the project enormous. This is the first thing
+done in any Python project.
 
-## Los cuatro comandos
-
-```powershell
-git init                              # una sola vez: "empezá a seguir esta carpeta"
-git add .                             # "preparo TODOS los cambios"  (el . = todo)
-git commit -m "Mi app de salud v1"    # "sacá la foto, con este nombre"
-git log --oneline                     # ver todas las fotos que sacaste
-```
-
-Y el más útil de todos:
+## The four commands
 
 ```powershell
-git status                            # ¿qué cambió desde la última foto?
+git init                              # once only: "start tracking this folder"
+git add .                             # "I am staging ALL the changes"  (the . = everything)
+git commit -m "My health app v1"      # "take the photo, with this name"
+git log --oneline                     # see all the photos you took
 ```
 
-**Corré `git status` todo el tiempo.** Es gratis, no modifica nada, y te dice exactamente en qué
-estado estás.
+And the most useful of all:
 
-## El ciclo
+```powershell
+git status                            # what changed since the last photo?
+```
+
+**Run `git status` all the time.** It is free, it modifies nothing, and it tells you exactly what
+state you are in.
+
+## The cycle
 
 ```
-   escribís código
+   you write code
         │
-   git status           ← ¿qué cambié?
+   git status           ← what did I change?
         │
-   git add .            ← preparo los cambios
+   git add .            ← I stage the changes
         │
-   git commit -m "..."  ← saco la foto
+   git commit -m "..."  ← I take the photo
         │
-   (y vuelta a empezar)
+   (and round again)
 ```
 
-## Cuándo hacer un commit
+## When to make a commit
 
-Cada vez que algo **funciona**. No cuando terminás el día, no cuando está perfecto: cuando algo
-anda.
+Every time something **works**. Not when you finish the day, not when it is perfect: when
+something runs.
 
-En este proyecto serían más o menos cinco:
-
-```
-"Datos de las comidas"
-"Cálculo de calorías"
-"Plan y lista de compras funcionando en la terminal"
-"Backend con FastAPI"
-"Frontend conectado"
-```
-
-Ese es el tamaño correcto de un commit: **un paso que funciona.**
-
-## Los mensajes
-
-En imperativo y diciendo **qué** hiciste, no cómo. La
-GUIA-02, sección 13 *(pending production)* tiene el detalle de cómo escribirlos en
-inglés.
+In this project that would be roughly five:
 
 ```
-✅ "Agregar cálculo de calorías"
-✅ "Arreglar el índice fuera de rango en armar_plan"
-❌ "cambios"
+"Meal data"
+"Calorie calculation"
+"Plan and shopping list working in the terminal"
+"Backend with FastAPI"
+"Frontend connected"
+```
+
+That is the right size for a commit: **one step that works.**
+
+## The messages
+
+In the imperative, saying **what** you did, not how.
+
+```
+✅ "Add calorie calculation"
+✅ "Fix index out of range in build_plan"
+❌ "changes"
 ❌ "asdf"
-❌ "ahora sí"
+❌ "now it works"
 ```
 
 ---
 
-# Qué mirar y dónde buscar
+# What to watch and where to look
 
-> **Nota honesta:** acá no te pongo links de YouTube porque no puedo verificar que sigan vivos.
-> Te doy **las búsquedas exactas** para escribir en YouTube —te van a dar resultados actuales,
-> que es mejor que un link de hace un año— y **la documentación oficial**, que sí es estable.
+> **Honest note:** I am not putting YouTube links here because I cannot verify they are still
+> alive. I give you **the exact searches** to type into YouTube — they will give you current
+> results, which is better than a link from a year ago — and **the official documentation**, which
+> is stable.
 
-## Búsquedas en YouTube, en orden de urgencia
+## YouTube searches, in order of urgency
 
-| Prioridad | Buscá exactamente esto | Para qué |
+| Priority | Search exactly this | What for |
 |---|---|---|
-| ⭐⭐⭐ | `curso python desde cero listas y diccionarios` | Secciones 1-4. **Es lo que más te falta.** |
-| ⭐⭐⭐ | `javascript para principiantes DOM eventos` | Secciones 10-11 |
-| ⭐⭐⭐ | `javascript fetch api tutorial español` | Sección 12 |
-| ⭐⭐ | `python funciones parametros return` | Sección 4 |
-| ⭐⭐ | `async await javascript explicado` | Sección 12 |
-| ⭐⭐ | `git y github desde cero para principiantes` | Sección 15 |
-| ⭐ | `fastapi pydantic modelos` | Sección 8 |
-| ⭐ | `que es CORS y como solucionarlo` | Sección 9 |
+| ⭐⭐⭐ | `python lists and dictionaries for beginners` | Sections 1-4. **It is what you lack most.** |
+| ⭐⭐⭐ | `javascript for beginners DOM events` | Sections 10-11 |
+| ⭐⭐⭐ | `javascript fetch api tutorial` | Section 12 |
+| ⭐⭐ | `python functions parameters return` | Section 4 |
+| ⭐⭐ | `async await javascript explained` | Section 12 |
+| ⭐⭐ | `git and github from scratch for beginners` | Section 15 |
+| ⭐ | `fastapi pydantic models` | Section 8 |
+| ⭐ | `what is CORS and how to fix it` | Section 9 |
 
-Filtrá por **"Este año"** cuando busques cosas de JavaScript. Para Python la antigüedad importa
-mucho menos: un video de Python de 2020 sigue siendo válido.
+Filter by **"This year"** when you search for JavaScript things. For Python the age matters much
+less: a Python video from 2020 is still valid.
 
-## Documentación oficial
+## Official documentation
 
-Estas páginas son las fuentes de verdad. Acostumbrate a ir a ellas antes que a un blog:
+These pages are the sources of truth. Get used to going to them before a blog:
 
-| Recurso | Para qué | Dirección |
+| Resource | What for | Address |
 |---|---|---|
-| **MDN** | *La* referencia de HTML, CSS y JavaScript. Está en español y es excelente. | `developer.mozilla.org/es/` |
-| **Documentación de FastAPI** | Tutorial oficial, muy bien escrito y con ejemplos que andan | `fastapi.tiangolo.com` |
-| **Tutorial de Python** | El tutorial oficial del lenguaje | `docs.python.org/es/3/tutorial/` |
-| **Documentación de Bootstrap** | Copiá y pegá componentes de acá | `getbootstrap.com/docs/5.3/` |
+| **MDN** | *The* reference for HTML, CSS and JavaScript. Excellent. | `developer.mozilla.org` |
+| **FastAPI documentation** | Official tutorial, very well written and with examples that work | `fastapi.tiangolo.com` |
+| **Python tutorial** | The official tutorial of the language | `docs.python.org/3/tutorial/` |
+| **Bootstrap documentation** | Copy and paste components from here | `getbootstrap.com/docs/5.3/` |
 
-**Truco de búsqueda:** poné `mdn` al final de lo que busques en Google.
-`javascript addeventlistener mdn` te lleva directo a la buena, sin pasar por cinco blogs con
-publicidad.
+**Search trick:** put `mdn` at the end of what you search for on Google.
+`javascript addeventlistener mdn` takes you straight to the good one, without going through five
+blogs full of ads.
 
-## Cómo estudiar esto sin perder el tiempo
+## How to study this without wasting time
 
-Lo dice la GUIA-01 y lo repito porque es lo que más falla:
+GUIA-02 says it and I repeat it because it is what fails most:
 
-**Mirar tutoriales se siente como aprender, pero no lo es.** La única prueba de que aprendiste
-algo es poder hacerlo con el editor vacío y sin el video.
+**Watching tutorials feels like learning, but it is not.** The only proof you learned something is
+being able to do it with an empty editor and no video.
 
-El ciclo que sí funciona:
+The cycle that does work:
 
 ```
-1. Frenar cuando el proyecto te pide algo que no sabés
-2. Buscar SOLO eso (no el curso completo de 8 horas)
-3. Volver al proyecto y usarlo
-4. Repetir
+1. Stop when the project asks you for something you do not know
+2. Search for ONLY that (not the complete 8-hour course)
+3. Go back to the project and use it
+4. Repeat
 ```
 
-Aprender con un proyecto que te importa es lento al principio y muchísimo más rápido después,
-porque cada concepto llega cuando lo necesitás y se te queda pegado a un problema real.
+Learning with a project you care about is slow at first and much faster afterwards, because every
+concept arrives when you need it and sticks to a real problem.
 
 ---
 
-# Glosario de la Guía 03
+# Glossary for Guide 03
 
-| Término | Significado |
+| Term | Meaning |
 |---|---|
-| **Lista** | Colección ordenada, entre `[ ]`. Se accede por posición, desde 0. |
-| **Diccionario** | Colección de pares `clave: valor`, entre `{ }`. Se accede por nombre. |
-| **Índice** | La posición de un elemento en una lista. El primero es el 0. |
-| **Clave (key)** | El nombre de una entrada en un diccionario. |
-| **Bucle / loop** | Repetir algo. En Python, `for`. |
-| **Iterar** | Recorrer una colección elemento por elemento. |
-| **Indentación** | Los espacios al principio de la línea. En Python **es sintaxis**, no estilo. |
-| **Función** | Bloque de código con nombre, que recibe parámetros y devuelve algo. |
-| **Parámetro** | Lo que una función declara que necesita recibir. |
-| **Argumento** | El valor concreto que le pasás al llamarla. |
-| **`return`** | Lo que la función devuelve. Sin él, devuelve `None`. |
-| **Acumulador** | Variable que empieza vacía y se va llenando dentro de un bucle. |
-| **`import`** | Traer código de otro archivo. |
-| **Serializar** | Convertir un objeto en texto (dict → JSON). Lo inverso es *parsear*. |
-| **Pydantic** | La librería que FastAPI usa para validar los datos que entran. |
-| **`BaseModel`** | La clase de Pydantic con la que declarás la forma de los datos. |
-| **`422`** | El código que devuelve FastAPI cuando los datos no cumplen el modelo. |
-| **Middleware** | Código que se ejecuta con cada petición, antes o después de tu función. |
-| **CORS** | La regla del navegador sobre peticiones entre orígenes distintos. |
-| **Origen** | La combinación protocolo + dominio + puerto. `http://localhost:8000`. |
-| **DOM** | El árbol de objetos que el navegador arma a partir de tu HTML. |
-| **Evento** | Algo que hace el usuario: un clic, escribir, enviar un formulario. |
-| **Listener** | La función que queda esperando un evento. |
-| **`fetch`** | La función de JavaScript que hace peticiones HTTP. |
-| **Promesa (promise)** | Un valor que todavía no llegó. `await` espera a que llegue. |
-| **`async` / `await`** | Cómo se escribe código que espera, sin congelar la página. |
-| **`JSON.stringify`** | Objeto de JavaScript → texto JSON. |
-| **`.json()`** | Texto JSON → objeto de JavaScript. |
-| **Template literal** | Texto entre backticks `` ` `` que admite `${variables}` y varias líneas. |
-| **`innerHTML`** | El contenido HTML de un elemento. Asignarlo lo reemplaza todo. |
-| **XSS** | Ataque que inyecta código a través de contenido no confiable. |
-| **Depurar (debug)** | Encontrar y arreglar la causa de un error. |
-| **Traceback** | El informe de error de Python. Se lee de abajo hacia arriba. |
-| **Commit** | Una foto guardada de tu proyecto en Git. |
-| **`.gitignore`** | El archivo que lista lo que Git debe ignorar. |
-| **Repositorio** | La carpeta que Git está siguiendo. |
+| **List** | Ordered collection, in `[ ]`. Accessed by position, from 0. |
+| **Dictionary** | Collection of `key: value` pairs, in `{ }`. Accessed by name. |
+| **Index** | The position of an element in a list. The first is 0. |
+| **Key** | The name of an entry in a dictionary. |
+| **Loop** | Repeating something. In Python, `for`. |
+| **Iterate** | Walk through a collection element by element. |
+| **Indentation** | The spaces at the start of the line. In Python **it is syntax**, not style. |
+| **Function** | Named block of code that receives parameters and returns something. |
+| **Parameter** | What a function declares it needs to receive. |
+| **Argument** | The concrete value you pass when calling it. |
+| **`return`** | What the function gives back. Without it, it returns `None`. |
+| **Accumulator** | A variable that starts empty and fills up inside a loop. |
+| **`import`** | Bring code in from another file. |
+| **Serialise** | Turn an object into text (dict → JSON). The reverse is *parsing*. |
+| **Pydantic** | The library FastAPI uses to validate incoming data. |
+| **`BaseModel`** | The Pydantic class you declare the shape of the data with. |
+| **`422`** | The code FastAPI returns when the data does not match the model. |
+| **Middleware** | Code that runs with every request, before or after your function. |
+| **CORS** | The browser rule about requests between different origins. |
+| **Origin** | The combination protocol + domain + port. `http://localhost:8000`. |
+| **DOM** | The tree of objects the browser builds from your HTML. |
+| **Event** | Something the user does: a click, typing, submitting a form. |
+| **Listener** | The function left waiting for an event. |
+| **`fetch`** | The JavaScript function that makes HTTP requests. |
+| **Promise** | A value that has not arrived yet. `await` waits for it. |
+| **`async` / `await`** | How you write code that waits, without freezing the page. |
+| **`JSON.stringify`** | JavaScript object → JSON text. |
+| **`.json()`** | JSON text → JavaScript object. |
+| **Template literal** | Text between backticks `` ` `` that allows `${variables}` and several lines. |
+| **`innerHTML`** | The HTML content of an element. Assigning it replaces everything. |
+| **XSS** | An attack that injects code through untrusted content. |
+| **Debug** | Find and fix the cause of an error. |
+| **Traceback** | Python's error report. Read from the bottom up. |
+| **Commit** | A saved photo of your project in Git. |
+| **`.gitignore`** | The file listing what Git should ignore. |
+| **Repository** | The folder Git is tracking. |
 
 ---
 
-# Checklist de comprensión
+# Comprehension checklist
 
-El estándar es el mismo de siempre: **¿lo puedo explicar sin mirar?**
+The standard is the same as always: **can I explain it without looking?**
 
 ## Python
-- [ ] Sé la diferencia entre una lista y un diccionario, y cuándo usar cada una
-- [ ] Sé por qué los índices empiezan en 0 y por qué el último es `len - 1`
-- [ ] Puedo leer una lista de diccionarios y decir qué hay adentro
-- [ ] **Puedo explicar por qué un diccionario de Python se parece tanto al JSON, y en qué se diferencian**
-- [ ] Entiendo que la indentación en Python cambia el significado del código
-- [ ] Puedo escribir un bucle acumulador (empezar en 0, ir sumando)
-- [ ] Sé leer tres `for` anidados siguiendo la indentación
-- [ ] Sé la diferencia entre definir una función y ejecutarla
-- [ ] Sé qué hace `%` y para qué sirve recorrer en círculo
-- [ ] Entiendo por qué el proyecto está separado en `datos`, `logica` y `main`
+- [ ] I know the difference between a list and a dictionary, and when to use each
+- [ ] I know why indexes start at 0 and why the last is `len - 1`
+- [ ] I can read a list of dictionaries and say what is inside
+- [ ] **I can explain why a Python dictionary looks so much like JSON, and how they differ**
+- [ ] I understand that indentation in Python changes the meaning of the code
+- [ ] I can write an accumulator loop (start at 0, keep adding)
+- [ ] I can read three nested `for` loops by following the indentation
+- [ ] I know the difference between defining a function and running it
+- [ ] I know what `%` does and what going round in a circle is for
+- [ ] I understand why the project is split into `data`, `logic` and `main`
 
 ## Backend
-- [ ] Sé por qué `/api/plan` es POST y no GET
-- [ ] Puedo explicar qué hace `class Perfil(BaseModel)` y qué pasa si mando datos mal
-- [ ] Sé qué significa un `422`
-- [ ] **Puedo explicar CORS: quién bloquea, por qué, y por qué `/docs` funciona igual**
-- [ ] Sé que `allow_origins=["*"]` es solo para practicar
+- [ ] I know why `/api/plan` is POST and not GET
+- [ ] I can explain what `class Profile(BaseModel)` does and what happens if I send bad data
+- [ ] I know what a `422` means
+- [ ] **I can explain CORS: who blocks, why, and why `/docs` works anyway**
+- [ ] I know that `allow_origins=["*"]` is only for practising
 
 ## Frontend
-- [ ] Sé qué es el DOM y sé encontrarlo en F12 → Elements
-- [ ] Sé por qué `.value` siempre devuelve texto y para qué está el `Number()`
-- [ ] Sé la diferencia entre `pedirPlan` y `pedirPlan()` en un `addEventListener`
-- [ ] **Puedo explicar el camino completo: objeto JS → stringify → texto → Pydantic → dict**
-- [ ] Sé para qué está el `await` y por qué la función tiene que ser `async`
-- [ ] Sé que un `404` no hace fallar a `fetch`
-- [ ] Sé usar template literals con backticks
+- [ ] I know what the DOM is and can find it in F12 → Elements
+- [ ] I know why `.value` always returns text and what the `Number()` is for
+- [ ] I know the difference between `requestPlan` and `requestPlan()` in an `addEventListener`
+- [ ] **I can explain the complete path: JS object → stringify → text → Pydantic → dict**
+- [ ] I know what the `await` is for and why the function has to be `async`
+- [ ] I know that a `404` does not make `fetch` fail
+- [ ] I can use template literals with backticks
 
-## Oficio
-- [ ] Ante un error, sé decidir si mirar la terminal o el navegador
-- [ ] Uso `console.log` y `print` sin que me dé vergüenza
-- [ ] Sé leer un traceback de Python de abajo hacia arriba
-- [ ] Sé mirar Payload y Response en la pestaña Network
-- [ ] Hice `git init`, `git add`, `git commit` en mi proyecto
-- [ ] Tengo un `.gitignore` con `venv/`
+## Craft
+- [ ] Faced with an error, I can decide whether to look at the terminal or the browser
+- [ ] I use `console.log` and `print` without being embarrassed
+- [ ] I can read a Python traceback from the bottom up
+- [ ] I can look at Payload and Response in the Network tab
+- [ ] I ran `git init`, `git add`, `git commit` in my project
+- [ ] I have a `.gitignore` with `venv/`
 
 ---
 
-## Reglas de estudio (las mismas de siempre)
+## Study rules (the same as always)
 
-1. **Escribí el código a mano.** Copiar y pegar no genera memoria.
-2. **Rompé cosas a propósito.** Sacá el `%`, sacá el `Number()`, apagá el backend. Mirá qué error
-   da. Provocar un error a propósito enseña más que evitarlo.
-3. **Un concepto por vez.** No leas esta guía entera hoy. Leé lo que el proyecto te está pidiendo
-   ahora.
-4. **Terminá el proyecto aunque quede feo.** Feo y terminado le gana a lindo y abandonado,
-   siempre.
-5. **Si no entendés algo, preguntá "¿por qué?" hasta el fondo.** No memorices: entendé.
+1. **Type the code by hand.** Copy and paste builds no memory.
+2. **Break things on purpose.** Take out the `%`, take out the `Number()`, switch the backend off.
+   Look at the error it gives. Causing an error on purpose teaches more than avoiding it.
+3. **One concept at a time.** Do not read this whole guide today. Read what the project is asking
+   you for right now.
+4. **Finish the project even if it is ugly.** Ugly and finished beats pretty and abandoned, every
+   time.
+5. **If you do not understand something, ask "why?" all the way down.** Do not memorise:
+   understand.

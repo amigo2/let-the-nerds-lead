@@ -1,206 +1,211 @@
-# Tarea 01 — "La Cesta": tu primera app completa (FE + BE + DB + GitHub)
+# Assignment 01 — "The Basket": your first complete app (FE + BE + DB + GitHub)
 
-> Para Enmanuel. Creado el 31 de julio de 2026.
+> For Enmanuel. Created 31 July 2026.
 >
-> **Antes de esto tenés que haber terminado la [GUIA-00](../guides/GUIA-00-Que-es-una-App-Web-FE-y-BE.md) y
-> la [GUIA-01](../guides/GUIA-01-Terminal-y-Primeros-Proyectos.md).** Todo lo que hay acá se apoya en eso.
+> **Before this you have to have finished [GUIA-01](../guides/GUIA-01-Que-es-una-App-Web-FE-y-BE.md) and
+> [GUIA-02](../guides/GUIA-02-Terminal-y-Primeros-Proyectos.md).** Everything here builds on those.
 >
-> Esta ya no es una guía: es una **tarea**. Hay cosas que te doy hechas para que no te trabes, y
-> hay cosas marcadas con **🔧 TU TURNO** que tenés que resolver vos. Esas son las que valen.
+> This is no longer a guide: it is an **assignment**. Some things are given to you done so you do
+> not get stuck, and some are marked **🔧 YOUR TURN** and you have to solve them yourself. Those
+> are the ones that count.
 >
-> Tiempo estimado: entre 10 y 15 horas repartidas en varios días. No lo hagas de una sentada.
+> Estimated time: between 10 and 15 hours spread over several days. Do not do it in one sitting.
 
 ---
 
-## Índice
+## Index
 
-- [Qué vas a construir](#qué-vas-a-construir)
-- [Por qué esta tarea y no otra](#por-qué-esta-tarea-y-no-otra)
-- [⚠️ Aviso: esta app NO tiene seguridad](#️-aviso-esta-app-no-tiene-seguridad)
-- [Parte 0 — GitHub desde cero](#parte-0--github-desde-cero)
-- [Parte 1 — La base de datos con Docker](#parte-1--la-base-de-datos-con-docker)
-- [Parte 2 — El backend (FastAPI + PostgreSQL)](#parte-2--el-backend-fastapi--postgresql)
-- [Parte 3 — El frontend (React)](#parte-3--el-frontend-react)
-- [Parte 4 — Conectar los tres](#parte-4--conectar-los-tres)
-- [Parte 5 — Subirlo a GitHub](#parte-5--subirlo-a-github)
-- [🔧 Lo que tenés que hacer vos](#-lo-que-tenés-que-hacer-vos)
-- [Criterios de entrega](#criterios-de-entrega)
-- [Errores comunes y cómo leerlos](#errores-comunes-y-cómo-leerlos)
-- [Glosario](#glosario)
+- [What you are going to build](#what-you-are-going-to-build)
+- [Why this assignment and not another](#why-this-assignment-and-not-another)
+- [Warning: this app has NO security](#warning-this-app-has-no-security)
+- [Part 0 — GitHub from scratch](#part-0--github-from-scratch)
+- [Part 1 — The database with Docker](#part-1--the-database-with-docker)
+- [Part 2 — The backend (FastAPI + PostgreSQL)](#part-2--the-backend-fastapi--postgresql)
+- [Part 3 — The frontend (React)](#part-3--the-frontend-react)
+- [Part 4 — Connecting the three](#part-4--connecting-the-three)
+- [Part 5 — Pushing it to GitHub](#part-5--pushing-it-to-github)
+- [🔧 What you have to do yourself](#-what-you-have-to-do-yourself)
+- [Submission criteria](#submission-criteria)
+- [Common errors and how to read them](#common-errors-and-how-to-read-them)
+- [Glossary](#glossary)
 - [Checklist](#checklist)
 
 ---
 
-# Qué vas a construir
+# What you are going to build
 
-Una **cesta de la compra** con base de datos de verdad. Suena tonto, pero es literalmente el
-esqueleto de casi cualquier SaaS que se vende hoy: hay unos productos, el usuario elige, se calcula
-un total, y todo eso queda guardado.
+A **shopping basket** with a real database. It sounds trivial, but it is literally the skeleton of
+almost any SaaS sold today: there are some products, the user chooses, a total is calculated, and
+all of it is stored.
 
 ```
 ┌────────────────────┐     ┌────────────────────┐     ┌────────────────────┐
 │  FRONTEND (React)  │     │ BACKEND (FastAPI)  │     │  DB (PostgreSQL)   │
 │  localhost:5173    │◄───►│  127.0.0.1:8000    │◄───►│  localhost:5432    │
-│                    │JSON │                    │ SQL │  dentro de Docker  │
-│ - lista productos  │     │ - lee/escribe DB   │     │                    │
-│ - botón "Agregar"  │     │ - calcula el total │     │ - tabla productos  │
-│ - muestra la cesta │     │ - valida datos     │     │ - tabla cesta      │
+│                    │JSON │                    │ SQL │  inside Docker     │
+│ - product list     │     │ - reads/writes DB  │     │                    │
+│ - "Add" button     │     │ - computes total   │     │ - products table   │
+│ - shows the basket │     │ - validates data   │     │ - basket table     │
 └────────────────────┘     └────────────────────┘     └────────────────────┘
-   tu navegador              tu máquina (venv)          contenedor Docker
+   your browser              your machine (venv)        Docker container
 ```
 
-Fijate que es el dibujo de la GUIA-00 completo: las tres capas. La diferencia es que esta vez las
-escribís vos.
+Notice it is the complete drawing from GUIA-01: the three layers. The difference is that this time
+you write them.
 
-**Dos reglas de diseño que no se negocian:**
+**Two design rules that are not up for negotiation:**
 
-1. **El total se calcula en el backend**, nunca en el frontend. Acordate de la regla de oro de la
-   GUIA-00: si el precio se calculara en React, cualquiera abre las DevTools y se compra un coche
-   por un euro.
-2. **El frontend nunca habla con la base de datos.** Solo habla con el backend. La flecha
-   `React ──► PostgreSQL` no existe y no debe existir nunca.
-
----
-
-# Por qué esta tarea y no otra
-
-Cuatro motivos:
-
-1. **Junta todo lo de la GUIA-01** en un solo proyecto: terminal, venv, FastAPI, React, Bootstrap.
-2. **Te obliga a que las tres capas se hablen**, que es donde de verdad se entiende qué es una API.
-   Hasta ahora los levantaste por separado.
-3. **Te mete una base de datos real en Docker**, que es como se trabaja en cualquier empresa hoy.
-4. **Te mete GitHub**, la herramienta que vas a usar todos los días del resto de tu carrera y de la
-   que ahora mismo no sabés nada. Ninguna empresa te contrata sin esto.
+1. **The total is calculated in the backend**, never in the frontend. Remember the golden rule from
+   GUIA-01: if the price were calculated in React, anyone could open the DevTools and buy a car for
+   one euro.
+2. **The frontend never talks to the database.** It only talks to the backend. The arrow
+   `React ──► PostgreSQL` does not exist and must never exist.
 
 ---
 
-# ⚠️ Aviso: esta app NO tiene seguridad
+# Why this assignment and not another
 
-Esto es **a propósito**, y quiero que lo tengas claro desde el principio.
+Four reasons:
 
-Esta app no tiene:
-
-- login ni usuarios,
-- contraseñas,
-- permisos,
-- protección de ningún tipo.
-
-Hay **una sola cesta global**: si dos personas abrieran la app a la vez, compartirían la misma. En
-un SaaS de verdad cada usuario tiene la suya, y para eso hace falta autenticación (JWT, sesiones,
-hashing de contraseñas), que es un módulo entero más adelante.
-
-Meter todo eso ahora te haría fracasar en la tarea: son demasiados conceptos nuevos de golpe. Lo
-que sí tenés que hacer es **saber que falta**. Si alguna vez en una entrevista te preguntan por
-este proyecto, la respuesta correcta no es "no sabía", es:
-
-> "No tiene auth a propósito, era una práctica de integración FE-BE-DB. Para hacerlo multiusuario
-> habría que añadir usuarios, login con JWT y asociar cada cesta a un usuario."
-
-Esa respuesta vale oro. La otra te hunde.
+1. **It brings together everything from GUIA-02** in a single project: terminal, venv, FastAPI,
+   React, Bootstrap.
+2. **It forces the three layers to talk to each other**, which is where you really understand what
+   an API is. Until now you started them separately.
+3. **It puts a real database in Docker**, which is how any company works today.
+4. **It puts you on GitHub**, the tool you will use every day for the rest of your career and about
+   which you currently know nothing. No company hires you without this.
 
 ---
 
-# Parte 0 — GitHub desde cero
+# Warning: this app has NO security
 
-Esto va primero. Vas a crear el repositorio **antes** de escribir código, porque así vas guardando
-el trabajo desde el minuto uno en vez de subir un bulto al final.
+> ⚠️ This app is deliberately insecure. Read this section before you start.
 
-## 0.1 Git y GitHub no son lo mismo
+This is **on purpose**, and I want it clear from the start.
 
-Esta confusión la tiene todo el mundo al principio, así que aclarémosla ya:
+This app has no:
 
-| | Qué es | Dónde vive |
+- login or users,
+- passwords,
+- permissions,
+- protection of any kind.
+
+There is **a single global basket**: if two people opened the app at once, they would share it. In a
+real SaaS every user has their own, and that needs authentication (JWT, sessions, password hashing),
+which is a whole module later on.
+
+Putting all that in now would make you fail the assignment: too many new concepts at once. What you
+do have to do is **know that it is missing**. If someone in an interview ever asks you about this
+project, the correct answer is not "I did not know", it is:
+
+> "It has no auth on purpose, it was an FE-BE-DB integration exercise. To make it multi-user you
+> would add users, JWT login, and associate each basket with a user."
+
+That answer is worth gold. The other one sinks you.
+
+---
+
+# Part 0 — GitHub from scratch
+
+This comes first. You are going to create the repository **before** writing code, because that way
+you save your work from minute one instead of uploading a lump at the end.
+
+## 0.1 Git and GitHub are not the same thing
+
+Everyone gets this confused at the start, so let us clear it up now:
+
+| | What it is | Where it lives |
 |---|---|---|
-| **Git** | Un programa que guarda el historial de cambios de tus archivos | En tu computadora |
-| **GitHub** | Una web donde subís ese historial para tenerlo a salvo y compartirlo | En internet |
+| **Git** | A program that stores the change history of your files | On your computer |
+| **GitHub** | A website where you upload that history to keep it safe and share it | On the internet |
 
-Git funciona perfectamente sin internet y sin GitHub. GitHub sin Git no sirve de nada.
+Git works perfectly without the internet and without GitHub. GitHub without Git is useless.
 
-La analogía: **Git es escribir el diario. GitHub es la caja fuerte donde lo guardás.**
+The analogy: **Git is writing the diary. GitHub is the safe you keep it in.**
 
-## 0.2 Los cuatro conceptos que necesitás
+## 0.2 The four concepts you need
 
-No hay más por ahora. No leas tutoriales de ramas todavía.
+There are no more for now. Do not read branch tutorials yet.
 
-| Concepto | Qué es | Analogía |
+| Concept | What it is | Analogy |
 |---|---|---|
-| **Repositorio** (*repo*) | La carpeta de tu proyecto, pero con historial | El álbum de fotos |
-| **Commit** | Una foto del estado de tus archivos en un momento dado | Una foto del álbum |
-| **Push** | Mandar tus commits a GitHub | Subir las fotos a la nube |
-| **Clone** | Bajarte a tu máquina un repo que está en GitHub | Descargarte el álbum de otro |
+| **Repository** (*repo*) | Your project folder, but with history | The photo album |
+| **Commit** | A photo of the state of your files at a given moment | A photo in the album |
+| **Push** | Sending your commits to GitHub | Uploading the photos to the cloud |
+| **Clone** | Downloading to your machine a repo that is on GitHub | Downloading someone else's album |
 
-Un commit tiene siempre dos cosas: **los cambios** y **un mensaje** que explica qué hiciste. El
-mensaje importa. `"cambios"` no es un mensaje. `"agregar endpoint para vaciar la cesta"` sí lo es.
+A commit always has two things: **the changes** and **a message** explaining what you did. The
+message matters. `"changes"` is not a message. `"add endpoint to empty the basket"` is.
 
-## 0.3 Crear la cuenta
+## 0.3 Create the account
 
-1. Andá a [github.com](https://github.com) y creá una cuenta.
-2. Elegí bien el nombre de usuario: **esto es tu CV.** Los que te van a contratar lo van a mirar.
-   `enmanuel-dev` sirve. `xXpro_gamer99Xx` no.
-3. Verificá el email.
+1. Go to [github.com](https://github.com) and create an account.
+2. Choose the username carefully: **this is your CV.** The people who will hire you are going to
+   look at it. `enmanuel-dev` works. `xXpro_gamer99Xx` does not.
+3. Verify the email.
 
-## 0.4 Configurar Git en tu máquina (una sola vez en la vida)
+## 0.4 Configure Git on your machine (once in your life)
 
-Git ya lo instalaste en el Módulo 1 de la GUIA-01. Ahora hay que decirle quién sos, para que pueda
-firmar tus commits:
+You already installed Git in Module 1 of GUIA-02. Now you have to tell it who you are, so it can
+sign your commits:
 
 ```powershell
-git config --global user.name "Enmanuel Apellido"
-git config --global user.email "el-email-de-tu-cuenta-de-github@ejemplo.com"
+git config --global user.name "Enmanuel Surname"
+git config --global user.email "your-github-account-email@example.com"
 ```
 
-| Parte | Qué hace |
+| Part | What it does |
 |---|---|
-| `git config` | El comando para configurar Git |
-| `--global` | "Para todos mis proyectos", no solo para este |
-| `user.email` | **Tiene que ser el mismo email de tu cuenta de GitHub**, o tus commits no se van a asociar a tu perfil |
+| `git config` | The command for configuring Git |
+| `--global` | "For all my projects", not just this one |
+| `user.email` | **It has to be the same email as your GitHub account**, or your commits will not be associated with your profile |
 
-Comprobá que quedó bien:
+Check that it worked:
 
 ```powershell
 git config --global --list
 ```
 
-## 0.5 Crear el repositorio en GitHub
+## 0.5 Create the repository on GitHub
 
-1. En GitHub, botón **New repository**.
-2. Nombre: `cesta`
-3. Descripción: `Mi primera app full stack: React + FastAPI + PostgreSQL`
+1. On GitHub, the **New repository** button.
+2. Name: `basket`
+3. Description: `My first full stack app: React + FastAPI + PostgreSQL`
 4. **Public**.
-5. **NO marques** ninguna de las casillas de abajo (README, .gitignore, licencia). Las dejamos
-   vacías porque el repo lo vamos a crear desde tu máquina y si GitHub crea archivos, chocan.
+5. **Do NOT tick** any of the boxes below (README, .gitignore, licence). We leave them empty because
+   we are going to create the repo from your machine, and if GitHub creates files they collide.
 6. **Create repository**.
 
-Te va a quedar una página con unos comandos. No los corras todavía; los vemos en la Parte 5.
+You will end up on a page with some commands. Do not run them yet; we cover them in Part 5.
 
-## 0.6 Crear el proyecto local
+## 0.6 Create the local project
 
 ```powershell
 cd C:\dev
-mkdir cesta
-cd cesta
+mkdir basket
+cd basket
 git init
 ```
 
-`git init` convierte esa carpeta normal en un repositorio: crea una carpeta oculta `.git` donde va a
-vivir todo el historial. Si borrás `.git`, perdés el historial y vuelve a ser una carpeta normal.
+`git init` turns that ordinary folder into a repository: it creates a hidden `.git` folder where all
+the history will live. If you delete `.git`, you lose the history and it goes back to being an
+ordinary folder.
 
-## 0.7 El `.gitignore` — el archivo más importante de esta parte
+## 0.7 The `.gitignore` — the most important file in this part
 
-⚠️ **Leé esto con atención porque es donde falla el 90% de la gente que empieza.**
+⚠️ **Read this carefully because it is where 90% of people starting out go wrong.**
 
-Hay carpetas que **NUNCA** se suben a GitHub:
+There are folders that are **NEVER** pushed to GitHub:
 
-| Carpeta | Por qué no |
+| Folder | Why not |
 |---|---|
-| `node_modules/` | Son miles de archivos y cientos de megas. Se regeneran con `npm install`. Subirlas es de novato y además revienta el repo. |
-| `venv/` | Lo mismo, pero de Python. Se regenera con `pip install`. |
-| `__pycache__/` | Archivos temporales de Python. Basura. |
-| `.env` | **Acá van las contraseñas y claves.** Si esto se sube a un repo público, te roban las claves en minutos. Hay bots que escanean GitHub buscando exactamente esto. |
+| `node_modules/` | Thousands of files and hundreds of megabytes. They regenerate with `npm install`. Pushing them is a rookie move and it wrecks the repo. |
+| `venv/` | The same, but for Python. It regenerates with `pip install`. |
+| `__pycache__/` | Python temporary files. Rubbish. |
+| `.env` | **This is where passwords and keys live.** If this goes into a public repo, your keys are stolen within minutes. There are bots scanning GitHub for exactly this. |
 
-El `.gitignore` es un archivo de texto donde listás lo que Git tiene que ignorar. Creá uno en
-`C:\dev\cesta\.gitignore` con este contenido:
+The `.gitignore` is a text file where you list what Git has to ignore. Create one at
+`C:\dev\basket\.gitignore` with this content:
 
 ```gitignore
 # Python
@@ -212,11 +217,11 @@ __pycache__/
 node_modules/
 dist/
 
-# Entorno y secretos
+# Environment and secrets
 .env
 .env.local
 
-# Sistema
+# System
 .DS_Store
 Thumbs.db
 
@@ -224,32 +229,32 @@ Thumbs.db
 .vscode/
 ```
 
-> El `#` es un comentario, igual que en Python. Las líneas con `/` al final son carpetas.
+> The `#` is a comment, just like in Python. Lines with a `/` at the end are folders.
 
-**Creá el `.gitignore` ANTES de instalar nada.** Si primero instalás y después ignorás, Git ya
-"vio" esos archivos y hay que sacarlos a mano, que es un lío innecesario.
+**Create the `.gitignore` BEFORE installing anything.** If you install first and ignore afterwards,
+Git has already "seen" those files and you have to remove them by hand, which is a needless mess.
 
-## 0.8 Tu primer commit
+## 0.8 Your first commit
 
 ```powershell
 git status
 ```
 
-Te va a decir que hay un archivo sin seguir (`.gitignore`). `git status` es el comando que más vas a
-usar en tu vida: siempre te dice en qué estado estás. **Ante la duda, `git status`.**
+It will tell you there is an untracked file (`.gitignore`). `git status` is the command you will use
+most in your life: it always tells you what state you are in. **When in doubt, `git status`.**
 
 ```powershell
 git add .gitignore
-git commit -m "agregar gitignore"
+git commit -m "add gitignore"
 ```
 
-| Comando | Qué hace |
+| Command | What it does |
 |---|---|
-| `git add <archivo>` | "Este archivo entra en la próxima foto". Se llama *stage*. |
-| `git add .` | El punto significa "todo lo que hay acá". Cuidado con este, mirá siempre `git status` antes. |
-| `git commit -m "mensaje"` | Saca la foto. `-m` es el mensaje. |
+| `git add <file>` | "This file goes into the next photo". It is called *staging*. |
+| `git add .` | The dot means "everything here". Be careful with this one, always look at `git status` first. |
+| `git commit -m "message"` | Takes the photo. `-m` is the message. |
 
-Ya tenés tu primer commit. Mirá el historial:
+You already have your first commit. Look at the history:
 
 ```powershell
 git log --oneline
@@ -257,154 +262,154 @@ git log --oneline
 
 ---
 
-# Parte 1 — La base de datos con Docker
+# Part 1 — The database with Docker
 
-## 1.1 Qué es Docker, en una frase
+## 1.1 What Docker is, in one sentence
 
-**Docker es un programa que levanta otros programas ya instalados y configurados, dentro de una
-cajita aislada de tu sistema.**
+**Docker is a program that starts other programs, already installed and configured, inside a little
+box isolated from your system.**
 
-Esa cajita se llama **contenedor**.
+That little box is called a **container**.
 
-La analogía: instalar PostgreSQL a mano en Windows es como montar un mueble de IKEA. Docker es que
-te llegue montado, y que puedas tirarlo y pedir otro idéntico en 10 segundos.
+The analogy: installing PostgreSQL by hand on Windows is like assembling IKEA furniture. Docker is
+having it arrive assembled, and being able to throw it away and ask for an identical one in 10
+seconds.
 
-## 1.2 Qué vamos a meter en Docker y qué no
+## 1.2 What we are going to put in Docker and what we are not
 
-⚠️ **Esto es importante que lo entiendas bien**, porque se malinterpreta mucho:
+⚠️ **It is important you understand this properly**, because it is widely misread:
 
-| Pieza | ¿En Docker? | Por qué |
+| Piece | In Docker? | Why |
 |---|---|---|
-| PostgreSQL | ✅ Sí | Instalarlo a mano en Windows es un dolor. En Docker son 8 líneas. |
-| Tu backend Python | ❌ No | Lo corrés en tu `venv`, como hasta ahora |
-| Tu frontend React | ❌ No | Lo corrés con `npm run dev`, como hasta ahora |
+| PostgreSQL | ✅ Yes | Installing it by hand on Windows is painful. In Docker it is 8 lines. |
+| Your Python backend | ❌ No | You run it in your `venv`, as you have been doing |
+| Your React frontend | ❌ No | You run it with `npm run dev`, as you have been doing |
 
-**Solo la base de datos va en Docker.** Tu código sigue corriendo en tu máquina igual que siempre.
+**Only the database goes in Docker.** Your code keeps running on your machine just as always.
 
-Más adelante, cuando lleguemos a despliegue, meteremos también el backend y el frontend en
-contenedores. Ahora no: sería añadir un montón de complejidad sin que aprendas nada nuevo, y cada
-cambio en tu código te obligaría a reconstruir la imagen.
+Later on, when we reach deployment, we will put the backend and the frontend in containers too. Not
+now: it would add a lot of complexity without you learning anything new, and every change in your
+code would force you to rebuild the image.
 
-Regla mental por ahora: **Docker es para las cosas que instalarías, no para el código que escribís.**
+Mental rule for now: **Docker is for the things you would install, not for the code you write.**
 
-## 1.3 Instalar Docker Desktop
+## 1.3 Install Docker Desktop
 
 ```powershell
 winget install Docker.DockerDesktop
 ```
 
-Después de instalarlo:
+After installing it:
 
-1. **Reiniciá la computadora.** Sí, de verdad. Docker en Windows necesita WSL2 y no funciona hasta
-   que reinicies.
-2. Abrí **Docker Desktop** desde el menú de inicio y dejalo abierto.
-3. Esperá a que el icono de la ballena deje de moverse.
+1. **Restart the computer.** Yes, really. Docker on Windows needs WSL2 and does not work until you
+   restart.
+2. Open **Docker Desktop** from the start menu and leave it open.
+3. Wait until the whale icon stops moving.
 
-⚠️ **Docker Desktop tiene que estar abierto** para que los comandos `docker` funcionen. Si lo
-cerrás, tu base de datos se apaga. Es el error número uno del primer día.
+⚠️ **Docker Desktop has to be open** for the `docker` commands to work. If you close it, your
+database shuts down. It is the number one error of day one.
 
-Comprobá:
+Check:
 
 ```powershell
 docker --version
 docker ps
 ```
 
-`docker ps` lista los contenedores corriendo. Ahora mismo va a estar vacío, pero si te responde sin
-error, Docker está vivo.
+`docker ps` lists the running containers. Right now it will be empty, but if it answers without an
+error, Docker is alive.
 
-## 1.4 El `docker-compose.yml`
+## 1.4 The `docker-compose.yml`
 
-En vez de escribir un comando kilométrico, se describe lo que querés en un archivo. Creá
-`C:\dev\cesta\docker-compose.yml`:
+Instead of writing an enormous command, you describe what you want in a file. Create
+`C:\dev\basket\docker-compose.yml`:
 
 ```yaml
 services:
   db:
     image: postgres:16
-    container_name: cesta-db
+    container_name: basket-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: cesta
-      POSTGRES_PASSWORD: cesta
-      POSTGRES_DB: cesta
+      POSTGRES_USER: basket
+      POSTGRES_PASSWORD: basket
+      POSTGRES_DB: basket
     ports:
       - "5432:5432"
     volumes:
-      - datos_cesta:/var/lib/postgresql/data
+      - basket_data:/var/lib/postgresql/data
 
 volumes:
-  datos_cesta:
+  basket_data:
 ```
 
-Línea por línea, porque esto no se copia sin entender:
+Line by line, because this is not copied without understanding it:
 
-| Línea | Qué hace |
+| Line | What it does |
 |---|---|
-| `services:` | La lista de contenedores. Acá solo hay uno. |
-| `db:` | El nombre que le doy yo. Podría llamarse `pepe`. |
-| `image: postgres:16` | Qué programa levantar. `postgres` es la imagen oficial, `16` la versión. **Siempre poné versión**; si escribís `postgres` a secas, un día cambia sola y te rompe el proyecto. |
-| `container_name` | El nombre con el que lo vas a ver en `docker ps`. |
-| `restart: unless-stopped` | Que se levante solo al arrancar Docker, salvo que vos lo pares. |
-| `environment:` | Variables de configuración. Postgres las lee la primera vez para crear el usuario y la base. |
-| `ports: "5432:5432"` | **La línea clave.** Conecta el puerto 5432 de tu máquina con el 5432 del contenedor. Sin esto, la base existe pero no podés llegar a ella. Se lee `"tu_máquina:contenedor"`. |
-| `volumes:` | Dónde se guardan los datos **fuera** del contenedor. Sin esto, si borrás el contenedor perdés todo. Con esto, los datos sobreviven. |
+| `services:` | The list of containers. There is only one here. |
+| `db:` | The name I give it. It could be called `bob`. |
+| `image: postgres:16` | Which program to start. `postgres` is the official image, `16` the version. **Always put a version**; if you write plain `postgres`, one day it changes by itself and breaks your project. |
+| `container_name` | The name you will see it under in `docker ps`. |
+| `restart: unless-stopped` | Start it automatically when Docker starts, unless you stopped it yourself. |
+| `environment:` | Configuration variables. Postgres reads them the first time to create the user and the database. |
+| `ports: "5432:5432"` | **The key line.** It connects port 5432 on your machine with 5432 in the container. Without this the database exists but you cannot reach it. It reads `"your_machine:container"`. |
+| `volumes:` | Where the data is stored **outside** the container. Without this, if you delete the container you lose everything. With it, the data survives. |
 
-Levantala:
+Start it:
 
 ```powershell
-cd C:\dev\cesta
+cd C:\dev\basket
 docker compose up -d
 ```
 
-- `up` = levantar lo que dice el archivo.
-- `-d` = *detached*, en segundo plano. Sin el `-d` te ocuparía la terminal.
+- `up` = start what the file describes.
+- `-d` = *detached*, in the background. Without the `-d` it would occupy the terminal.
 
-Comprobá:
+Check:
 
 ```powershell
 docker ps
 ```
 
-Tenés que ver `cesta-db` con estado `Up`.
+You have to see `basket-db` with status `Up`.
 
-## 1.5 Los cuatro comandos de Docker que vas a usar
+## 1.5 The four Docker commands you will use
 
-| Comando | Qué hace |
+| Command | What it does |
 |---|---|
-| `docker compose up -d` | Levantar la base de datos |
-| `docker compose down` | Apagarla (los datos se quedan, están en el volumen) |
-| `docker ps` | Ver qué está corriendo |
-| `docker compose logs db` | Ver qué dice Postgres. Acá mirás cuando algo falla |
+| `docker compose up -d` | Start the database |
+| `docker compose down` | Shut it down (the data stays, it is in the volume) |
+| `docker ps` | See what is running |
+| `docker compose logs db` | See what Postgres says. This is where you look when something fails |
 
-Con eso te sobra por ahora. No te metas en Dockerfiles todavía.
+That is plenty for now. Do not get into Dockerfiles yet.
 
-## 1.6 Sobre la contraseña
+## 1.6 About the password
 
-Sí, la contraseña es `cesta` y está escrita en un archivo que vas a subir a GitHub. **Eso solo se
-puede hacer porque esta base de datos es local, de mentira, y no tiene ningún dato real.**
+Yes, the password is `basket` and it is written in a file you are going to push to GitHub. **That is
+only acceptable because this database is local, fake, and has no real data in it.**
 
-En un proyecto de verdad esas credenciales van en un archivo `.env` que **nunca** se sube al repo
-—por eso está en el `.gitignore`— y el `docker-compose.yml` las lee de ahí. Lo veremos cuando
-lleguemos a despliegue.
+In a real project those credentials go in a `.env` file that is **never** pushed to the repo — that
+is why it is in the `.gitignore` — and the `docker-compose.yml` reads them from there. We will cover
+it when we reach deployment.
 
-Que quede claro el principio: **una credencial de verdad no se escribe nunca en un archivo que va a
-Git.**
+Let the principle be clear: **a real credential is never written in a file that goes into Git.**
 
 ## 1.7 Commit
 
 ```powershell
 git add docker-compose.yml
-git commit -m "agregar postgres con docker compose"
+git commit -m "add postgres with docker compose"
 ```
 
 ---
 
-# Parte 2 — El backend (FastAPI + PostgreSQL)
+# Part 2 — The backend (FastAPI + PostgreSQL)
 
-## 2.1 Montar el entorno
+## 2.1 Set up the environment
 
-Desde `C:\dev\cesta`:
+From `C:\dev\basket`:
 
 ```powershell
 mkdir backend
@@ -415,43 +420,43 @@ python -m venv venv
 pip install fastapi uvicorn sqlalchemy "psycopg[binary]"
 ```
 
-Acordate: tenés que ver `(venv)` al principio del prompt. Si no lo ves, no estás dentro del
-entorno y `pip install` te va a instalar las cosas donde no debe.
+Remember: you have to see `(venv)` at the start of the prompt. If you do not see it, you are not
+inside the environment and `pip install` will install things where it should not.
 
-Las dos librerías nuevas:
+The two new libraries:
 
-| Librería | Para qué |
+| Library | What for |
 |---|---|
-| `sqlalchemy` | El **ORM**: te deja trabajar con la base de datos usando clases de Python en vez de escribir SQL a mano |
-| `psycopg[binary]` | El **driver**: el que sabe hablar el idioma concreto de PostgreSQL. SQLAlchemy le da las órdenes, este las traduce |
+| `sqlalchemy` | The **ORM**: lets you work with the database using Python classes instead of writing SQL by hand |
+| `psycopg[binary]` | The **driver**: the one that knows how to speak PostgreSQL's specific language. SQLAlchemy gives the orders, this translates them |
 
-Guardá las dependencias:
+Save the dependencies:
 
 ```powershell
 pip freeze > requirements.txt
 ```
 
-Ese archivo dice qué librerías necesita tu proyecto y en qué versión. Es lo que permite que otra
-persona (o vos en otra máquina) lo levante con un solo comando. **Este sí se sube a GitHub**, al
-revés que `venv/`.
+That file says which libraries your project needs and at which version. It is what lets another
+person (or you on another machine) start it with a single command. **This one does get pushed to
+GitHub**, unlike `venv/`.
 
-## 2.2 La conexión — `backend/database.py`
+## 2.2 The connection — `backend/database.py`
 
 ```python
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# usuario:contraseña@dónde:puerto/nombre_de_la_base
-# Todo esto viene del docker-compose.yml
-URL_BASE_DE_DATOS = "postgresql+psycopg://cesta:cesta@localhost:5432/cesta"
+# user:password@where:port/database_name
+# All of this comes from the docker-compose.yml
+DATABASE_URL = "postgresql+psycopg://basket:basket@localhost:5432/basket"
 
-engine = create_engine(URL_BASE_DE_DATOS)
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
 
 def get_db():
-    """Abre una sesión, la presta, y la cierra pase lo que pase."""
+    """Opens a session, lends it out, and closes it whatever happens."""
     db = SessionLocal()
     try:
         yield db
@@ -459,15 +464,15 @@ def get_db():
         db.close()
 ```
 
-| Elemento | Qué es |
+| Element | What it is |
 |---|---|
-| La URL | La dirección de la base. Fijate que cada trozo sale del `docker-compose.yml`: usuario `cesta`, contraseña `cesta`, base `cesta`, puerto 5432 |
-| `engine` | El motor: el que mantiene la conexión abierta |
-| `SessionLocal` | Una fábrica de **sesiones**. Una sesión es una conversación con la base |
-| `Base` | La clase de la que van a heredar tus tablas |
-| `yield` en vez de `return` | "Prestá esto, y cuando terminen, seguí ejecutando lo de abajo". El `finally` garantiza que la sesión se cierra aunque haya un error. Si no cerrás sesiones, la base se queda sin conexiones y la app muere |
+| The URL | The address of the database. Notice every piece comes from the `docker-compose.yml`: user `basket`, password `basket`, database `basket`, port 5432 |
+| `engine` | The motor: the thing that keeps the connection open |
+| `SessionLocal` | A factory of **sessions**. A session is a conversation with the database |
+| `Base` | The class your tables are going to inherit from |
+| `yield` instead of `return` | "Lend this out, and when they are done, carry on running what is below". The `finally` guarantees the session is closed even if there is an error. If you do not close sessions, the database runs out of connections and the app dies |
 
-## 2.3 Las tablas — `backend/models.py`
+## 2.3 The tables — `backend/models.py`
 
 ```python
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
@@ -476,38 +481,38 @@ from sqlalchemy.orm import relationship
 from database import Base
 
 
-class Producto(Base):
-    __tablename__ = "productos"
+class Product(Base):
+    __tablename__ = "products"
 
     id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String, nullable=False)
-    precio = Column(Float, nullable=False)
+    name = Column(String, nullable=False)
+    price = Column(Float, nullable=False)
 
 
-class ItemCesta(Base):
-    __tablename__ = "items_cesta"
+class BasketItem(Base):
+    __tablename__ = "basket_items"
 
     id = Column(Integer, primary_key=True, index=True)
-    producto_id = Column(Integer, ForeignKey("productos.id"), nullable=False)
+    product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
 
-    producto = relationship("Producto")
+    product = relationship("Product")
 ```
 
-Esto es un **modelo**: una clase de Python que representa una tabla.
+This is a **model**: a Python class that represents a table.
 
-| Elemento | Qué es |
+| Element | What it is |
 |---|---|
-| `__tablename__` | Cómo se va a llamar la tabla en PostgreSQL |
-| `primary_key=True` | La columna que identifica de forma única cada fila. Postgres la rellena solo, subiendo de uno en uno |
-| `nullable=False` | "Esta columna no puede estar vacía". Es una regla que la base hace cumplir, aunque tu código falle |
-| `ForeignKey("productos.id")` | **Clave foránea.** Dice: este número tiene que ser el `id` de un producto que exista de verdad. Si intentás guardar un `producto_id` inventado, la base lo rechaza |
-| `relationship("Producto")` | Comodidad de SQLAlchemy: te deja escribir `item.producto.nombre` y él hace la consulta por vos |
+| `__tablename__` | What the table will be called in PostgreSQL |
+| `primary_key=True` | The column that uniquely identifies each row. Postgres fills it in by itself, counting up one by one |
+| `nullable=False` | "This column cannot be empty". It is a rule the database enforces, even if your code fails |
+| `ForeignKey("products.id")` | **Foreign key.** It says: this number has to be the `id` of a product that really exists. If you try to save a made-up `product_id`, the database rejects it |
+| `relationship("Product")` | SQLAlchemy convenience: it lets you write `item.product.name` and it does the query for you |
 
-**Por qué dos tablas y no una:** los productos son el catálogo, existen aunque nadie compre. Los
-items de la cesta son lo que alguien eligió. Son cosas distintas y por eso van separadas, unidas por
-la clave foránea. Esto es lo más básico del modelado de datos.
+**Why two tables and not one:** the products are the catalogue, they exist even if nobody buys. The
+basket items are what someone chose. They are different things and that is why they are separate,
+joined by the foreign key. This is the most basic bit of data modelling.
 
-## 2.4 La app — `backend/main.py`
+## 2.4 The app — `backend/main.py`
 
 ```python
 from fastapi import FastAPI, Depends, HTTPException
@@ -520,8 +525,8 @@ import models
 
 app = FastAPI()
 
-# Permite que el frontend (que corre en otro puerto) le hable a este backend.
-# Sin esto, el navegador bloquea las peticiones. Lo explico en la Parte 4.
+# Lets the frontend (running on another port) talk to this backend.
+# Without this, the browser blocks the requests. I explain it in Part 4.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -529,285 +534,285 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Crea las tablas en PostgreSQL si todavía no existen.
+# Creates the tables in PostgreSQL if they do not exist yet.
 Base.metadata.create_all(bind=engine)
 
 
-class ItemNuevo(BaseModel):
-    producto_id: int
+class NewItem(BaseModel):
+    product_id: int
 
 
 @app.on_event("startup")
-def cargar_productos_iniciales():
-    """Si el catálogo está vacío, lo llena. Solo pasa la primera vez."""
+def load_initial_products():
+    """If the catalogue is empty, fill it. This only happens the first time."""
     db = next(get_db())
-    if db.query(models.Producto).count() == 0:
+    if db.query(models.Product).count() == 0:
         db.add_all([
-            models.Producto(nombre="Café", precio=3.50),
-            models.Producto(nombre="Té verde", precio=2.80),
-            models.Producto(nombre="Chocolate", precio=4.20),
-            models.Producto(nombre="Galletas", precio=1.95),
+            models.Product(name="Coffee", price=3.50),
+            models.Product(name="Green tea", price=2.80),
+            models.Product(name="Chocolate", price=4.20),
+            models.Product(name="Biscuits", price=1.95),
         ])
         db.commit()
     db.close()
 
 
-@app.get("/productos")
-def listar_productos(db: Session = Depends(get_db)):
-    """Devuelve el catálogo completo."""
-    return db.query(models.Producto).all()
+@app.get("/products")
+def list_products(db: Session = Depends(get_db)):
+    """Returns the complete catalogue."""
+    return db.query(models.Product).all()
 
 
-@app.get("/cesta")
-def ver_cesta(db: Session = Depends(get_db)):
-    """Devuelve lo que hay en la cesta y el total."""
-    items = db.query(models.ItemCesta).all()
+@app.get("/basket")
+def view_basket(db: Session = Depends(get_db)):
+    """Returns what is in the basket and the total."""
+    items = db.query(models.BasketItem).all()
 
-    respuesta = []
+    result = []
     total = 0
     for item in items:
-        respuesta.append({
+        result.append({
             "id": item.id,
-            "nombre": item.producto.nombre,
-            "precio": item.producto.precio,
+            "name": item.product.name,
+            "price": item.product.price,
         })
-        total = total + item.producto.precio
+        total = total + item.product.price
 
-    return {"items": respuesta, "total": round(total, 2)}
+    return {"items": result, "total": round(total, 2)}
 
 
-@app.post("/cesta")
-def agregar_a_cesta(item: ItemNuevo, db: Session = Depends(get_db)):
-    """Agrega un producto a la cesta."""
-    producto = db.query(models.Producto).filter(
-        models.Producto.id == item.producto_id
+@app.post("/basket")
+def add_to_basket(item: NewItem, db: Session = Depends(get_db)):
+    """Adds a product to the basket."""
+    product = db.query(models.Product).filter(
+        models.Product.id == item.product_id
     ).first()
 
-    if producto is None:
-        raise HTTPException(status_code=404, detail="Producto no encontrado")
+    if product is None:
+        raise HTTPException(status_code=404, detail="Product not found")
 
-    db.add(models.ItemCesta(producto_id=producto.id))
+    db.add(models.BasketItem(product_id=product.id))
     db.commit()
-    return {"ok": True, "agregado": producto.nombre}
+    return {"ok": True, "added": product.name}
 
 
-@app.delete("/cesta")
-def vaciar_cesta(db: Session = Depends(get_db)):
-    """Vacía la cesta entera."""
-    db.query(models.ItemCesta).delete()
+@app.delete("/basket")
+def empty_basket(db: Session = Depends(get_db)):
+    """Empties the whole basket."""
+    db.query(models.BasketItem).delete()
     db.commit()
     return {"ok": True}
 ```
 
-Levantalo (con Docker corriendo, si no va a dar error de conexión):
+Start it (with Docker running, otherwise you get a connection error):
 
 ```powershell
 uvicorn main:app --reload
 ```
 
-## 2.5 Cómo leer ese código
+## 2.5 How to read that code
 
-Lo nuevo respecto a la GUIA-01:
+What is new compared to GUIA-02:
 
-| Elemento | Qué es |
+| Element | What it is |
 |---|---|
-| `db: Session = Depends(get_db)` | **Inyección de dependencias.** Le decís a FastAPI: "antes de ejecutar esta función, llamá a `get_db` y pasame lo que devuelva". Así cada petición tiene su propia sesión y no te la tenés que crear a mano en cada endpoint |
-| `Base.metadata.create_all(bind=engine)` | "Mirá mis modelos y creá en Postgres las tablas que falten". Sirve para aprender, pero tiene un problema serio: leé la sección 2.6 |
-| `db.query(models.Producto).all()` | Un `SELECT * FROM productos`, pero en Python |
-| `.filter(...).first()` | Un `WHERE`, y quedate con el primero. Devuelve `None` si no hay ninguno |
-| `db.add(...)` | Preparar una fila para insertar |
-| `db.commit()` | **Confirmar.** Hasta que no hacés commit, los cambios no existen de verdad en la base. Si te olvidás del commit, no se guarda nada y no da error: es el fallo más frustrante del principio |
-| `class ItemNuevo(BaseModel)` | Un **modelo de Pydantic**. Describe qué forma tiene que tener el JSON que llega. Si el frontend manda otra cosa, FastAPI lo rechaza solo con un 422 |
-| `raise HTTPException(404)` | Cortar y devolver un error HTTP en condiciones, en vez de reventar con un 500 |
+| `db: Session = Depends(get_db)` | **Dependency injection.** You tell FastAPI: "before running this function, call `get_db` and pass me what it returns". That way each request has its own session and you do not have to create it by hand in every endpoint |
+| `Base.metadata.create_all(bind=engine)` | "Look at my models and create in Postgres any tables that are missing". Useful for learning, but it has a serious problem: read section 2.6 |
+| `db.query(models.Product).all()` | A `SELECT * FROM products`, but in Python |
+| `.filter(...).first()` | A `WHERE`, and keep the first one. Returns `None` if there are none |
+| `db.add(...)` | Prepare a row for insertion |
+| `db.commit()` | **Confirm.** Until you commit, the changes do not really exist in the database. If you forget the commit, nothing is saved and no error appears: it is the most frustrating failure at the start |
+| `class NewItem(BaseModel)` | A **Pydantic model**. It describes what shape the incoming JSON has to have. If the frontend sends something else, FastAPI rejects it by itself with a 422 |
+| `raise HTTPException(404)` | Stop and return a proper HTTP error, instead of blowing up with a 500 |
 
-⚠️ **Ojo con la confusión de nombres:** hay dos tipos de "modelo" en juego. Los de **SQLAlchemy**
-(`models.py`) describen tablas de la base. Los de **Pydantic** (`ItemNuevo`) describen la forma del
-JSON que entra y sale. Se parecen y hacen cosas distintas.
+⚠️ **Careful with the name clash:** there are two kinds of "model" in play. The **SQLAlchemy** ones
+(`models.py`) describe database tables. The **Pydantic** ones (`NewItem`) describe the shape of the
+JSON coming in and going out. They look alike and do different things.
 
-## 2.6 ⚠️ `create_all` es una muleta: esto en la vida real se hace con Alembic
+## 2.6 ⚠️ `create_all` is a crutch: in real life this is done with Alembic
 
-Quiero que sepas desde ahora que la línea `Base.metadata.create_all(bind=engine)` **no es como se
-hace esto en una empresa**. Te la doy porque para arrancar es lo más simple, pero tiene un límite
-que vas a chocar la semana que viene.
+I want you to know from now that the line `Base.metadata.create_all(bind=engine)` **is not how this
+is done in a company**. I give it to you because it is the simplest way to get going, but it has a
+limit you will hit next week.
 
-### El problema, en 30 segundos
+### The problem, in 30 seconds
 
-`create_all` hace exactamente una cosa: **crea las tablas que no existen**. Y nada más.
+`create_all` does exactly one thing: **it creates the tables that do not exist**. And nothing else.
 
-**Nunca modifica una tabla que ya existe.**
+**It never modifies a table that already exists.**
 
-Probalo cuando termines la tarea, porque verlo vale más que leerlo. Andá a `models.py` y agregale
-una columna a `Producto`:
+Try it when you finish the assignment, because seeing it is worth more than reading it. Go to
+`models.py` and add a column to `Product`:
 
 ```python
 stock = Column(Integer, default=0)
 ```
 
-Reiniciá el backend. Y ahora fijate bien en lo que pasa:
+Restart the backend. And now look carefully at what happens:
 
-- No da ningún error.
-- No aparece ningún aviso.
-- **La columna `stock` no existe en PostgreSQL.**
+- No error appears.
+- No warning appears.
+- **The `stock` column does not exist in PostgreSQL.**
 
-Después, cuando tu código intente leer `producto.stock`, te va a reventar con un error raro que no
-apunta para nada al verdadero problema. Perder una tarde con esto es un rito de paso.
+Later, when your code tries to read `product.stock`, it will blow up with a strange error that
+points nowhere near the real problem. Losing an afternoon to this is a rite of passage.
 
-### Por qué no basta con borrar y volver a crear
+### Why deleting and recreating is not enough
 
-En tu proyecto de práctica, la solución fácil es tirar la base entera y dejar que `create_all` la
-rehaga:
+In your practice project, the easy fix is to throw the whole database away and let `create_all`
+rebuild it:
 
 ```powershell
-docker compose down -v    # el -v borra tambien el volumen: se pierden TODOS los datos
+docker compose down -v    # the -v also deletes the volume: ALL data is lost
 docker compose up -d
 ```
 
-Eso vale acá, donde los datos son de mentira. **En producción no podés hacer eso**: hay clientes,
-pedidos, facturas. Borrar la base para añadir una columna no es una opción.
+That is fine here, where the data is fake. **In production you cannot do that**: there are
+customers, orders, invoices. Deleting the database to add a column is not an option.
 
-Y sin embargo el diseño de la base cambia constantemente: añadir un campo, cambiar un tipo, crear
-una tabla nueva, poner un índice. Eso pasa cada pocas semanas en cualquier producto vivo.
+And yet the design of the database changes constantly: adding a field, changing a type, creating a
+new table, adding an index. That happens every few weeks in any living product.
 
-### Qué es Alembic
+### What Alembic is
 
-**Alembic** es la herramienta que resuelve esto, y es la estándar para SQLAlchemy.
+**Alembic** is the tool that solves this, and it is the standard one for SQLAlchemy.
 
-La idea: cada cambio en el diseño de la base se guarda como un **archivo de migración**, con dos
-funciones dentro:
+The idea: every change to the database design is saved as a **migration file**, with two functions
+inside:
 
 ```python
 def upgrade():
-    op.add_column("productos", sa.Column("stock", sa.Integer()))
+    op.add_column("products", sa.Column("stock", sa.Integer()))
 
 def downgrade():
-    op.drop_column("productos", "stock")
+    op.drop_column("products", "stock")
 ```
 
-- `upgrade()` → aplicar el cambio.
-- `downgrade()` → deshacerlo si sale mal.
+- `upgrade()` → apply the change.
+- `downgrade()` → undo it if it goes wrong.
 
-Esos archivos **viven en tu repositorio, junto al código**, y se revisan en las pull requests como
-cualquier otra cosa. La base guarda en una tabla interna en qué versión está, así que sabe cuáles le
-faltan por aplicar.
+Those files **live in your repository, next to the code**, and are reviewed in pull requests like
+anything else. The database stores in an internal table which version it is on, so it knows which
+ones it still has to apply.
 
-Los tres comandos que vas a usar el día que lleguemos ahí:
+The three commands you will use the day we get there:
 
-| Comando | Qué hace |
+| Command | What it does |
 |---|---|
-| `alembic revision --autogenerate -m "agregar stock"` | Compara tus modelos con la base y escribe el archivo de migración |
-| `alembic upgrade head` | Aplica todas las migraciones pendientes |
-| `alembic downgrade -1` | Deshace la última |
+| `alembic revision --autogenerate -m "add stock"` | Compares your models with the database and writes the migration file |
+| `alembic upgrade head` | Applies all pending migrations |
+| `alembic downgrade -1` | Undoes the last one |
 
-### La analogía que lo deja claro
+### The analogy that makes it click
 
-**Alembic es Git, pero para la forma de tu base de datos.**
+**Alembic is Git, but for the shape of your database.**
 
-Fijate lo bien que encaja con todo lo de la Parte 0:
+Notice how well it fits with everything in Part 0:
 
 | Git | Alembic |
 |---|---|
-| Historial de cambios de tu código | Historial de cambios del diseño de tu base |
-| Commit | Migración |
-| `git log` | La cadena de revisiones |
-| Volver a un commit anterior | `downgrade` |
-| Todo el equipo aplica los mismos commits | Todo el equipo aplica las mismas migraciones |
+| History of changes to your code | History of changes to your database design |
+| Commit | Migration |
+| `git log` | The chain of revisions |
+| Going back to an earlier commit | `downgrade` |
+| The whole team applies the same commits | The whole team applies the same migrations |
 
-Y ahí está el motivo de fondo: sin migraciones, **la base de datos de cada compañero de equipo es
-distinta**, y la de producción es distinta de todas. Con migraciones, todas pasan exactamente por
-los mismos pasos, en el mismo orden. Por eso el despliegue automático puede aplicarlas solo.
+And there is the underlying reason: without migrations, **every teammate's database is different**,
+and production's is different from all of them. With migrations, all of them go through exactly the
+same steps, in the same order. That is why automated deployment can apply them on its own.
 
-### Qué tenés que hacer ahora con esto
+### What you have to do about this now
 
-**Nada.** No instales Alembic para esta tarea; sería añadir una capa de complejidad que ahora no te
-aporta.
+**Nothing.** Do not install Alembic for this assignment; it would add a layer of complexity that
+does not help you right now.
 
-Lo único que quiero es que:
+All I want is for you to:
 
-1. sepas que `create_all` es una muleta de aprendizaje y **por qué** lo es,
-2. entiendas qué problema resuelve Alembic,
-3. y que cuando en una entrevista te pregunten "¿cómo gestionás cambios de esquema?", no te quedes
-   en blanco. La respuesta es "con migraciones", y sabés el nombre de la herramienta.
+1. know that `create_all` is a learning crutch and **why** it is one,
+2. understand what problem Alembic solves,
+3. and, when in an interview they ask "how do you manage schema changes?", not go blank. The answer
+   is "with migrations", and you know the name of the tool.
 
-Lo vemos en condiciones en el módulo de bases de datos.
+We cover it properly in the databases module.
 
-## 2.7 Probalo sin frontend
+## 2.7 Test it without a frontend
 
-Andá a `http://127.0.0.1:8000/docs`. Esa página la genera FastAPI sola y te deja **probar tu API sin
-haber escrito una línea de frontend**. Es la mejor herramienta que tenés para saber si el problema
-está en el backend o en el frontend.
+Go to `http://127.0.0.1:8000/docs`. FastAPI generates that page on its own and lets you **test your
+API without having written a line of frontend**. It is the best tool you have for knowing whether
+the problem is in the backend or the frontend.
 
-Probá en este orden:
+Test in this order:
 
-1. `GET /productos` → **Try it out** → **Execute**. Tenés que ver los 4 productos, cada uno con su
+1. `GET /products` → **Try it out** → **Execute**. You have to see the 4 products, each with its
    `id`.
-2. `POST /cesta` con `{"producto_id": 1}` → tenés que ver `"agregado": "Café"`.
-3. `GET /cesta` → el café y `total: 3.5`.
-4. `POST /cesta` con `{"producto_id": 99}` → un **404**. Ese es el código de la GUIA-00 que significa
-   "no encontrado". Está bien que falle: lo programamos para eso.
-5. `DELETE /cesta`, y después `GET /cesta` otra vez, para ver que quedó vacía.
+2. `POST /basket` with `{"product_id": 1}` → you have to see `"added": "Coffee"`.
+3. `GET /basket` → the coffee and `total: 3.5`.
+4. `POST /basket` with `{"product_id": 99}` → a **404**. That is the code from GUIA-01 that means
+   "not found". It is right that it fails: we programmed it to.
+5. `DELETE /basket`, and then `GET /basket` again, to see that it is empty.
 
-## 2.8 La prueba que demuestra que la base de datos sirve
+## 2.8 The test that proves the database is worth having
 
-Esto hacelo, es el punto de toda la Parte 1:
+Do this one, it is the whole point of Part 1:
 
-1. Agregá dos productos a la cesta.
-2. Parale el backend con `Ctrl+C`.
-3. Volvé a levantarlo con `uvicorn main:app --reload`.
-4. `GET /cesta`.
+1. Add two products to the basket.
+2. Stop the backend with `Ctrl+C`.
+3. Start it again with `uvicorn main:app --reload`.
+4. `GET /basket`.
 
-**Los productos siguen ahí.** Antes de tener base de datos, se habrían perdido, porque vivían en
-una variable de Python que muere con el proceso. Ahora viven en PostgreSQL, que es otro programa,
-en otro contenedor, con los datos en un volumen del disco.
+**The products are still there.** Before having a database they would have been lost, because they
+lived in a Python variable that dies with the process. Now they live in PostgreSQL, which is another
+program, in another container, with the data in a volume on the disk.
 
-Eso es exactamente para lo que sirve una base de datos, y no lo entendés del todo hasta que lo ves.
+That is exactly what a database is for, and you do not fully understand it until you see it.
 
 ## 2.9 Commit
 
 ```powershell
-cd C:\dev\cesta
+cd C:\dev\basket
 git status
 ```
 
-⚠️ **Parate acá y mirá bien la salida.** Si aparece `backend/venv/` en la lista, el `.gitignore`
-está mal. No sigas hasta arreglarlo.
+⚠️ **Stop here and look carefully at the output.** If `backend/venv/` appears in the list, the
+`.gitignore` is wrong. Do not continue until you fix it.
 
 ```powershell
 git add .
-git commit -m "backend: modelos, conexion a postgres y endpoints de cesta"
+git commit -m "backend: models, postgres connection and basket endpoints"
 ```
 
 ---
 
-# Parte 3 — El frontend (React)
+# Part 3 — The frontend (React)
 
-## 3.1 Crear el proyecto
+## 3.1 Create the project
 
-⚠️ Abrí una **tercera terminal**. La primera tiene `uvicorn`, y Docker corre por su cuenta. Esto es
-normal: en desarrollo tenés siempre varias terminales abiertas, una por programa.
+⚠️ Open a **third terminal**. The first has `uvicorn`, and Docker runs on its own. This is normal: in
+development you always have several terminals open, one per program.
 
 ```powershell
-cd C:\dev\cesta
+cd C:\dev\basket
 npm create vite@latest frontend -- --template react
 cd frontend
 npm install
 npm run dev
 ```
 
-Debería levantar en `http://localhost:5173`.
+It should start at `http://localhost:5173`.
 
-## 3.2 Meter Bootstrap
+## 3.2 Add Bootstrap
 
-Abrí `frontend/index.html` y pegá esta línea dentro del `<head>`:
+Open `frontend/index.html` and paste this line inside the `<head>`:
 
 ```html
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 ```
 
-Es el mismo Bootstrap del Módulo 2 de la GUIA-01, cargado desde internet en vez de descargado.
+It is the same Bootstrap from Module 2 of GUIA-02, loaded from the internet instead of downloaded.
 
-## 3.3 El código
+## 3.3 The code
 
-Abrí `frontend/src/App.jsx`, borrá todo y poné:
+Open `frontend/src/App.jsx`, delete everything and put:
 
 ```jsx
 import { useState, useEffect } from 'react'
@@ -815,60 +820,60 @@ import { useState, useEffect } from 'react'
 const API = 'http://127.0.0.1:8000'
 
 function App() {
-  const [productos, setProductos] = useState([])
-  const [cesta, setCesta] = useState({ items: [], total: 0 })
+  const [products, setProducts] = useState([])
+  const [basket, setBasket] = useState({ items: [], total: 0 })
 
-  // Se ejecuta una sola vez, cuando el componente aparece en pantalla.
+  // Runs once only, when the component appears on screen.
   useEffect(() => {
-    cargarProductos()
-    cargarCesta()
+    loadProducts()
+    loadBasket()
   }, [])
 
-  function cargarProductos() {
-    fetch(`${API}/productos`)
-      .then((respuesta) => respuesta.json())
-      .then((datos) => setProductos(datos))
+  function loadProducts() {
+    fetch(`${API}/products`)
+      .then((response) => response.json())
+      .then((data) => setProducts(data))
   }
 
-  function cargarCesta() {
-    fetch(`${API}/cesta`)
-      .then((respuesta) => respuesta.json())
-      .then((datos) => setCesta(datos))
+  function loadBasket() {
+    fetch(`${API}/basket`)
+      .then((response) => response.json())
+      .then((data) => setBasket(data))
   }
 
-  function agregar(id) {
-    fetch(`${API}/cesta`, {
+  function addItem(id) {
+    fetch(`${API}/basket`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ producto_id: id }),
-    }).then(() => cargarCesta())
+      body: JSON.stringify({ product_id: id }),
+    }).then(() => loadBasket())
   }
 
-  function vaciar() {
-    fetch(`${API}/cesta`, { method: 'DELETE' }).then(() => cargarCesta())
+  function emptyBasket() {
+    fetch(`${API}/basket`, { method: 'DELETE' }).then(() => loadBasket())
   }
 
   return (
     <div className="container py-4">
-      <h1 className="mb-4">La Cesta</h1>
+      <h1 className="mb-4">The Basket</h1>
 
       <div className="row">
         <div className="col-md-7">
-          <h2 className="h4">Productos</h2>
+          <h2 className="h4">Products</h2>
           <ul className="list-group">
-            {productos.map((producto) => (
+            {products.map((product) => (
               <li
-                key={producto.id}
+                key={product.id}
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
                 <span>
-                  {producto.nombre} — {producto.precio} €
+                  {product.name} — {product.price} €
                 </span>
                 <button
                   className="btn btn-sm btn-primary"
-                  onClick={() => agregar(producto.id)}
+                  onClick={() => addItem(product.id)}
                 >
-                  Agregar
+                  Add
                 </button>
               </li>
             ))}
@@ -876,26 +881,26 @@ function App() {
         </div>
 
         <div className="col-md-5">
-          <h2 className="h4">Tu cesta</h2>
+          <h2 className="h4">Your basket</h2>
 
-          {cesta.items.length === 0 ? (
-            <p className="text-muted">Está vacía.</p>
+          {basket.items.length === 0 ? (
+            <p className="text-muted">It is empty.</p>
           ) : (
             <ul className="list-group mb-3">
-              {cesta.items.map((item) => (
+              {basket.items.map((item) => (
                 <li key={item.id} className="list-group-item">
-                  {item.nombre} — {item.precio} €
+                  {item.name} — {item.price} €
                 </li>
               ))}
             </ul>
           )}
 
           <p className="fs-5">
-            <strong>Total: {cesta.total} €</strong>
+            <strong>Total: {basket.total} €</strong>
           </p>
 
-          <button className="btn btn-outline-danger" onClick={vaciar}>
-            Vaciar cesta
+          <button className="btn btn-outline-danger" onClick={emptyBasket}>
+            Empty basket
           </button>
         </div>
       </div>
@@ -906,319 +911,321 @@ function App() {
 export default App
 ```
 
-## 3.4 Cómo leer ese código
+## 3.4 How to read that code
 
-Esto tiene conceptos nuevos de React. Van despacio:
+This has new React concepts. Take them slowly:
 
-| Elemento | Qué es |
+| Element | What it is |
 |---|---|
-| `useState([])` | El **estado**: datos que, cuando cambian, hacen que React vuelva a dibujar la pantalla. Devuelve dos cosas: el valor y la función para cambiarlo |
-| `const [productos, setProductos]` | Se lee: "`productos` es el valor, `setProductos` es cómo lo cambio". **Nunca** hagas `productos = algo`; siempre `setProductos(algo)`, o React no se entera |
-| `useEffect(() => {...}, [])` | "Ejecutá esto cuando el componente aparezca". El `[]` del final significa "una sola vez". Sin el `[]` se ejecutaría en bucle infinito |
-| `fetch(url)` | Hacer una petición HTTP desde JavaScript. Es el `GET` de la GUIA-00, pero desde código |
-| `.then(...)` | `fetch` tarda, así que devuelve una **promesa**. `.then()` es "cuando termine, hacé esto" |
-| `respuesta.json()` | Convertir el texto JSON que llegó en un objeto de JavaScript usable |
-| `productos.map(...)` | Convertir una lista de datos en una lista de elementos visuales. Así se pintan listas en React |
-| `key={producto.id}` | React necesita un identificador único por elemento. Acá usamos el `id` que puso PostgreSQL |
-| `onClick={() => agregar(producto.id)}` | Qué hacer al hacer clic. Ojo: `agregar(producto.id)` sin la flecha se ejecutaría solo al dibujar. La flecha crea una función que se ejecuta *después* |
-| `{condicion ? A : B}` | Operador ternario: si se cumple, muestro A, si no, B. Así se hace un "if" dentro del JSX |
-| `className` | En JSX no se dice `class` porque esa palabra ya la usa JavaScript |
+| `useState([])` | The **state**: data that, when it changes, makes React redraw the screen. It returns two things: the value and the function for changing it |
+| `const [products, setProducts]` | It reads: "`products` is the value, `setProducts` is how I change it". **Never** write `products = something`; always `setProducts(something)`, or React does not find out |
+| `useEffect(() => {...}, [])` | "Run this when the component appears". The `[]` at the end means "once only". Without the `[]` it would run in an infinite loop |
+| `fetch(url)` | Make an HTTP request from JavaScript. It is the `GET` from GUIA-01, but from code |
+| `.then(...)` | `fetch` takes time, so it returns a **promise**. `.then()` is "when it finishes, do this" |
+| `response.json()` | Turn the JSON text that arrived into a usable JavaScript object |
+| `products.map(...)` | Turn a list of data into a list of visual elements. That is how lists are drawn in React |
+| `key={product.id}` | React needs a unique identifier per element. Here we use the `id` PostgreSQL assigned |
+| `onClick={() => addItem(product.id)}` | What to do on click. Careful: `addItem(product.id)` without the arrow would run at draw time. The arrow creates a function that runs *afterwards* |
+| `{condition ? A : B}` | Ternary operator: if it holds, show A, otherwise B. That is how you do an "if" inside JSX |
+| `className` | In JSX you do not say `class` because JavaScript already uses that word |
 
 ---
 
-# Parte 4 — Conectar los tres
+# Part 4 — Connecting the three
 
-## 4.1 Levantar todo, en este orden
+## 4.1 Start everything, in this order
 
-El orden importa: si el backend arranca sin base de datos, revienta.
+The order matters: if the backend starts without a database, it blows up.
 
-| # | Qué | Dónde | Comando |
+| # | What | Where | Command |
 |---|---|---|---|
-| 1 | Docker Desktop | Menú de inicio | Abrirlo y esperar a la ballena |
-| 2 | PostgreSQL | `C:\dev\cesta` | `docker compose up -d` |
-| 3 | Backend | `C:\dev\cesta\backend` con `(venv)` | `uvicorn main:app --reload` |
-| 4 | Frontend | `C:\dev\cesta\frontend` | `npm run dev` |
+| 1 | Docker Desktop | Start menu | Open it and wait for the whale |
+| 2 | PostgreSQL | `C:\dev\basket` | `docker compose up -d` |
+| 3 | Backend | `C:\dev\basket\backend` with `(venv)` | `uvicorn main:app --reload` |
+| 4 | Frontend | `C:\dev\basket\frontend` | `npm run dev` |
 
-Abrí `http://localhost:5173`. Tenés que ver los productos, poder agregarlos y ver el total subir.
+Open `http://localhost:5173`. You have to see the products, be able to add them and watch the total
+go up.
 
-## 4.2 El error que te va a pasar: CORS
+## 4.2 The error that will happen to you: CORS
 
-Si en `main.py` no estuviera el `CORSMiddleware`, verías la página cargar pero sin productos, y en
-la consola del navegador (F12 → Console) un error rojo:
+If the `CORSMiddleware` were not in `main.py`, you would see the page load but with no products, and
+in the browser console (F12 → Console) a red error:
 
 ```
-Access to fetch at 'http://127.0.0.1:8000/productos' from origin
+Access to fetch at 'http://127.0.0.1:8000/products' from origin
 'http://localhost:5173' has been blocked by CORS policy
 ```
 
-**Qué está pasando:** el navegador tiene una regla de seguridad. Una página servida desde un sitio
-(`localhost:5173`) no puede pedirle datos a otro sitio (`127.0.0.1:8000`) salvo que ese segundo
-sitio diga explícitamente "sí, autorizo a ese". Se llama **CORS**.
+**What is happening:** the browser has a security rule. A page served from one place
+(`localhost:5173`) cannot ask another place (`127.0.0.1:8000`) for data unless that second place
+explicitly says "yes, I authorise that one". It is called **CORS**.
 
-Existe para que una web maliciosa no pueda hacer peticiones a tu banco usando tus cookies.
+It exists so a malicious site cannot make requests to your bank using your cookies.
 
-El `add_middleware` que ya te puse es esa autorización. Está limitado a `http://localhost:5173` a
-propósito: no pongas `allow_origins=["*"]` aunque lo veas en tutoriales. Eso significa "que
-cualquiera me llame" y en producción es un agujero.
+The `add_middleware` I already gave you is that authorisation. It is limited to
+`http://localhost:5173` on purpose: do not put `allow_origins=["*"]` even if you see it in
+tutorials. That means "let anyone call me" and in production it is a hole.
 
-**Esto te va a volver a pasar el resto de tu vida profesional.** Cuando veas "CORS" en un error, ya
-sabés que es el backend el que tiene que autorizar al frontend.
+**This will keep happening to you for the rest of your professional life.** When you see "CORS" in
+an error, you already know it is the backend that has to authorise the frontend.
 
-## 4.3 Cómo depurar cuando algo no funciona
+## 4.3 How to debug when something does not work
 
-Con tres capas, lo primero es **averiguar cuál falla**. En este orden, siempre:
+With three layers, the first thing is to **work out which one is failing**. In this order, always:
 
-1. **¿Está Docker corriendo?** `docker ps`. Si no aparece `cesta-db`, ahí está el problema.
-2. **¿Funciona el backend solo?** Andá a `/docs` y probá el endpoint. Si ahí falla, el problema es
-   de Python o de la base, y el frontend no tiene nada que ver.
-3. **F12 → pestaña Network.** Hacé clic en el botón que falla y mirá la petición: ¿salió? ¿qué
-   código devolvió? Esto es exactamente el ejercicio estrella de la GUIA-00, ahora sobre tu app.
-4. **F12 → pestaña Console.** Los errores de JavaScript salen ahí en rojo.
+1. **Is Docker running?** `docker ps`. If `basket-db` does not appear, that is the problem.
+2. **Does the backend work on its own?** Go to `/docs` and try the endpoint. If it fails there, the
+   problem is Python or the database, and the frontend has nothing to do with it.
+3. **F12 → Network tab.** Click the button that fails and look at the request: did it go out? what
+   code did it return? This is exactly the star exercise from GUIA-01, now on your own app.
+4. **F12 → Console tab.** JavaScript errors come out there in red.
 
-Aprender a localizar la capa que falla **antes** de tocar nada es probablemente la habilidad más
-rentable de todo este oficio.
+Learning to locate the failing layer **before** touching anything is probably the most profitable
+skill in this whole craft.
 
 ---
 
-# Parte 5 — Subirlo a GitHub
+# Part 5 — Pushing it to GitHub
 
-Volvé a la carpeta raíz del proyecto:
+Go back to the project's root folder:
 
 ```powershell
-cd C:\dev\cesta
+cd C:\dev\basket
 git status
 ```
 
-⚠️ Antes de nada, comprobá que **NO** aparecen `node_modules` ni `venv`. Si aparecen, arreglá el
-`.gitignore` primero.
+⚠️ First of all, check that `node_modules` and `venv` do **NOT** appear. If they do, fix the
+`.gitignore` first.
 
 ```powershell
 git add .
-git commit -m "frontend: pantalla de cesta conectada al backend"
+git commit -m "frontend: basket screen connected to the backend"
 ```
 
-Ahora conectá tu repo local con el de GitHub. Estos comandos están en la página que te quedó
-abierta al crear el repositorio; cambiá `TU-USUARIO` por el tuyo:
+Now connect your local repo to the GitHub one. These commands are on the page left open when you
+created the repository; change `YOUR-USERNAME` to yours:
 
 ```powershell
 git branch -M main
-git remote add origin https://github.com/TU-USUARIO/cesta.git
+git remote add origin https://github.com/YOUR-USERNAME/basket.git
 git push -u origin main
 ```
 
-| Comando | Qué hace |
+| Command | What it does |
 |---|---|
-| `git branch -M main` | Renombra tu rama principal a `main`, que es el nombre estándar hoy |
-| `git remote add origin <url>` | "El repo remoto que se llama `origin` está en esta dirección". `origin` es solo un apodo, es la convención |
-| `git push -u origin main` | Subir. El `-u` guarda la relación, para que a partir de ahora te baste con `git push` |
+| `git branch -M main` | Renames your main branch to `main`, which is the standard name today |
+| `git remote add origin <url>` | "The remote repo called `origin` is at this address". `origin` is just a nickname, it is the convention |
+| `git push -u origin main` | Push. The `-u` remembers the relationship, so from now on `git push` is enough |
 
-La primera vez se te va a abrir una ventana del navegador para que inicies sesión en GitHub. Es el
-Git Credential Manager, que viene con Git para Windows. Autorizá y listo.
+The first time, a browser window will open for you to sign in to GitHub. It is the Git Credential
+Manager, which comes with Git for Windows. Authorise it and you are done.
 
-Entrá a `https://github.com/TU-USUARIO/cesta` y mirá tu código ahí. **Ese es el momento.** A partir
-de ahora tu trabajo existe fuera de tu computadora.
+Go to `https://github.com/YOUR-USERNAME/basket` and look at your code there. **That is the moment.**
+From now on your work exists outside your computer.
 
-## El ciclo que vas a repetir toda tu vida
+## The cycle you will repeat your whole life
 
 ```
-escribir código  →  git add .  →  git commit -m "qué hice"  →  git push
+write code  →  git add .  →  git commit -m "what I did"  →  git push
 ```
 
-Hacelo cada vez que termines algo que funcione. No una vez al día: cada pieza que funciona es un
-commit. Si rompés algo, siempre podés volver a un commit anterior.
+Do it every time you finish something that works. Not once a day: every piece that works is a
+commit. If you break something, you can always go back to an earlier commit.
 
 ---
 
-# 🔧 Lo que tenés que hacer vos
+# 🔧 What you have to do yourself
 
-Todo lo de arriba era para dejarte la base montada. **Esto es la tarea de verdad.** Cada punto es un
-commit con su mensaje.
+Everything above was to get the foundation set up for you. **This is the real assignment.** Each
+point is a commit with its message.
 
-## Obligatorio
+## Compulsory
 
 - [ ] **T1 — README.md**
-      Creá un `README.md` en la raíz que explique: qué es el proyecto, qué tecnologías usa y **cómo
-      levantarlo paso a paso**, incluyendo el `docker compose up -d`. Escribilo pensando en alguien
-      que se acaba de clonar el repo y no sabe nada. Esto es lo primero que mira un reclutador.
+      Create a `README.md` at the root explaining: what the project is, what technologies it uses
+      and **how to start it step by step**, including the `docker compose up -d`. Write it thinking
+      of someone who has just cloned the repo and knows nothing. This is the first thing a recruiter
+      looks at.
 
-- [ ] **T2 — Quitar un producto de la cesta**
-      Endpoint `DELETE /cesta/{item_id}` que borre **un solo** item, y un botón "Quitar" en cada
-      línea de la cesta.
-      Pista: buscalo con `.filter(models.ItemCesta.id == item_id).first()`, y si no existe devolvé
-      un 404. Acordate del `db.commit()`.
+- [ ] **T2 — Remove one product from the basket**
+      A `DELETE /basket/{item_id}` endpoint that deletes **a single** item, and a "Remove" button on
+      each line of the basket.
+      Hint: find it with `.filter(models.BasketItem.id == item_id).first()`, and if it does not
+      exist return a 404. Remember the `db.commit()`.
 
-- [ ] **T3 — Contador de productos**
-      Que la cesta muestre cuántos artículos hay, no solo el total en euros. Decidí vos si lo
-      calcula el backend o el frontend, **y escribí en el README por qué lo decidiste así**. No hay
-      una única respuesta correcta; quiero el razonamiento.
+- [ ] **T3 — Item counter**
+      Make the basket show how many items there are, not just the total in euros. You decide whether
+      the backend or the frontend calculates it, **and write in the README why you decided that
+      way**. There is no single correct answer; I want the reasoning.
 
-- [ ] **T4 — Un producto más**
-      Agregá un quinto producto al catálogo.
-      ⚠️ Ojo: la función `cargar_productos_iniciales` solo mete productos **si la tabla está
-      vacía**, así que reiniciar el backend no va a bastar. Vas a tener que decidir cómo meterlo.
-      Pensá qué opciones tenés — el problema es más interesante que la solución.
+- [ ] **T4 — One more product**
+      Add a fifth product to the catalogue.
+      ⚠️ Careful: the `load_initial_products` function only inserts products **if the table is
+      empty**, so restarting the backend will not be enough. You will have to decide how to get it
+      in. Think about what options you have — the problem is more interesting than the solution.
 
-- [ ] **T5 — Manejar el error de conexión**
-      Ahora mismo, si el backend está apagado, la página se queda en blanco sin explicar nada.
-      Hacé que muestre "No se pudo conectar con el servidor".
-      Pista: `fetch(...).then(...).catch((error) => ...)`.
+- [ ] **T5 — Handle the connection error**
+      Right now, if the backend is off, the page stays blank without explaining anything. Make it
+      show "Could not connect to the server".
+      Hint: `fetch(...).then(...).catch((error) => ...)`.
 
-- [ ] **T6 — Endpoint de salud**
-      Un `GET /health` que devuelva `{"estado": "ok"}` solo si la base de datos responde de verdad.
-      Esto se usa en todas las empresas para que el sistema sepa si tu app está viva.
-      Pista: hacé una consulta cualquiera dentro de un `try/except`.
+- [ ] **T6 — Health endpoint**
+      A `GET /health` that returns `{"status": "ok"}` only if the database really answers. This is
+      used in every company so the system knows whether your app is alive.
+      Hint: make any query inside a `try/except`.
 
-- [ ] **T7 — Mínimo 8 commits** con mensajes que se entiendan. Nada de `"cambios"`, `"update"` ni
+- [ ] **T7 — At least 8 commits** with messages that make sense. No `"changes"`, `"update"` or
       `"asdf"`.
 
-## Opcional (si te sobra tiempo)
+## Optional (if you have time left)
 
-- [ ] **T8** — Que si agregás dos veces el mismo producto, aparezca una sola línea con "x2". Es más
-      difícil de lo que parece: pensá si cambia el modelo de datos o solo la consulta.
-- [ ] **T9** — Un campo de búsqueda que filtre el catálogo mientras escribís.
-- [ ] **T10** — Un endpoint `POST /productos` para dar de alta productos nuevos desde `/docs`, y una
-      pantalla en React para hacerlo. Esto ya es un CRUD completo.
+- [ ] **T8** — Make it so that adding the same product twice shows a single line with "x2". It is
+      harder than it looks: think about whether the data model changes or only the query.
+- [ ] **T9** — A search field that filters the catalogue as you type.
+- [ ] **T10** — A `POST /products` endpoint for adding new products from `/docs`, and a React screen
+      for doing it. That is already a complete CRUD.
 
 ---
 
-# Criterios de entrega
+# Submission criteria
 
-Me mandás **el enlace a tu repositorio de GitHub**. Nada más: ni un zip, ni capturas.
+You send me **the link to your GitHub repository**. Nothing else: no zip, no screenshots.
 
-Voy a mirar esto:
+I am going to look at this:
 
-| # | Criterio |
+| # | Criterion |
 |---|---|
-| 1 | El repo **no** tiene `node_modules` ni `venv` subidos |
-| 2 | Está el `docker-compose.yml` |
-| 3 | Hay un `requirements.txt` en `backend/` |
-| 4 | Hay un `README.md` que me permite levantar el proyecto sin preguntarte nada |
-| 5 | Hay al menos 8 commits con mensajes que se entienden |
-| 6 | Me clono el repo, sigo tu README, y la app funciona |
-| 7 | Las tareas T1 a T7 están hechas |
-| 8 | El total se calcula en el backend |
-| 9 | Los datos sobreviven a reiniciar el backend |
+| 1 | The repo does **not** have `node_modules` or `venv` pushed |
+| 2 | The `docker-compose.yml` is there |
+| 3 | There is a `requirements.txt` in `backend/` |
+| 4 | There is a `README.md` that lets me start the project without asking you anything |
+| 5 | There are at least 8 commits with messages that make sense |
+| 6 | I clone the repo, follow your README, and the app works |
+| 7 | Tasks T1 to T7 are done |
+| 8 | The total is calculated in the backend |
+| 9 | The data survives restarting the backend |
 
-El criterio 6 es el importante. Es exactamente lo que pasa cuando entrás a una empresa: te dan un
-repo y te tenés que apañar con lo que hay escrito.
+Criterion 6 is the important one. It is exactly what happens when you join a company: they give you
+a repo and you have to manage with what is written.
 
-**Antes de mandármelo**, hacé esta prueba vos mismo:
+**Before sending it to me**, do this test yourself:
 
 ```powershell
-git clone https://github.com/TU-USUARIO/cesta.git C:\dev\prueba
+git clone https://github.com/YOUR-USERNAME/basket.git C:\dev\test-clone
 ```
 
-Seguí tu propio README a rajatabla, sin usar nada que sepas de memoria, y comprobá que arranca. Te
-vas a llevar sorpresas, y es mejor que te las lleves vos antes que yo.
+Follow your own README to the letter, without using anything you know by heart, and check that it
+starts. You will get some surprises, and it is better that you get them before I do.
 
 ---
 
-# Errores comunes y cómo leerlos
+# Common errors and how to read them
 
-| Lo que ves | Qué significa | Qué hacer |
+| What you see | What it means | What to do |
 |---|---|---|
-| `connection to server at "localhost", port 5432 failed` | La base no está corriendo | `docker ps`. ¿Está Docker Desktop abierto? |
-| `docker: error during connect` | Docker Desktop está cerrado | Abrilo y esperá a la ballena |
-| `port is already allocated` | Ya hay algo en el 5432 | `docker ps` para ver si lo levantaste dos veces |
-| `has been blocked by CORS policy` | El backend no autoriza al frontend | Revisá el `add_middleware` y que el puerto coincida |
-| `Failed to fetch` | El backend no está corriendo, o la URL está mal | Mirá la terminal del backend. ¿Sigue viva? |
-| `ModuleNotFoundError: No module named 'fastapi'` | Instalaste fuera del venv, o no lo activaste | ¿Ves `(venv)` en el prompt? |
-| `Activate.ps1 cannot be loaded` | Permisos de PowerShell | `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` |
-| `port 8000 is already in use` | Ya hay un uvicorn corriendo | Buscá la otra terminal y `Ctrl+C` |
-| Guardaste algo y no aparece | Te faltó el `db.commit()` | Es el error más común con SQLAlchemy |
-| `ForeignKeyViolation` | Intentaste guardar un `producto_id` que no existe | La base te está protegiendo. Está bien que falle |
-| `Each child in a list should have a unique "key" prop` | Falta el `key` en un `.map()` | Poné `key={algo único}` |
-| `Cannot read properties of undefined` | Usás un dato que todavía no llegó del backend | Fijate el valor inicial del `useState` |
-| `422 Unprocessable Entity` | El JSON no tiene la forma del modelo Pydantic | Mirá en Network qué mandaste exactamente |
-| `fatal: remote origin already exists` | Ya habías hecho el `remote add` | `git remote -v` para ver cómo quedó |
-| `Updates were rejected` | Hay cosas en GitHub que no tenés en local | `git pull` primero |
+| `connection to server at "localhost", port 5432 failed` | The database is not running | `docker ps`. Is Docker Desktop open? |
+| `docker: error during connect` | Docker Desktop is closed | Open it and wait for the whale |
+| `port is already allocated` | There is already something on 5432 | `docker ps` to see if you started it twice |
+| `has been blocked by CORS policy` | The backend does not authorise the frontend | Check the `add_middleware` and that the port matches |
+| `Failed to fetch` | The backend is not running, or the URL is wrong | Look at the backend terminal. Is it still alive? |
+| `ModuleNotFoundError: No module named 'fastapi'` | You installed outside the venv, or did not activate it | Do you see `(venv)` in the prompt? |
+| `Activate.ps1 cannot be loaded` | PowerShell permissions | `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` |
+| `port 8000 is already in use` | There is already a uvicorn running | Find the other terminal and `Ctrl+C` |
+| You saved something and it does not appear | You forgot the `db.commit()` | It is the most common error with SQLAlchemy |
+| `ForeignKeyViolation` | You tried to save a `product_id` that does not exist | The database is protecting you. It is right that it fails |
+| `Each child in a list should have a unique "key" prop` | The `key` is missing in a `.map()` | Put `key={something unique}` |
+| `Cannot read properties of undefined` | You are using data that has not arrived from the backend yet | Check the initial value of the `useState` |
+| `422 Unprocessable Entity` | The JSON does not have the shape of the Pydantic model | Look in Network at exactly what you sent |
+| `fatal: remote origin already exists` | You had already done the `remote add` | `git remote -v` to see how it ended up |
+| `Updates were rejected` | There are things on GitHub you do not have locally | `git pull` first |
 
-**La regla de siempre:** leé el error entero, y empezá por la última línea. Ahí suele estar lo que de
-verdad pasó.
+**The usual rule:** read the whole error, and start with the last line. That is usually where what
+really happened is.
 
 ---
 
-# Glosario
+# Glossary
 
-| Término | Significado |
+| Term | Meaning |
 |---|---|
-| **Repositorio** | Carpeta de proyecto con historial de cambios |
-| **Commit** | Foto guardada del estado del proyecto, con un mensaje |
-| **Push** | Subir tus commits a GitHub |
-| **Clone** | Descargar un repo de GitHub a tu máquina |
-| **Remote / origin** | El repo en GitHub al que apunta el tuyo local |
-| **`.gitignore`** | Lista de lo que Git tiene que ignorar |
-| **Stage** | Marcar archivos para que entren en el próximo commit (`git add`) |
-| **Contenedor** | Un programa corriendo aislado, gestionado por Docker |
-| **Imagen** | La plantilla de la que nace un contenedor (`postgres:16`) |
-| **Volumen** | Carpeta donde el contenedor guarda datos para que sobrevivan si lo borrás |
-| **ORM** | Traductor entre clases de Python y tablas de SQL. Acá, SQLAlchemy |
-| **Driver** | La librería que sabe hablar con una base concreta. Acá, psycopg |
-| **Sesión** | Una conversación abierta con la base de datos |
-| **Commit (de base de datos)** | Confirmar los cambios. **Ojo: no tiene nada que ver con el commit de Git** |
-| **Clave primaria** | La columna que identifica cada fila de forma única |
-| **Clave foránea** | Columna que apunta a la clave primaria de otra tabla |
-| **Migración** | Un cambio del diseño de la base guardado como archivo, con su `upgrade` y su `downgrade`. Sección 2.6 |
-| **Alembic** | La herramienta de migraciones de SQLAlchemy. "Git para la forma de tu base de datos" |
-| **Esquema** | El diseño de la base: qué tablas hay, con qué columnas y de qué tipo |
-| **CORS** | Regla del navegador sobre quién puede pedirle datos a quién |
-| **Middleware** | Código que se ejecuta entre que llega la petición y responde tu función |
-| **Endpoint** | Una dirección concreta de tu API (`/productos`, `/cesta`) |
-| **Inyección de dependencias** | Que el framework te pase lo que necesitás (`Depends`) en vez de crearlo vos |
-| **Estado (state)** | Datos de React que, al cambiar, redibujan la pantalla |
-| **Hook** | Función de React que empieza por `use` (`useState`, `useEffect`) |
-| **Promesa** | Un valor que todavía no llegó. Se maneja con `.then()` |
-| **Pydantic** | Librería que valida la forma de los datos que entran a FastAPI |
+| **Repository** | Project folder with a history of changes |
+| **Commit** | A saved photo of the project's state, with a message |
+| **Push** | Upload your commits to GitHub |
+| **Clone** | Download a repo from GitHub to your machine |
+| **Remote / origin** | The GitHub repo your local one points at |
+| **`.gitignore`** | List of what Git has to ignore |
+| **Stage** | Marking files to go into the next commit (`git add`) |
+| **Container** | A program running isolated, managed by Docker |
+| **Image** | The template a container is born from (`postgres:16`) |
+| **Volume** | Folder where the container stores data so it survives if you delete it |
+| **ORM** | Translator between Python classes and SQL tables. Here, SQLAlchemy |
+| **Driver** | The library that knows how to talk to a specific database. Here, psycopg |
+| **Session** | An open conversation with the database |
+| **Commit (database)** | Confirming the changes. **Careful: nothing to do with a Git commit** |
+| **Primary key** | The column that uniquely identifies each row |
+| **Foreign key** | Column pointing at another table's primary key |
+| **Migration** | A change to the database design saved as a file, with its `upgrade` and `downgrade`. Section 2.6 |
+| **Alembic** | SQLAlchemy's migration tool. "Git for the shape of your database" |
+| **Schema** | The database design: which tables exist, with which columns and of what type |
+| **CORS** | Browser rule about who can ask whom for data |
+| **Middleware** | Code that runs between the request arriving and your function answering |
+| **Endpoint** | A concrete address of your API (`/products`, `/basket`) |
+| **Dependency injection** | The framework passing you what you need (`Depends`) instead of you creating it |
+| **State** | React data that redraws the screen when it changes |
+| **Hook** | A React function starting with `use` (`useState`, `useEffect`) |
+| **Promise** | A value that has not arrived yet. Handled with `.then()` |
+| **Pydantic** | Library that validates the shape of data coming into FastAPI |
 
 ---
 
 # Checklist
 
-## Parte 0 — GitHub
-- [ ] Cuenta de GitHub creada
-- [ ] `git config` con nombre y email
-- [ ] Repo `cesta` creado en GitHub, vacío
-- [ ] `git init` en `C:\dev\cesta`
-- [ ] `.gitignore` creado **antes** de instalar nada
-- [ ] Primer commit hecho
+## Part 0 — GitHub
+- [ ] GitHub account created
+- [ ] `git config` with name and email
+- [ ] `basket` repo created on GitHub, empty
+- [ ] `git init` in `C:\dev\basket`
+- [ ] `.gitignore` created **before** installing anything
+- [ ] First commit done
 
-## Parte 1 — Docker y base de datos
-- [ ] Docker Desktop instalado y la máquina reiniciada
-- [ ] `docker-compose.yml` escrito y entendido línea por línea
-- [ ] `docker compose up -d` funciona
-- [ ] `docker ps` me muestra `cesta-db` en `Up`
-- [ ] Entiendo por qué solo la DB va en Docker y mi código no
+## Part 1 — Docker and database
+- [ ] Docker Desktop installed and the machine restarted
+- [ ] `docker-compose.yml` written and understood line by line
+- [ ] `docker compose up -d` works
+- [ ] `docker ps` shows me `basket-db` as `Up`
+- [ ] I understand why only the DB goes in Docker and my code does not
 
-## Parte 2 — Backend
-- [ ] `venv` creado y activado (veo `(venv)`)
-- [ ] `fastapi`, `uvicorn`, `sqlalchemy` y `psycopg` instalados
-- [ ] `requirements.txt` generado
-- [ ] `database.py`, `models.py` y `main.py` escritos
-- [ ] Los endpoints probados en `/docs`
-- [ ] **Hice la prueba de la sección 2.8 y los datos sobrevivieron**
-- [ ] Entiendo la diferencia entre modelo de SQLAlchemy y modelo de Pydantic
-- [ ] Sé por qué `create_all` no vale en producción y qué resuelve Alembic
+## Part 2 — Backend
+- [ ] `venv` created and activated (I see `(venv)`)
+- [ ] `fastapi`, `uvicorn`, `sqlalchemy` and `psycopg` installed
+- [ ] `requirements.txt` generated
+- [ ] `database.py`, `models.py` and `main.py` written
+- [ ] The endpoints tested in `/docs`
+- [ ] **I did the section 2.8 test and the data survived**
+- [ ] I understand the difference between a SQLAlchemy model and a Pydantic model
+- [ ] I know why `create_all` is no good in production and what Alembic solves
 
-## Parte 3 — Frontend
-- [ ] Proyecto Vite creado
-- [ ] Bootstrap enlazado en `index.html`
-- [ ] `App.jsx` escrito
-- [ ] Entiendo qué hace `useState` y qué hace `useEffect`
+## Part 3 — Frontend
+- [ ] Vite project created
+- [ ] Bootstrap linked in `index.html`
+- [ ] `App.jsx` written
+- [ ] I understand what `useState` does and what `useEffect` does
 
-## Parte 4 — Conexión
-- [ ] Las tres capas corriendo a la vez
-- [ ] Puedo agregar productos y ver el total
-- [ ] Entiendo qué es CORS y por qué existe
-- [ ] Sé localizar en qué capa está el fallo antes de tocar nada
+## Part 4 — Connection
+- [ ] The three layers running at once
+- [ ] I can add products and see the total
+- [ ] I understand what CORS is and why it exists
+- [ ] I can locate which layer the failure is in before touching anything
 
-## Parte 5 — Entrega
-- [ ] `git push` hecho, veo el código en github.com
-- [ ] `node_modules` y `venv` NO están en el repo
-- [ ] T1 a T7 completadas
-- [ ] Cloné mi propio repo en otra carpeta y arranca siguiendo mi README
+## Part 5 — Submission
+- [ ] `git push` done, I can see the code on github.com
+- [ ] `node_modules` and `venv` are NOT in the repo
+- [ ] T1 to T7 completed
+- [ ] I cloned my own repo into another folder and it starts by following my README
 
 ---
 
-> **Si te trabás más de 40 minutos en el mismo punto, escribime.** Pero mandame las tres cosas: qué
-> estabas haciendo, el error completo copiado, y qué probaste. Con eso te contesto en dos minutos;
-> sin eso, tardamos media hora en averiguar dónde estás.
+> **If you are stuck on the same point for more than 40 minutes, write to me.** But send me the
+> three things: what you were doing, the complete error copied out, and what you tried. With that I
+> answer you in two minutes; without it, we spend half an hour working out where you are.
