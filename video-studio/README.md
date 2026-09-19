@@ -20,38 +20,28 @@ Renders land in the course repo, in `course/video/out/`, which is gitignored the
 It assumes the two repos are siblings — both directly on the Desktop. The output is a
 derived artefact: the scene spec is the source of truth, and the mp4 is rebuilt on demand.
 
-## Capturing timings from a performance
+## Stepping through a scene
 
 ```bash
 npm run capture     # http://localhost:5174
 ```
 
-Rather than guessing `appearAt` values and then recording a voiceover that has to match
-them, you drive the pace yourself:
-
-1. Pick the shot — `[` and `]` step through them, or use the dropdown.
-2. Hit **Start** (or Enter). The scene begins playing, empty.
-3. **Read the script aloud** — it is on screen.
-4. Tap **SPACE** at the moment each element should land. The panel shows what is next.
-5. When the last cue fires the take ends. **Save & next shot** writes the timings and moves
-   you on, so eleven takes is eleven rounds of the same four keys.
+**Arrows. That is the whole interaction.**
 
 | Key | Does |
 |---|---|
-| `←` `→` | step back / forward through the scene |
+| `→` | reveal the next thing |
+| `←` | take the last one back |
 | `[` `]` | previous / next shot |
-| `Enter` | start / stop a re-timing take |
-| `SPACE` | fire the next cue — **only during a take** |
 
-Stepping and recording are separate on purpose. Arrows walk a scene moment by moment and
-change nothing; a take only begins when you press Enter.
+Press `→` and the next box or arrow appears. Press it again for the one after. Read the
+script aloud while you step and you are doing two jobs at once: **each press is timestamped
+against the player's own clock**, so the pace you set becomes the scene's timing. There is
+no record mode to remember to switch on.
 
-The clock is the Player's own frame counter, not wall time, so a cue lands on exactly the
-frame the rendered video will show it on.
-
-Record your voice on a separate recorder during the same take and the two are in sync by
-construction — the timings came from that performance. Re-take as often as you like; it
-only writes when you press save.
+When the last thing has landed, **Save timings to spec** writes those moments and the scene
+length into `scenes/guide-01.json`. **Start over** throws the take away. Nothing is written
+until you press save, so step through it as often as you like.
 
 ## How it fits together
 
