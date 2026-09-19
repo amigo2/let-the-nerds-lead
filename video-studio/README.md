@@ -29,11 +29,18 @@ npm run capture     # http://localhost:5174
 Rather than guessing `appearAt` values and then recording a voiceover that has to match
 them, you drive the pace yourself:
 
-1. Pick the scene, hit **Start** (or Enter). The scene begins playing, empty.
-2. **Read the script aloud** — it is on screen.
-3. Tap **SPACE** at the moment each element should land. The panel shows what is next.
-4. When the last cue fires the take ends. **Save timings to spec** writes the `appearAt`
-   values and the scene length straight into `scenes/guide-01.json`.
+1. Pick the shot — `[` and `]` step through them, or use the dropdown.
+2. Hit **Start** (or Enter). The scene begins playing, empty.
+3. **Read the script aloud** — it is on screen.
+4. Tap **SPACE** at the moment each element should land. The panel shows what is next.
+5. When the last cue fires the take ends. **Save & next shot** writes the timings and moves
+   you on, so eleven takes is eleven rounds of the same four keys.
+
+| Key | Does |
+|---|---|
+| `Enter` | start / stop the take |
+| `SPACE` | fire the next cue |
+| `[` `]` | previous / next shot (between takes) |
 
 The clock is the Player's own frame counter, not wall time, so a cue lands on exactly the
 frame the rendered video will show it on.

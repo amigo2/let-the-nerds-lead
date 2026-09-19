@@ -85,14 +85,24 @@ export const CaptureApp: React.FC = () => {
     setFired((prev) => ({ ...prev, [nextCue.id]: Number((frame / FPS).toFixed(2)) }))
   }, [running, nextCue])
 
+  const goTo = useCallback((i: number) => {
+    if (i < 0 || i >= spec.scenes.length) return
+    setSceneIndex(i)
+    setFired({})
+    setSaved(null)
+    setRunning(false)
+  }, [])
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.code === 'Space') { e.preventDefault(); fire() }
       if (e.code === 'Enter') { e.preventDefault(); running ? stop() : start() }
+      if (!running && e.code === 'BracketLeft') { e.preventDefault(); goTo(sceneIndex - 1) }
+      if (!running && e.code === 'BracketRight') { e.preventDefault(); goTo(sceneIndex + 1) }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [fire, running, start, stop])
+  }, [fire, running, start, stop, goTo, sceneIndex])
 
   // Once every cue has landed, the take is over.
   useEffect(() => {
@@ -126,6 +136,11 @@ export const CaptureApp: React.FC = () => {
     })
     const json = await res.json()
     setSaved(json.ok ? `saved → ${json.target}` : `failed: ${json.error}`)
+  }
+
+  const saveAndNext = async () => {
+    await save()
+    goTo(sceneIndex + 1)
   }
 
   return (
@@ -173,15 +188,22 @@ export const CaptureApp: React.FC = () => {
       </div>
 
       <div style={{ borderLeft: '1px solid #1E293B', padding: 24, display: 'flex', flexDirection: 'column', gap: 14 }}>
-        <select
-          value={sceneIndex}
-          onChange={(e) => { setSceneIndex(Number(e.target.value)); setFired({}); setSaved(null) }}
-          style={{ padding: 8, borderRadius: 8, background: '#0F172A', color: '#F1F5F9', border: '1px solid #334155' }}
-        >
-          {spec.scenes.map((s, i) => (
-            <option key={s.id} value={i}>{s.shot ? `Shot ${s.shot} — ` : ''}{s.id}</option>
-          ))}
-        </select>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <button onClick={() => goTo(sceneIndex - 1)} disabled={sceneIndex === 0} style={stepBtn}>‹</button>
+          <select
+            value={sceneIndex}
+            onChange={(e) => goTo(Number(e.target.value))}
+            style={{ flex: 1, padding: 8, borderRadius: 8, background: '#0F172A', color: '#F1F5F9', border: '1px solid #334155' }}
+          >
+            {spec.scenes.map((s, i) => (
+              <option key={s.id} value={i}>{s.shot ? `Shot ${s.shot} — ` : ''}{s.id}</option>
+            ))}
+          </select>
+          <button onClick={() => goTo(sceneIndex + 1)} disabled={sceneIndex === spec.scenes.length - 1} style={stepBtn}>›</button>
+        </div>
+        <div style={{ fontSize: 12, color: '#64748B', textAlign: 'center' }}>
+          shot {sceneIndex + 1} of {spec.scenes.length} · <b>[</b> and <b>]</b> to move
+        </div>
 
         <button
           onClick={running ? stop : start}
@@ -236,8 +258,26 @@ export const CaptureApp: React.FC = () => {
           Save timings to spec
         </button>
 
+        <button
+          onClick={saveAndNext}
+          disabled={!complete || sceneIndex === spec.scenes.length - 1}
+          style={{
+            padding: '12px 16px', fontSize: 15, fontWeight: 700, borderRadius: 10,
+            border: 'none', background: complete && sceneIndex < spec.scenes.length - 1 ? '#2563EB' : '#0F172A',
+            color: complete && sceneIndex < spec.scenes.length - 1 ? 'white' : '#475569',
+            cursor: complete && sceneIndex < spec.scenes.length - 1 ? 'pointer' : 'not-allowed',
+          }}
+        >
+          Save &amp; next shot →
+        </button>
+
         {saved && <div style={{ fontSize: 12, color: '#34D399', wordBreak: 'break-all' }}>{saved}</div>}
       </div>
     </div>
   )
+}
+
+const stepBtn: React.CSSProperties = {
+  padding: '8px 12px', borderRadius: 8, border: '1px solid #334155',
+  background: '#0F172A', color: '#F1F5F9', fontSize: 15, cursor: 'pointer',
 }
