@@ -33,7 +33,7 @@ envejece.
 El planteamiento correcto es tratar el curso como **código**:
 
 ```
-GUIA-04-CSS.md   ← lo único que se edita a mano
+GUIDE-04-CSS.md   ← lo único que se edita a mano
       │
       ├─→ guion.md          (generado)
       ├─→ voz.mp3           (generado)
@@ -166,7 +166,7 @@ Para lo que no es terminal (navegador, VS Code, Figma):
 Para contenido técnico, **diagramas como código** gana a imágenes generadas:
 
 - **Mermaid** para arquitecturas, flujos y secuencias; se escribe en texto, se versiona y se
-  regenera. Un diagrama cliente-servidor de la GUIA-01 son seis líneas.
+  regenera. Un diagrama cliente-servidor de la GUIDE-01 son seis líneas.
 - **Excalidraw** para lo que necesita aspecto dibujado a mano.
 - **Generación de imágenes** solo para portadas, miniaturas y material de marketing — no para
   explicar conceptos técnicos, donde la IA todavía comete errores de detalle que confunden al
@@ -331,14 +331,14 @@ argumento.
 
 No montar el pipeline entero. Hacer **una guía completa de punta a punta** y medir cuánto cuesta.
 
-Candidata: la [GUIA-01](../../../guides/GUIA-01-Que-es-una-App-Web-FE-y-BE.md), porque ya está escrita, es
+Candidata: la [GUIDE-01](../../../guides/GUIDE-01-What-Is-A-Web-App-FE-And-BE.md), porque ya está escrita, es
 conceptual (mucho diagrama, poca terminal) y sus videos actuales son enlaces a terceros que
 conviene sustituir cuanto antes.
 
 Secuencia:
 
 1. Clonar tu voz con una muestra de audio limpio.
-2. Generar el guion de la GUIA-01 con un prompt escrito por ti, y corregirlo a mano anotando qué ha
+2. Generar el guion de la GUIDE-01 con un prompt escrito por ti, y corregirlo a mano anotando qué ha
    fallado — esas correcciones son las que mejoran el prompt para las otras 64.
 3. Hacer los diagramas de las secciones 1, 5 y 10 en Mermaid.
 4. Locutar el guion con tu voz clonada.

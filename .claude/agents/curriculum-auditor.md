@@ -22,7 +22,7 @@ Produce a findings list the instructor can act on.
 - Every relative link resolves to a file that exists.
 - Every guide file is listed in the master index.
 - Every index row points to a file that exists, or is clearly marked as unwritten.
-- The guide filename number matches its day number (`GUIA-NN` = day NN). Any disagreement
+- The guide filename number matches its day number (`GUIDE-NN` = day NN). Any disagreement
   between a filename, the curriculum, and the master index is a finding.
 
 ### 2. Curriculum coherence
@@ -35,13 +35,13 @@ Produce a findings list the instructor can act on.
 - No guide uses a concept, tool, or syntax introduced in a later guide without flagging it.
 - Common violations: comprehensions before loops, async before functions, decorators before
   functions, TypeScript generics before interfaces, Docker before the terminal guide.
-- Report as: `GUIA-NN uses X, first taught in GUIA-MM (MM > NN)`.
+- Report as: `GUIDE-NN uses X, first taught in GUIDE-MM (MM > NN)`.
 
 ### 4. Language and voice
 - All student-facing material is **English**. Flag any Spanish prose in `course/guides/`,
   `course/projects/`, `course/00-onboarding/` or `course/curriculum/`.
 - Two deliberate exceptions that are **not** findings: Spanish-language video titles kept so the
-  videos can be found, and the `GUIA-` / `PROYECTO-` / `TAREA-` filename prefixes and slugs.
+  videos can be found, and the `GUIDE-` / `PROJECT-` / `ASSIGNMENT-` filename prefixes and slugs.
 - `course/notes/**` is instructor material and is expected to be Spanish. Do not flag it, and do
   not read it into a student session.
 - Flag guides missing the house-style elements: framing blockquote, exercises, self-check,

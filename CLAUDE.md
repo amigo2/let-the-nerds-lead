@@ -12,7 +12,7 @@ what this file replaces.
 A private bootcamp repository. It contains course material, not an application.
 
 - **65 guides = 65 course days**, numbered 00–64. One guide = one day = one major topic + one
-  practical outcome. The guide filename number *is* the day number: day 07 is `GUIA-07-*.md`.
+  practical outcome. The guide filename number *is* the day number: day 07 is `GUIDE-07-*.md`.
 - Learning order: setup/Claude → web concepts → first guided project → Python → FastAPI →
   PostgreSQL → TypeScript → React → testing → containers and DevOps → applied AI → mobile →
   employability → final project.
@@ -67,7 +67,7 @@ curriculum, master index — has been translated. English is the source of truth
 - Two deliberate exceptions, which are **not** drift and must not be "fixed":
   - Spanish-language YouTube videos keep their **original titles** so they can be found. Each
     such table carries a note saying the videos are in Spanish.
-  - Filenames keep their `GUIA-` / `PROYECTO-` / `TAREA-` prefixes and Spanish slugs, so links
+  - Filenames keep their `GUIDE-` / `PROJECT-` / `ASSIGNMENT-` prefixes and Spanish slugs, so links
     from students' existing clones and notes keep working.
 - `course/notes/**` is instructor material and stays in **Spanish**. It is not student-facing.
 - A Spanish edition will be produced later, translated **from** the English masters. Until an
@@ -172,7 +172,7 @@ See the `git-safety` skill.
 ## Markdown conventions in this repo
 
 - Body text wraps at roughly 100 characters.
-- `GUIA-NN-Kebab-Case-Title.md` for guides, `PROYECTO-NN-…` / `TAREA-NN-…` for projects,
+- `GUIDE-NN-Title-In-Kebab-Case.md` for guides, `PROJECT-NN-…` / `ASSIGNMENT-NN-…` for projects,
   `CLASS-NN-…` for onboarding.
 - Relative links between course documents; verify a link target exists before adding it.
 - Concept tables, explicit self-check checkboxes, and a closing glossary are the house style.

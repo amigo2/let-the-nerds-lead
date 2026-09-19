@@ -62,8 +62,8 @@ plainly, then offer, in this order:
 
 1. **Preserve their work in a copy** (preferred for beginners):
    ```bash
-   cp course/guides/GUIA-02-Terminal-y-Primeros-Proyectos.md ~/mis-notas-guia-02.md
-   git restore course/guides/GUIA-02-Terminal-y-Primeros-Proyectos.md
+   cp course/guides/GUIDE-02-Terminal-And-First-Projects.md ~/my-notes-guide-02.md
+   git restore course/guides/GUIDE-02-Terminal-And-First-Projects.md
    git pull --ff-only origin main
    ```
    Their notes survive outside the repo and the guide updates cleanly.

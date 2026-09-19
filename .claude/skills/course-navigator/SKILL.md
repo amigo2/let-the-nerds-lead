@@ -46,13 +46,13 @@ rather than trusting this summary if there is any doubt.
 Not all 65 guides are written yet. Currently in the repo:
 
 - `course/00-onboarding/CLASS-00-First-Contact-VS-Code-Claude-and-Starter-Prompt.md` → day 00
-- `course/guides/GUIA-01-Que-es-una-App-Web-FE-y-BE.md` → day 01
-- `course/guides/GUIA-02-Terminal-y-Primeros-Proyectos.md` → day 02
-- `course/guides/GUIA-03-Conceptos-Para-Tu-Primer-Proyecto.md` → day 03
-- `course/projects/PROYECTO-01-App-de-Salud-Paso-a-Paso.md`
-- `course/projects/TAREA-01-La-Cesta-FE-BE-y-GitHub.md`
+- `course/guides/GUIDE-01-What-Is-A-Web-App-FE-And-BE.md` → day 01
+- `course/guides/GUIDE-02-Terminal-And-First-Projects.md` → day 02
+- `course/guides/GUIDE-03-Concepts-For-Your-First-Project.md` → day 03
+- `course/projects/PROJECT-01-Health-App-Step-By-Step.md`
+- `course/projects/ASSIGNMENT-01-The-Basket-FE-BE-And-GitHub.md`
 
-**The guide number is the day number.** Day NN is `GUIA-NN-*.md`; day 00 is the onboarding
+**The guide number is the day number.** Day NN is `GUIDE-NN-*.md`; day 00 is the onboarding
 `CLASS-00` document. If a filename and a day ever disagree, the master index wins — report the
 mismatch rather than guessing.
 
@@ -80,10 +80,10 @@ Before answering a technical question, establish the student's current day.
 | Student says | Route to |
 |---|---|
 | "what's next" | Master index → next day → its practical outcome |
-| "I don't get frontend vs backend" | GUIA-01 (day 01) |
-| "terminal scares me" | GUIA-02 (day 02) |
-| "how do FastAPI and fetch connect" | GUIA-03 (day 03) |
-| "I want to build something real" | PROYECTO-01 or TAREA-01 |
+| "I don't get frontend vs backend" | GUIDE-01 (day 01) |
+| "terminal scares me" | GUIDE-02 (day 02) |
+| "how do FastAPI and fetch connect" | GUIDE-03 (day 03) |
+| "I want to build something real" | PROJECT-01 or ASSIGNMENT-01 |
 | "am I ready for React" | Check phases 1–4 outcomes are demonstrable, not just read |
 
 ## Readiness is demonstrated, not claimed

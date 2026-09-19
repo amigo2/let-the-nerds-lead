@@ -2,16 +2,16 @@
 
 > Enmanuel's study document. Created 8 August 2026.
 >
-> **This comes after GUIA-02.** The complete order is:
+> **This comes after GUIDE-02.** The complete order is:
 >
 > ```
-> GUIA-01  →  GUIA-02  →  GUIA-03  +  PROYECTO-01
+> GUIDE-01  →  GUIDE-02  →  GUIDE-03  +  PROJECT-01
 > what a      terminal    concepts     your first
 > web app     and the     of the       app, step
 > is          3 bases     first one    by step
 > ```
 >
-> **Companion guide to [PROYECTO-01 — My Health App](../projects/PROYECTO-01-App-de-Salud-Paso-a-Paso.md).**
+> **Companion guide to [PROJECT-01 — My Health App](../projects/PROJECT-01-Health-App-Step-By-Step.md).**
 > They are read **together**: the project tells you *what to write*, this one tells you *why it
 > works*.
 
@@ -21,7 +21,7 @@
 
 Do not read it straight through. **It works better like this:**
 
-1. Open PROYECTO-01 and start doing the steps.
+1. Open PROJECT-01 and start doing the steps.
 2. When something you do not understand shows up, look it up here.
 3. Go back to the project.
 
@@ -167,7 +167,7 @@ glance, you will be able to read code from anywhere.
 ## 🔗 And that is why JSON looks so similar
 
 Go back for a second to
-[GUIA-01 section 7](GUIA-01-Que-es-una-App-Web-FE-y-BE.md#7-json-the-language-between-fe-and-be) —
+[GUIDE-01 section 7](GUIDE-01-What-Is-A-Web-App-FE-And-BE.md#7-json-the-language-between-fe-and-be) —
 the thing you were unsure about. Look at the two side by side:
 
 ```python
@@ -408,7 +408,7 @@ f"Hello, {name}, you are {age} years old"      # "Hello, Enmanuel, you are 20 ye
 ```
 
 The `f` before the quote is mandatory. Without it, it prints `{name}` literally.
-It is what the `@app.get("/greeting/{name}")` from GUIA-02 uses.
+It is what the `@app.get("/greeting/{name}")` from GUIDE-02 uses.
 
 ## `if` / `elif` / `else`
 
@@ -492,7 +492,7 @@ five seconds.
 
 ## Why this endpoint is POST
 
-Review [GUIA-01 section 6](GUIA-01-Que-es-una-App-Web-FE-y-BE.md#6-http-methods-and-status-codes):
+Review [GUIDE-01 section 6](GUIDE-01-What-Is-A-Web-App-FE-And-BE.md#6-http-methods-and-status-codes):
 
 | | GET | POST |
 |---|---|---|
@@ -545,7 +545,7 @@ Frontend sends:  {"weight": 70, "height": 175, ...}
 if `weight` came in empty?". It cannot come in empty: Pydantic stopped it first.
 
 And it is the
-[golden rule from GUIA-01](GUIA-01-Que-es-una-App-Web-FE-y-BE.md#the-golden-rule-of-security)
+[golden rule from GUIDE-01](GUIDE-01-What-Is-A-Web-App-FE-And-BE.md#the-golden-rule-of-security)
 in practice: *the backend is the law*. Even if the frontend validates, the backend validates
 again.
 
@@ -631,7 +631,7 @@ document
 
 That tree is exactly what you see in **F12 → Elements**. And because it is a live object,
 JavaScript can read and modify it — which is just what you proved by editing YouTube in the
-[star exercise in GUIA-01](GUIA-01-Que-es-una-App-Web-FE-y-BE.md#-star-exercise-see-the-fe-and-the-be-with-your-own-eyes).
+[star exercise in GUIDE-01](GUIDE-01-What-Is-A-Web-App-FE-And-BE.md#-star-exercise-see-the-fe-and-the-be-with-your-own-eyes).
 
 ## Grabbing an element
 
@@ -836,7 +836,7 @@ the button many times without the results piling up.
 > 🔒 **Security note for later:** `innerHTML` interprets what you give it as real HTML. If one day
 > you put text written by a user in there, someone can inject code. In your practice app you
 > generate all the content yourself, so there is no risk. But keep the fact: it is called **XSS**,
-> and it is the same idea from GUIA-01 — *never trust what comes from outside*.
+> and it is the same idea from GUIDE-01 — *never trust what comes from outside*.
 
 ## `let` and `const`
 
@@ -942,7 +942,7 @@ caused it.
 
 # 15. Git: saving your work
 
-You installed it in Module 1 of GUIA-02 and have not used it yet. Now is the moment: you now have
+You installed it in Module 1 of GUIDE-02 and have not used it yet. Now is the moment: you now have
 a project it would hurt to lose.
 
 **Git saves photos of your project through time.** You can go back to any of them. It is the
@@ -1064,7 +1064,7 @@ blogs full of ads.
 
 ## How to study this without wasting time
 
-GUIA-02 says it and I repeat it because it is what fails most:
+GUIDE-02 says it and I repeat it because it is what fails most:
 
 **Watching tutorials feels like learning, but it is not.** The only proof you learned something is
 being able to do it with an empty editor and no video.

@@ -2,7 +2,7 @@
 
 > Enmanuel's study document. Created 31 July 2026.
 >
-> **This guide comes BEFORE [GUIA-02](GUIA-02-Terminal-y-Primeros-Proyectos.md).**
+> **This guide comes BEFORE [GUIDE-02](GUIDE-02-Terminal-And-First-Projects.md).**
 > Your instructor is right: first you understand **what** you are building, and only then do you
 > learn the tools to build it. Otherwise you end up typing commands without knowing what is
 > going on.
@@ -228,7 +228,7 @@ Every request carries a **method** that declares the intention:
 | **PUT** / **PATCH** | **Modify** something that exists | edit your profile picture |
 | **DELETE** | **Delete** something | remove a message |
 
-In Module 3 of GUIA-02 you wrote `@app.get("/")`. Now you know what that `get` means: "this
+In Module 3 of GUIDE-02 you wrote `@app.get("/")`. Now you know what that `get` means: "this
 function answers when someone wants to **read** this address".
 
 > Important detail: when you type an address in the browser, you are always making a **GET**. The
@@ -377,7 +377,7 @@ And this is where what you are learning fits:
 | **React** | Frontend | A JavaScript library |
 | **FastAPI** | Backend | A Python framework |
 
-And that is why the order in GUIA-02 makes sense: Bootstrap (see something immediately), FastAPI
+And that is why the order in GUIDE-02 makes sense: Bootstrap (see something immediately), FastAPI
 (understand the backend), React (tie it all together). When you finish the three, you have
 touched all three layers of the drawing.
 
@@ -416,7 +416,7 @@ API.** Two separate projects, two servers, talking over HTTP with JSON.
 
 # 12. How an app reaches the internet
 
-Everything you do in GUIA-02 runs on `localhost`: **only on your computer, nobody else sees it.**
+Everything you do in GUIDE-02 runs on `localhost`: **only on your computer, nobody else sees it.**
 For the world to see it, four things are needed. You do not need them now, but it is worth
 knowing they exist and what they are for:
 
@@ -507,7 +507,7 @@ Write your answers in this file:
 
 # 🎬 Videos
 
-**Watch these BEFORE the GUIA-02 videos.** They are short and they are the foundation for
+**Watch these BEFORE the GUIDE-02 videos.** They are short and they are the foundation for
 everything else.
 
 > These videos are in **Spanish**; their original titles are kept below so you can find them.
@@ -619,7 +619,7 @@ That is the standard. Try saying it out loud.
 
 ## When you finish this
 
-Move on to **[GUIA-02 — Terminal and First Projects](GUIA-02-Terminal-y-Primeros-Proyectos.md)**.
+Move on to **[GUIDE-02 — Terminal and First Projects](GUIDE-02-Terminal-And-First-Projects.md)**.
 
 There you will no longer be learning loose commands: you will know that `uvicorn main:app`
 starts **a backend**, that `localhost:8000` is **your server**, that `return {"message":

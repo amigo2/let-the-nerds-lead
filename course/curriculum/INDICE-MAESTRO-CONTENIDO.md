@@ -56,13 +56,13 @@
 | # | Guide | State | Practical outcome |
 |---:|---|---|---|
 | 00 | [VS Code, Claude Code, GitHub, and safe learning with an agent](../00-onboarding/CLASS-00-First-Contact-VS-Code-Claude-and-Starter-Prompt.md) | TXT | Repo cloned and agent verified: `CLAUDE.md`, skills, and slash commands working |
-| 01 | [What a web system is: frontend, backend, HTTP, JSON, and APIs](../guides/GUIA-01-Que-es-una-App-Web-FE-y-BE.md) | TXT | Trace a complete request and response |
-| 02 | [Local workflow with Claude-assisted terminal and Git](../guides/GUIA-02-Terminal-y-Primeros-Proyectos.md) | TXT | Open, run, inspect, stop, and save a project |
-| 03 | [First guided project: architecture before syntax](../guides/GUIA-03-Conceptos-Para-Tu-Primer-Proyecto.md) | TXT | Build and explain a small end-to-end feature |
+| 01 | [What a web system is: frontend, backend, HTTP, JSON, and APIs](../guides/GUIDE-01-What-Is-A-Web-App-FE-And-BE.md) | TXT | Trace a complete request and response |
+| 02 | [Local workflow with Claude-assisted terminal and Git](../guides/GUIDE-02-Terminal-And-First-Projects.md) | TXT | Open, run, inspect, stop, and save a project |
+| 03 | [First guided project: architecture before syntax](../guides/GUIDE-03-Concepts-For-Your-First-Project.md) | TXT | Build and explain a small end-to-end feature |
 
-> **Day 03 is built as [PROYECTO-01 — My Health App](../projects/PROYECTO-01-App-de-Salud-Paso-a-Paso.md).** Its only prerequisite is GUIA-02, and it is deliberately ahead of the student's syntax: they assemble a working end-to-end system with heavy scaffolding while [GUIA-03](../guides/GUIA-03-Conceptos-Para-Tu-Primer-Proyecto.md) explains each concept as it appears. The two are read side by side — the project says what to write, the guide says why it works.
+> **Day 03 is built as [PROJECT-01 — My Health App](../projects/PROJECT-01-Health-App-Step-By-Step.md).** Its only prerequisite is GUIDE-02, and it is deliberately ahead of the student's syntax: they assemble a working end-to-end system with heavy scaffolding while [GUIDE-03](../guides/GUIDE-03-Concepts-For-Your-First-Project.md) explains each concept as it appears. The two are read side by side — the project says what to write, the guide says why it works.
 >
-> [TAREA-01 — The Basket](../projects/TAREA-01-La-Cesta-FE-BE-y-GitHub.md) is **not** Phase 0 material; it is the Phase 7 project. See day 36.
+> [ASSIGNMENT-01 — The Basket](../projects/ASSIGNMENT-01-The-Basket-FE-BE-And-GitHub.md) is **not** Phase 0 material; it is the Phase 7 project. See day 36.
 
 ### Phase 1 — Python foundations
 
@@ -146,7 +146,7 @@ The hands-on track is **Dokploy on an OVH VPS**: infrastructure the student prov
 
 > Every student pays for their own OVH VPS and AWS sandbox, and is taught to tear both down. Cost control is part of the phase, not an afterthought.
 
-> **[TAREA-01 — The Basket](../projects/TAREA-01-La-Cesta-FE-BE-y-GitHub.md) is the project for this phase**, startable from day 36. It needs Docker Compose (36), PostgreSQL and SQLAlchemy (17–19), React hooks (25–28) and FastAPI dependency injection (12) — which is why it cannot sit in Phase 0. Its Part 0 (GitHub from scratch) is revision by this point and can be skimmed.
+> **[ASSIGNMENT-01 — The Basket](../projects/ASSIGNMENT-01-The-Basket-FE-BE-And-GitHub.md) is the project for this phase**, startable from day 36. It needs Docker Compose (36), PostgreSQL and SQLAlchemy (17–19), React hooks (25–28) and FastAPI dependency injection (12) — which is why it cannot sit in Phase 0. Its Part 0 (GitHub from scratch) is revision by this point and can be skimmed.
 
 ### Phase 8 — Applied AI engineering
 

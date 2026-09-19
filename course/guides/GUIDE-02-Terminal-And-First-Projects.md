@@ -1,6 +1,6 @@
 # Guide 02 — The Terminal and your first projects
 
-> ⚠️ **Before this guide, read [GUIA-01 — What Is a Web App? FE and BE](GUIA-01-Que-es-una-App-Web-FE-y-BE.md).**
+> ⚠️ **Before this guide, read [GUIDE-01 — What Is a Web App? FE and BE](GUIDE-01-What-Is-A-Web-App-FE-And-BE.md).**
 > That is where the concepts live (client/server, frontend, backend, HTTP, JSON, API) that give
 > meaning to every command here. Without them, this guide is a list of commands to memorise;
 > with them, you understand what you are asking the machine to do.
@@ -164,7 +164,7 @@ Do them in the terminal, for real. Reading them is not enough.
   ```
   answer:
   ```
-- [ ] **E0.2** — Run `ls`. Do you see this file (`GUIA-02-Terminal-y-Primeros-Proyectos.md`) in the list?
+- [ ] **E0.2** — Run `ls`. Do you see this file (`GUIDE-02-Terminal-And-First-Projects.md`) in the list?
 - [ ] **E0.3** — Create a folder called `practice` with `mkdir`, go in with `cd` and confirm with `pwd` that you are inside.
 - [ ] **E0.4** — Leave `practice` with `cd ..` and check with `pwd` that you are back.
 - [ ] **E0.5** — Type `cd prac` and press `Tab` **without finishing the word**. Watch it complete itself.

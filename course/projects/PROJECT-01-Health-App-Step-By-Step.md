@@ -3,11 +3,11 @@
 > Enmanuel's study document. Created 8 August 2026.
 >
 > **Requirement:** having done Module 1 (install Python), Module 2 (Bootstrap) and Module 3
-> (FastAPI) of [GUIA-02](../guides/GUIA-02-Terminal-y-Primeros-Proyectos.md).
+> (FastAPI) of [GUIDE-02](../guides/GUIDE-02-Terminal-And-First-Projects.md).
 > **React is not needed.** This project does not use it.
 >
 > **The new concepts that appear here are explained in
-> [GUIA-03 — Concepts for your first project](../guides/GUIA-03-Conceptos-Para-Tu-Primer-Proyecto.md).**
+> [GUIDE-03 — Concepts for your first project](../guides/GUIDE-03-Concepts-For-Your-First-Project.md).**
 > Keep it open beside you. Every time you see something you do not know, the why is there.
 
 ---
@@ -125,7 +125,7 @@ pip install fastapi uvicorn
 ```
 
 `(venv)` has to appear at the start of the prompt. If it does not appear, do not continue: go back
-to [Module 3 of GUIA-02](../guides/GUIA-02-Terminal-y-Primeros-Proyectos.md#module-3--fastapi-your-first-server).
+to [Module 3 of GUIDE-02](../guides/GUIDE-02-Terminal-And-First-Projects.md#module-3--fastapi-your-first-server).
 
 Open the folder in your editor:
 
@@ -260,7 +260,7 @@ MEALS  ────────────────────────�
 
 **This shape — nested lists and dictionaries — is the most common data structure you will use in
 your life.** And it is no coincidence that it looks like the JSON from
-[GUIA-01 section 7](../guides/GUIA-01-Que-es-una-App-Web-FE-y-BE.md#7-json-the-language-between-fe-and-be):
+[GUIDE-01 section 7](../guides/GUIDE-01-What-Is-A-Web-App-FE-And-BE.md#7-json-the-language-between-fe-and-be):
 it is exactly the same shape. When FastAPI returns this in Step 7, it will be turned into JSON
 without you doing anything.
 
@@ -570,7 +570,7 @@ from logic import calculate_calories, build_plan, build_shopping_list
 app = FastAPI()
 
 # Lets a page open in the browser talk to this server.
-# Without this, the browser blocks the request. (See GUIA-03, the CORS section.)
+# Without this, the browser blocks the request. (See GUIDE-03, the CORS section.)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -641,7 +641,7 @@ The complete response appears below in JSON.
 
 **That JSON is your finished backend.** And notice: it is exactly the same dictionary `try_it.py`
 returned, but converted to JSON by FastAPI. It is the answer to the doubt you had about section 7
-of GUIA-01 — now you are seeing it with your own data.
+of GUIDE-01 — now you are seeing it with your own data.
 
 > `/docs` is your best tool throughout development. **Always test here first.** If it works in
 > `/docs`, the backend is fine; if the page then fails, the problem is in the frontend. That saves
@@ -652,7 +652,7 @@ of GUIA-01 — now you are seeing it with your own data.
 | What | What for |
 |---|---|
 | `class Profile(BaseModel)` | Declares **what data I expect to receive and of what type**. If the frontend sends rubbish, FastAPI rejects it on its own with a `422`, before your code runs. |
-| `@app.post(...)` | **POST**, not GET, because the frontend is **sending** data. (GUIA-01, section 6.) |
+| `@app.post(...)` | **POST**, not GET, because the frontend is **sending** data. (GUIDE-01, section 6.) |
 | `CORSMiddleware` | The permission for the browser to let the request pass between two different servers. |
 
 ---
@@ -834,7 +834,7 @@ const response = await fetch("http://127.0.0.1:8000/api/plan", { ... });
 ```
 
 **That is the exact moment the frontend talks to the backend.** The whole drawing from
-[GUIA-01 section 4](../guides/GUIA-01-Que-es-una-App-Web-FE-y-BE.md#4-how-they-talk-request-and-response),
+[GUIDE-01 section 4](../guides/GUIDE-01-What-Is-A-Web-App-FE-And-BE.md#4-how-they-talk-request-and-response),
 in one line.
 
 ---
@@ -862,7 +862,7 @@ Enter your real data and press **Generate my plan**.
 
 ## Now open F12 and look at what you did
 
-This closes the circle with the star exercise from GUIA-01, but now **with your own app**:
+This closes the circle with the star exercise from GUIDE-01, but now **with your own app**:
 
 1. `F12` → **Network** tab → filter by **Fetch/XHR**
 2. Press the button again
@@ -925,7 +925,7 @@ In order of difficulty. Do them in this order, not skipping around.
   for each quota find the meal with the smallest difference. **This is where your app stops being
   an exercise and starts being your idea.**
 
-- [ ] **E7** — `git init` and save the project. See the Git section in GUIA-03.
+- [ ] **E7** — `git init` and save the project. See the Git section in GUIDE-03.
 
 ---
 
@@ -958,7 +958,7 @@ other, just like in a real app — the frontend on `5500` and the backend on `80
 
 When something fails, **first decide which side the problem is on.** It is the 4xx/5xx
 distinction from
-[GUIA-01 section 6](../guides/GUIA-01-Que-es-una-App-Web-FE-y-BE.md#6-http-methods-and-status-codes):
+[GUIDE-01 section 6](../guides/GUIDE-01-What-Is-A-Web-App-FE-And-BE.md#6-http-methods-and-status-codes):
 
 ```
 Does it work in /docs?

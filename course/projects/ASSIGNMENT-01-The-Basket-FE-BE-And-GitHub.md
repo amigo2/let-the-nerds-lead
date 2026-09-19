@@ -2,8 +2,8 @@
 
 > For Enmanuel. Created 31 July 2026.
 >
-> **Before this you have to have finished [GUIA-01](../guides/GUIA-01-Que-es-una-App-Web-FE-y-BE.md) and
-> [GUIA-02](../guides/GUIA-02-Terminal-y-Primeros-Proyectos.md).** Everything here builds on those.
+> **Before this you have to have finished [GUIDE-01](../guides/GUIDE-01-What-Is-A-Web-App-FE-And-BE.md) and
+> [GUIDE-02](../guides/GUIDE-02-Terminal-And-First-Projects.md).** Everything here builds on those.
 >
 > This is no longer a guide: it is an **assignment**. Some things are given to you done so you do
 > not get stuck, and some are marked **🔧 YOUR TURN** and you have to solve them yourself. Those
@@ -50,13 +50,13 @@ all of it is stored.
    your browser              your machine (venv)        Docker container
 ```
 
-Notice it is the complete drawing from GUIA-01: the three layers. The difference is that this time
+Notice it is the complete drawing from GUIDE-01: the three layers. The difference is that this time
 you write them.
 
 **Two design rules that are not up for negotiation:**
 
 1. **The total is calculated in the backend**, never in the frontend. Remember the golden rule from
-   GUIA-01: if the price were calculated in React, anyone could open the DevTools and buy a car for
+   GUIDE-01: if the price were calculated in React, anyone could open the DevTools and buy a car for
    one euro.
 2. **The frontend never talks to the database.** It only talks to the backend. The arrow
    `React ──► PostgreSQL` does not exist and must never exist.
@@ -67,7 +67,7 @@ you write them.
 
 Four reasons:
 
-1. **It brings together everything from GUIA-02** in a single project: terminal, venv, FastAPI,
+1. **It brings together everything from GUIDE-02** in a single project: terminal, venv, FastAPI,
    React, Bootstrap.
 2. **It forces the three layers to talk to each other**, which is where you really understand what
    an API is. Until now you started them separately.
@@ -146,7 +146,7 @@ message matters. `"changes"` is not a message. `"add endpoint to empty the baske
 
 ## 0.4 Configure Git on your machine (once in your life)
 
-You already installed Git in Module 1 of GUIA-02. Now you have to tell it who you are, so it can
+You already installed Git in Module 1 of GUIDE-02. Now you have to tell it who you are, so it can
 sign your commits:
 
 ```powershell
@@ -612,7 +612,7 @@ uvicorn main:app --reload
 
 ## 2.5 How to read that code
 
-What is new compared to GUIA-02:
+What is new compared to GUIDE-02:
 
 | Element | What it is |
 |---|---|
@@ -747,7 +747,7 @@ Test in this order:
    `id`.
 2. `POST /basket` with `{"product_id": 1}` → you have to see `"added": "Coffee"`.
 3. `GET /basket` → the coffee and `total: 3.5`.
-4. `POST /basket` with `{"product_id": 99}` → a **404**. That is the code from GUIA-01 that means
+4. `POST /basket` with `{"product_id": 99}` → a **404**. That is the code from GUIDE-01 that means
    "not found". It is right that it fails: we programmed it to.
 5. `DELETE /basket`, and then `GET /basket` again, to see that it is empty.
 
@@ -808,7 +808,7 @@ Open `frontend/index.html` and paste this line inside the `<head>`:
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 ```
 
-It is the same Bootstrap from Module 2 of GUIA-02, loaded from the internet instead of downloaded.
+It is the same Bootstrap from Module 2 of GUIDE-02, loaded from the internet instead of downloaded.
 
 ## 3.3 The code
 
@@ -920,7 +920,7 @@ This has new React concepts. Take them slowly:
 | `useState([])` | The **state**: data that, when it changes, makes React redraw the screen. It returns two things: the value and the function for changing it |
 | `const [products, setProducts]` | It reads: "`products` is the value, `setProducts` is how I change it". **Never** write `products = something`; always `setProducts(something)`, or React does not find out |
 | `useEffect(() => {...}, [])` | "Run this when the component appears". The `[]` at the end means "once only". Without the `[]` it would run in an infinite loop |
-| `fetch(url)` | Make an HTTP request from JavaScript. It is the `GET` from GUIA-01, but from code |
+| `fetch(url)` | Make an HTTP request from JavaScript. It is the `GET` from GUIDE-01, but from code |
 | `.then(...)` | `fetch` takes time, so it returns a **promise**. `.then()` is "when it finishes, do this" |
 | `response.json()` | Turn the JSON text that arrived into a usable JavaScript object |
 | `products.map(...)` | Turn a list of data into a list of visual elements. That is how lists are drawn in React |
@@ -978,7 +978,7 @@ With three layers, the first thing is to **work out which one is failing**. In t
 2. **Does the backend work on its own?** Go to `/docs` and try the endpoint. If it fails there, the
    problem is Python or the database, and the frontend has nothing to do with it.
 3. **F12 → Network tab.** Click the button that fails and look at the request: did it go out? what
-   code did it return? This is exactly the star exercise from GUIA-01, now on your own app.
+   code did it return? This is exactly the star exercise from GUIDE-01, now on your own app.
 4. **F12 → Console tab.** JavaScript errors come out there in red.
 
 Learning to locate the failing layer **before** touching anything is probably the most profitable

@@ -26,9 +26,9 @@ take it, and a bootcamp that only makes sense if you play guitar is a worse boot
 So nothing here replaces anything. The pattern is:
 
 ```
-GUIA-NN            the concept          ← generic, unchanged, one version only
-PROYECTO-NN        the default build    ← generic, unchanged, everyone can do it
-PROYECTO-NN-music  an alternative skin  ← same concepts, same shapes, different domain
+GUIDE-NN           the concept          ← generic, unchanged, one version only
+PROJECT-NN         the default build    ← generic, unchanged, everyone can do it
+PROJECT-NN-music   an alternative skin  ← same concepts, same shapes, different domain
 ```
 
 Three rules that keep this from rotting the course:
@@ -99,7 +99,7 @@ The table above is mostly the back half of the course. They will not wait that l
 get interesting, and they should not have to. Everything below is available in **days 01–03**,
 before they have written a loop.
 
-**Day 01 — the star exercise, on their own music.** GUIA-01 already sends them into DevTools →
+**Day 01 — the star exercise, on their own music.** GUIDE-01 already sends them into DevTools →
 Network → Fetch/XHR on YouTube. Point them at a music streaming site instead and the exercise
 is identical: they watch the JSON of a playlist arrive over the wire. *The thing they use every
 day is a list of dictionaries in a text format, and they can read it.* That reframes the whole
@@ -109,11 +109,11 @@ course in twenty minutes and costs one sentence of instruction.
 hundred files, `cat` a `.wav` header. The terminal stops being an abstraction the moment it is
 pointed at files they care about.
 
-**Day 03 + PROYECTO-01 — the one worth building.** This is the strongest fit and it needs no new
+**Day 03 + PROJECT-01 — the one worth building.** This is the strongest fit and it needs no new
 concepts whatsoever, because the health app and a **setlist builder are structurally the same
 program**:
 
-| PROYECTO-01 (generic) | Music skin | Concept, unchanged |
+| PROJECT-01 (generic) | Music skin | Concept, unchanged |
 |---|---|---|
 | `MEALS` — list of dicts, nested `ingredients` | `TRACKS` — list of dicts, nested `gear` | List of dictionaries |
 | `calculate_calories(...)` → a number | `calculate_set_length(...)` → minutes | A formula with named parameters |
@@ -125,13 +125,13 @@ program**:
 | Key includes the unit: `"rice (g)"` | Key includes the type: `"strings (set)"` | Why the key needs the unit |
 | `POST /api/plan` | `POST /api/setlist` | Pydantic, POST vs GET, CORS |
 
-Every line of GUIA-03 still applies word for word. The guide is not touched; only `data.py` and
+Every line of GUIDE-03 still applies word for word. The guide is not touched; only `data.py` and
 the names inside `logic.py` change. A student doing the music skin and a student doing the
 health app can sit next to each other, hit the same bug, and help each other — which is the
 actual test of whether a variant is done right.
 
 > **This is the cheapest thing in this entire note and probably the highest value.** One
-> `PROYECTO-01-Setlist` file, same nine steps, same concepts, and two students who are building
+> `PROJECT-01-Setlist` file, same nine steps, same concepts, and two students who are building
 > something they would plausibly use.
 
 **A hardware taster, if they want one in week one.** Rung 1 (blink → button → potentiometer)
@@ -314,7 +314,7 @@ spending. We have two students — that is a small enough sample to just ask the
 
 0. **The day-01 and day-02 reframings cost nothing and need no decision.** Point them at their
    own music in DevTools and their own samples folder in the terminal. Do that this week.
-1. **Write `PROYECTO-01-Setlist`** — the music skin of the health app. One project file, same
+1. **Write `PROJECT-01-Setlist`** — the music skin of the health app. One project file, same
    nine steps, no guide touched, no concept added. This is the cheapest high-value item here
    and it is the one that makes the early stages land. Everything else can wait behind it.
 2. **Ask the two students** which of the three ladders appeals, once they have finished the

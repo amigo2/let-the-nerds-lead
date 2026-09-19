@@ -111,7 +111,7 @@ Python is the first language. TypeScript is introduced later as the second langu
 
 The condensed curriculum contains 65 planned guides across 12 phases. Initial guides and projects are in production and will be expanded progressively.
 
-Course material is written in **English**. Filenames keep their original `GUIA-` / `PROYECTO-` / `TAREA-` prefixes so existing links keep working, and Spanish-language videos keep their original titles so you can still find them.
+Course material is written in **English**. Filenames keep their original `GUIDE-` / `PROJECT-` / `ASSIGNMENT-` prefixes so existing links keep working, and Spanish-language videos keep their original titles so you can still find them.
 
 Because material is added continuously, a guide referenced in the index may not exist in your copy yet. Run `/update-course` before assuming something is missing.
 

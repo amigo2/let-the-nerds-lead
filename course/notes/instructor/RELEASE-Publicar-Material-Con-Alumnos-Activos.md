@@ -76,10 +76,10 @@ no para vos.
 
 | Mal | Bien |
 |---|---|
-| `cambios` | `Add GUIA-05: bucles y flujo de programa (día 05)` |
-| `fix` | `Fix: el ejemplo de CORS de la GUIA-03 usaba el puerto equivocado` |
-| `wip` | `Aclarar el ejercicio E2.3 de la GUIA-01, confundía a dos alumnos` |
-| `update index` | `Marcar GUIA-04 como TXT en el índice maestro` |
+| `cambios` | `Add GUIDE-05: bucles y flujo de programa (día 05)` |
+| `fix` | `Fix: el ejemplo de CORS de la GUIDE-03 usaba el puerto equivocado` |
+| `wip` | `Aclarar el ejercicio E2.3 de la GUIDE-01, confundía a dos alumnos` |
+| `update index` | `Marcar GUIDE-04 como TXT en el índice maestro` |
 
 Regla simple: que se entienda **por qué le conviene actualizar**.
 

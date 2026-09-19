@@ -15,16 +15,16 @@ generate the material they are supposed to be learning.
 - Written in **Río de la Plata Spanish** with `vos`: *tenés*, *mirá*, *fijate*, *creá*, *corré*,
   *poné*. Never *tienes/mira/crea*.
 - Body text wraps at ~100 characters.
-- File naming: `GUIA-NN-Titulo-En-Kebab-Case.md`, `PROYECTO-NN-…`, `TAREA-NN-…`, `CLASS-NN-…`.
-- **`NN` is the day number.** Day 07 is `GUIA-07-*.md`. Never allocate a number that the master
+- File naming: `GUIDE-NN-Title-In-Kebab-Case.md`, `PROJECT-NN-…`, `ASSIGNMENT-NN-…`, `CLASS-NN-…`.
+- **`NN` is the day number.** Day 07 is `GUIDE-07-*.md`. Never allocate a number that the master
   index assigns to another day.
 - New guides are written in **English**; see the Language section of `CLAUDE.md`.
 
 ## Required structure
 
-Mirror the existing guides (`GUIA-01`, `GUIA-02`, `GUIA-03`):
+Mirror the existing guides (`GUIDE-01`, `GUIDE-02`, `GUIDE-03`):
 
-1. **Title** — `# GUIA-NN — Topic`
+1. **Title** — `# Guide NN — Topic` (prose form; the `GUIDE-NN` form is the filename)
 2. **Framing blockquote** — what the student will be able to do by the end, in one or two lines.
 3. **Index** — anchor links for anything over ~300 lines.
 4. **Concept** — the one major idea, plain language, before any code.
