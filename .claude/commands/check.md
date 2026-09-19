@@ -1,7 +1,7 @@
 ---
 description: Prove the current outcome actually works, with real evidence
 argument-hint: [what to verify, e.g. "the POST endpoint" or "today's outcome"]
-allowed-tools: Read, Glob, Grep, Bash, Edit
+allowed-tools: Read, Glob, Grep, Bash
 ---
 
 # Check
