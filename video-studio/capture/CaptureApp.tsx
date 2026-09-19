@@ -129,13 +129,27 @@ export const CaptureApp: React.FC = () => {
   return (
     <div style={{
       height: '100%', display: 'grid',
-      gridTemplateColumns: '290px minmax(0, 1fr)',
+      gridTemplateColumns: 'minmax(0, 1fr) 290px',
       gridTemplateRows: 'minmax(0, 1fr) auto auto',
       overflow: 'hidden',
     }}>
+      {/* ---- the picture ---- */}
+      <main style={{ gridRow: '1 / 2', minWidth: 0, padding: 20, overflow: 'hidden' }}>
+        <Player
+          ref={playerRef}
+          component={SceneRenderer}
+          inputProps={{ scene: live }}
+          durationInFrames={CANVAS_FRAMES}
+          fps={FPS}
+          compositionWidth={WIDTH}
+          compositionHeight={HEIGHT}
+          style={{ width: '100%', borderRadius: 12, overflow: 'hidden' }}
+        />
+      </main>
+
       {/* ---- what is coming ---- */}
       <aside style={{
-        gridRow: '1 / 2', borderRight: '1px solid #1E293B',
+        gridRow: '1 / 2', borderLeft: '1px solid #1E293B',
         overflowY: 'auto', padding: '18px 14px',
       }}>
         {spec.scenes.map((sc, i) => {
@@ -195,20 +209,6 @@ export const CaptureApp: React.FC = () => {
           )
         })}
       </aside>
-
-      {/* ---- the picture ---- */}
-      <main style={{ gridRow: '1 / 2', minWidth: 0, padding: 20, overflow: 'hidden' }}>
-        <Player
-          ref={playerRef}
-          component={SceneRenderer}
-          inputProps={{ scene: live }}
-          durationInFrames={CANVAS_FRAMES}
-          fps={FPS}
-          compositionWidth={WIDTH}
-          compositionHeight={HEIGHT}
-          style={{ width: '100%', borderRadius: 12, overflow: 'hidden' }}
-        />
-      </main>
 
       {/* ---- the script, across the bottom ---- */}
       <section style={{

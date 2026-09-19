@@ -36,22 +36,24 @@ Opens on the title card. **Arrows move through the whole lesson.**
 42 presses takes you from the title card to the close, through all eleven shots.
 
 ```
-┌──────────────┬────────────────────────────┐
-│  all eleven  │                            │
-│  shots, the  │        the picture         │
-│  current one │                            │
-│  open to     │                            │
-│  show what   │                            │
-│  lands next  │                            │
-├──────────────┴────────────────────────────┤
+┌────────────────────────────┬──────────────┐
+│                            │  all eleven  │
+│        the picture         │  shots, the  │
+│                            │  current one │
+│                            │  open to     │
+│                            │  show what   │
+│                            │  lands next  │
+├────────────────────────────┴──────────────┤
 │  the script for this shot                 │
 ├───────────────────────────────────────────┤
 │  ←  →     Shot 2 of 11 · 3 of 5           │
 └───────────────────────────────────────────┘
 ```
 
-The left column is the outline: every shot, with the current one opened to show what is
-coming. Ticked things have landed, the highlighted one is next. The script for whatever is on
+The outline sits on the **right**, deliberately: the course app owns the left rail, so when
+this becomes a route inside it there is only ever one sidebar.
+
+It lists every shot, with the current one opened to show what is coming. Ticked things have landed, the highlighted one is next. The script for whatever is on
 screen sits along the bottom, so this is what you practise the read with.
 
 Nothing is recorded and nothing is written. It is a presenter — step through it as often as
