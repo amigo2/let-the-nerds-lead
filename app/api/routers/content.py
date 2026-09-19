@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-from app.api.services import content
+from app.api.services import content, diagrams
 
 router = APIRouter(prefix="/api", tags=["content"])
 
@@ -18,6 +18,12 @@ def doc(slug: str):
     if found is None:
         raise HTTPException(status_code=404, detail="No such document")
     return found
+
+
+@router.get("/docs/{slug}/diagrams")
+def doc_diagrams(slug: str):
+    """The diagram scenes for this document, for stepping through on the page."""
+    return diagrams.for_slug(slug)
 
 
 @router.get("/health")

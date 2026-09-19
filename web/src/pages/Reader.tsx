@@ -1,7 +1,8 @@
 import React from 'react'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import type { FullDoc } from '../lib/api'
+import type { DiagramScene, FullDoc } from '../lib/api'
+import { Diagrams } from '../components/Diagrams'
 
 /**
  * Renders a guide exactly as it is written in the repo.
@@ -9,7 +10,11 @@ import type { FullDoc } from '../lib/api'
  * Nothing is transformed on the way in: the markdown in git is what the student
  * reads. Tables, callouts and checklists are house style, so GFM is on.
  */
-export const Reader: React.FC<{ doc: FullDoc | null; error: string | null }> = ({ doc, error }) => {
+export const Reader: React.FC<{
+  doc: FullDoc | null
+  diagrams: DiagramScene[]
+  error: string | null
+}> = ({ doc, diagrams, error }) => {
   if (error) return <div className="reader"><p className="error">Could not load: {error}</p></div>
   if (!doc) {
     return (
@@ -28,6 +33,7 @@ export const Reader: React.FC<{ doc: FullDoc | null; error: string | null }> = (
 
   return (
     <div className="reader">
+      {diagrams.length > 0 && <Diagrams key={doc.slug} scenes={diagrams} />}
       <article className="prose">
         <Markdown remarkPlugins={[remarkGfm]}>{doc.markdown}</Markdown>
       </article>
