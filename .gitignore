@@ -40,3 +40,7 @@ CLAUDE.local.md
 *.mov
 *.wav
 *.mp3
+
+# Rendered video output — derived artefacts, rebuilt with `npm run render`
+# in ../course-video-studio. The scene spec is the source of truth, not the mp4.
+course/video/out/
