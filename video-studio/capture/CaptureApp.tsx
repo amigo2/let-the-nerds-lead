@@ -95,7 +95,11 @@ export const CaptureApp: React.FC = () => {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.code === 'Space') { e.preventDefault(); fire() }
+      if (e.code === 'Space') {
+        e.preventDefault()
+        if (running) fire()
+        else start()   // idle: SPACE begins the take rather than doing nothing
+      }
       if (e.code === 'Enter') { e.preventDefault(); running ? stop() : start() }
       if (!running && e.code === 'BracketLeft') { e.preventDefault(); goTo(sceneIndex - 1) }
       if (!running && e.code === 'BracketRight') { e.preventDefault(); goTo(sceneIndex + 1) }
@@ -144,8 +148,8 @@ export const CaptureApp: React.FC = () => {
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 420px', height: '100%' }}>
-      <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 16, minWidth: 0 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 400px', height: '100%', overflow: 'hidden' }}>
+      <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14, minWidth: 0, overflowY: 'auto' }}>
         <div style={{ display: 'flex', gap: 8 }}>
           {(['video', 'interactive'] as const).map((m) => (
             <button
@@ -187,7 +191,7 @@ export const CaptureApp: React.FC = () => {
         </div>
       </div>
 
-      <div style={{ borderLeft: '1px solid #1E293B', padding: 24, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ borderLeft: '1px solid #1E293B', padding: 20, display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0, overflowY: 'auto' }}>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
           <button onClick={() => goTo(sceneIndex - 1)} disabled={sceneIndex === 0} style={stepBtn}>‹</button>
           <select
@@ -212,11 +216,13 @@ export const CaptureApp: React.FC = () => {
             border: 'none', background: running ? '#DC2626' : '#2563EB', color: 'white',
           }}
         >
-          {running ? 'Stop  (Enter)' : 'Start take  (Enter)'}
+          {running ? '● RECORDING — stop (Enter)' : 'Start take  (SPACE or Enter)'}
         </button>
 
-        <div style={{ fontSize: 14, color: '#94A3B8' }}>
-          Hit <b>SPACE</b> as you say each line. The cue lands on the frame you tap.
+        <div style={{ fontSize: 13.5, color: '#94A3B8', lineHeight: 1.5 }}>
+          {running
+            ? <>Hit <b>SPACE</b> as you say each line. The cue lands on the frame you tap.</>
+            : <>Hit <b>SPACE</b> to begin — then <b>SPACE</b> again for each cue as you read.</>}
         </div>
 
         {nextCue && (
@@ -227,18 +233,34 @@ export const CaptureApp: React.FC = () => {
         )}
 
         <div style={{ flex: 1, overflowY: 'auto' }}>
-          {cues.map((c) => (
-            <div key={c.id} style={{
-              display: 'flex', justifyContent: 'space-between', padding: '9px 0',
-              borderBottom: '1px solid #1E293B',
-              opacity: fired[c.id] === undefined ? 0.4 : 1,
-            }}>
-              <span style={{ fontSize: 14 }}>{c.label}</span>
-              <span style={{ fontVariantNumeric: 'tabular-nums', color: '#38BDF8', fontSize: 14 }}>
-                {fired[c.id] === undefined ? '—' : `${fired[c.id].toFixed(2)}s`}
-              </span>
-            </div>
-          ))}
+          {cues.map((c) => {
+            const done = fired[c.id] !== undefined
+            const isNext = nextCue?.id === c.id
+            return (
+              <div key={c.id} style={{
+                display: 'flex', alignItems: 'center', gap: 8, padding: '8px 6px',
+                borderBottom: '1px solid #1E293B', borderRadius: 6,
+                background: isNext ? '#14263D' : 'transparent',
+                opacity: done || isNext ? 1 : 0.45,
+              }}>
+                <span style={{ color: done ? '#34D399' : '#475569', fontSize: 13, width: 14 }}>
+                  {done ? '✓' : '○'}
+                </span>
+                <span style={{
+                  fontSize: 13, flex: 1, minWidth: 0,
+                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                }}>
+                  {c.label}
+                </span>
+                <span style={{
+                  fontVariantNumeric: 'tabular-nums', fontSize: 13, flexShrink: 0,
+                  color: done ? '#38BDF8' : '#475569',
+                }}>
+                  {done ? `${fired[c.id].toFixed(2)}s` : '—'}
+                </span>
+              </div>
+            )
+          })}
         </div>
 
         <div style={{ fontSize: 14, color: '#94A3B8' }}>
