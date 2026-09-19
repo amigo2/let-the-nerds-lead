@@ -47,3 +47,10 @@ course/video/out/
 
 # Video studio dependencies — reinstall with `npm install` in video-studio/
 video-studio/node_modules/
+
+# Course app
+.venv/
+__pycache__/
+*.pyc
+web/node_modules/
+web/dist/
