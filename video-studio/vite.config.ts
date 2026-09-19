@@ -32,9 +32,37 @@ function writeSpec(): Plugin {
   }
 }
 
+/** Writes a recorded take into the course repo, beside the guides. */
+function writeAudio(): Plugin {
+  return {
+    name: 'write-audio',
+    configureServer(server) {
+      server.middlewares.use('/__write-audio', (req, res) => {
+        if (req.method !== 'POST') return res.end()
+        let body = ''
+        req.on('data', (chunk) => (body += chunk))
+        req.on('end', () => {
+          try {
+            const { file, base64 } = JSON.parse(body)
+            // Never escape the audio directory, whatever the client sends.
+            const safe = String(file).replace(/\.\./g, '').replace(/^\/+/, '')
+            const target = path.resolve(__dirname, '../course/video/audio', safe)
+            fs.mkdirSync(path.dirname(target), { recursive: true })
+            fs.writeFileSync(target, Buffer.from(base64, 'base64'))
+            res.end(JSON.stringify({ ok: true, target }))
+          } catch (err) {
+            res.statusCode = 500
+            res.end(JSON.stringify({ ok: false, error: String(err) }))
+          }
+        })
+      })
+    },
+  }
+}
+
 export default defineConfig({
   root: 'capture',
-  plugins: [react(), writeSpec()],
+  plugins: [react(), writeSpec(), writeAudio()],
   // Voiceover lives in the course repo, same as for rendering.
   publicDir: path.resolve(__dirname, '../course/video'),
   server: { port: 5174, open: true },

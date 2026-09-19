@@ -3,6 +3,8 @@ import { Player, type PlayerRef } from '@remotion/player'
 import { SceneRenderer } from '../src/scenes/SceneRenderer'
 import { FPS, HEIGHT, WIDTH } from '../src/theme'
 import type { GuideSpec, Scene } from '../src/types'
+import { Interactive } from './Interactive'
+import { startRecording, toBase64, type Recording } from './recorder'
 import rawSpec from '../scenes/guide-01.json'
 
 /**
@@ -77,6 +79,12 @@ export const CaptureApp: React.FC = () => {
   const [arrivedAt, setArrivedAt] = useState(0) // when the newest one landed
   const playerRef = useRef<PlayerRef>(null)
 
+  const [rec, setRec] = useState<{ stop: () => Promise<Recording>; cancel: () => void } | null>(null)
+  const [take, setTake] = useState<Recording | null>(null)
+  const [times, setTimes] = useState<Record<string, number>>({})
+  const [status, setStatus] = useState<string | null>(null)
+  const [interactive, setInteractive] = useState(false)
+
   const scene = spec.scenes[shot]
   const beats = beatsOf(scene)
   const live = useMemo(() => reveal(scene, beat, arrivedAt), [scene, beat, arrivedAt])
@@ -97,6 +105,11 @@ export const CaptureApp: React.FC = () => {
     if (beat < beats) {
       const frame = playerRef.current?.getCurrentFrame() ?? 0
       setArrivedAt(frame / FPS)
+      // While recording, every step is also a cue time — one take, both jobs.
+      if (rec) {
+        const id = cueIdsOf(scene)[beat]
+        if (id) setTimes((prev) => ({ ...prev, [id]: Number((frame / FPS).toFixed(2)) }))
+      }
       setBeat((b) => b + 1)
     } else if (shot < total - 1) {
       enter(shot + 1, false)
@@ -111,6 +124,70 @@ export const CaptureApp: React.FC = () => {
       enter(shot - 1, true)   // step back into the previous shot, fully shown
     }
   }, [beat, shot, enter])
+
+  const record = useCallback(async () => {
+    try {
+      const handle = await startRecording()
+      setTake(null)
+      setStatus(null)
+      setTimes({ [cueIdsOf(scene)[0] ?? '__first']: 0 })
+      setBeat(1)
+      setArrivedAt(0)
+      playerRef.current?.seekTo(0)
+      playerRef.current?.play()
+      setRec(handle)
+    } catch {
+      setStatus('No microphone — check the browser permission')
+    }
+  }, [scene])
+
+  const stopRecording = useCallback(async () => {
+    if (!rec) return
+    const result = await rec.stop()
+    setRec(null)
+    setTake(result)
+  }, [rec])
+
+  const discard = useCallback(() => {
+    setTake(null)
+    setTimes({})
+    setStatus(null)
+  }, [])
+
+  /** Write the wav beside the guides, and the timings into the spec. */
+  const keep = useCallback(async () => {
+    if (!take) return
+    setStatus('saving…')
+    const file = `guide-01/${String(scene.shot ?? shot + 1).padStart(2, '0')}-${scene.id}.wav`
+
+    const audioRes = await fetch('/__write-audio', {
+      method: 'POST',
+      body: JSON.stringify({ file, base64: await toBase64(take.wav) }),
+    })
+    if (!(await audioRes.json()).ok) return setStatus('could not write the audio')
+
+    const updated: GuideSpec = {
+      ...spec,
+      scenes: spec.scenes.map((sc, i) =>
+        i !== shot ? sc : {
+          ...sc,
+          audio: file,
+          nodes: sc.nodes?.map((n) => ({ ...n, appearAt: times[n.id] ?? n.appearAt })),
+          edges: sc.edges?.map((e) => ({ ...e, appearAt: times[e.id] ?? e.appearAt })),
+          rows: sc.rows?.map((r, j) => ({ ...r, appearAt: times[`row-${j}`] ?? r.appearAt })),
+          steps: sc.steps?.map((st, j) => ({ ...st, appearAt: times[`step-${j}`] ?? st.appearAt })),
+          footer: sc.footer ? { ...sc.footer, appearAt: times.__footer ?? sc.footer.appearAt } : undefined,
+        },
+      ),
+    }
+    const specRes = await fetch('/__write-spec', {
+      method: 'POST',
+      body: JSON.stringify({ file: 'guide-01.json', contents: updated }),
+    })
+    const json = await specRes.json()
+    setStatus(json.ok ? `kept — ${file}` : `spec failed: ${json.error}`)
+    setTake(null)
+  }, [take, scene, shot, times])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -134,17 +211,21 @@ export const CaptureApp: React.FC = () => {
       overflow: 'hidden',
     }}>
       {/* ---- the picture ---- */}
-      <main style={{ gridRow: '1 / 2', minWidth: 0, padding: 20, overflow: 'hidden' }}>
-        <Player
-          ref={playerRef}
-          component={SceneRenderer}
-          inputProps={{ scene: live }}
-          durationInFrames={CANVAS_FRAMES}
-          fps={FPS}
-          compositionWidth={WIDTH}
-          compositionHeight={HEIGHT}
-          style={{ width: '100%', borderRadius: 12, overflow: 'hidden' }}
-        />
+      <main style={{ gridRow: '1 / 2', minWidth: 0, padding: 20, overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {interactive ? (
+          <div style={{ flex: 1, minHeight: 0 }}><Interactive scene={scene} /></div>
+        ) : (
+          <Player
+            ref={playerRef}
+            component={SceneRenderer}
+            inputProps={{ scene: live }}
+            durationInFrames={CANVAS_FRAMES}
+            fps={FPS}
+            compositionWidth={WIDTH}
+            compositionHeight={HEIGHT}
+            style={{ width: '100%', borderRadius: 12, overflow: 'hidden' }}
+          />
+        )}
       </main>
 
       {/* ---- what is coming ---- */}
@@ -157,11 +238,15 @@ export const CaptureApp: React.FC = () => {
           const done = i < shot
           return (
             <div key={sc.id} style={{ marginBottom: current ? 10 : 2 }}>
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: 8, padding: '7px 8px',
-                borderRadius: 7, background: current ? '#14263D' : 'transparent',
-                opacity: done ? 0.4 : current ? 1 : 0.6,
-              }}>
+              <div
+                onClick={() => !rec && enter(i, false)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8, padding: '7px 8px',
+                  borderRadius: 7, background: current ? '#14263D' : 'transparent',
+                  opacity: done ? 0.4 : current ? 1 : 0.6,
+                  cursor: rec ? 'not-allowed' : 'pointer',
+                }}
+              >
                 <span style={{
                   fontSize: 11, color: current ? '#38BDF8' : '#475569',
                   fontVariantNumeric: 'tabular-nums', width: 16,
@@ -230,14 +315,56 @@ export const CaptureApp: React.FC = () => {
       }}>
         <button onClick={back} disabled={isFirst} style={arrow(isFirst)}>←</button>
         <button onClick={forward} disabled={isLast} style={arrow(isLast)}>→</button>
+        <button
+          onClick={() => { playerRef.current?.seekTo(0); playerRef.current?.play() }}
+          disabled={interactive}
+          style={recBtn('#0F172A', interactive ? '#334155' : '#94A3B8')}
+        >
+          ▶ Play
+        </button>
+        <button
+          onClick={() => setInteractive((v) => !v)}
+          style={recBtn(interactive ? '#2563EB' : '#0F172A', interactive ? 'white' : '#94A3B8')}
+        >
+          Interactive
+        </button>
         <span style={{ fontSize: 14, color: '#94A3B8' }}>
           Shot {shot + 1} of {total}
           <span style={{ color: '#475569' }}>{beats > 1 ? ` · ${beat} of ${beats}` : ''}</span>
         </span>
+
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10 }}>
+          {status && <span style={{ fontSize: 12.5, color: '#34D399' }}>{status}</span>}
+
+          {take ? (
+            <>
+              <span style={{ fontSize: 13, color: '#94A3B8' }}>
+                take: {take.seconds.toFixed(1)}s
+              </span>
+              <audio controls src={URL.createObjectURL(take.wav)} style={{ height: 32 }} />
+              <button onClick={discard} style={recBtn('#0F172A', '#94A3B8')}>Discard</button>
+              <button onClick={keep} style={recBtn('#14432F', '#D1FAE5')}>Keep it</button>
+            </>
+          ) : rec ? (
+            <button onClick={stopRecording} style={recBtn('#DC2626', 'white')}>
+              ● Recording — stop
+            </button>
+          ) : (
+            <button onClick={record} style={recBtn('#0F172A', '#F1F5F9')}>
+              ● Record this shot
+            </button>
+          )}
+        </div>
       </footer>
     </div>
   )
 }
+
+const recBtn = (bg: string, fg: string): React.CSSProperties => ({
+  padding: '9px 15px', borderRadius: 8, border: '1px solid #334155',
+  background: bg, color: fg, fontSize: 13.5, cursor: 'pointer',
+  fontFamily: 'inherit', fontWeight: 600, whiteSpace: 'nowrap',
+})
 
 const arrow = (disabled: boolean): React.CSSProperties => ({
   padding: '10px 22px', borderRadius: 8, border: '1px solid #334155',

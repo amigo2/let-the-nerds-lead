@@ -56,8 +56,26 @@ this becomes a route inside it there is only ever one sidebar.
 It lists every shot, with the current one opened to show what is coming. Ticked things have landed, the highlighted one is next. The script for whatever is on
 screen sits along the bottom, so this is what you practise the read with.
 
-Nothing is recorded and nothing is written. It is a presenter — step through it as often as
-you like.
+Click any shot in the outline to jump to it. **▶ Play** runs the current shot in real time;
+**Interactive** swaps the picture for the React Flow view a student would get.
+
+## Recording a shot
+
+**● Record this shot** asks for the microphone, jumps to the top of the shot and starts the
+clock. Read the script aloud and step with `→` as you go — the audio and the cue timings come
+from the same performance, so they are in sync by construction.
+
+**Stop** ends the take and gives you a player to listen back on. Then either:
+
+- **Discard** — nothing is written, go again
+- **Keep it** — the wav is saved to `course/video/audio/guide-01/NN-<shot>.wav`, and the spec
+  gets both the cue timings and the `audio` filename
+
+Once a shot has audio, its length comes from the recording rather than the estimate — so the
+video follows your voice.
+
+The browser records webm/opus; it is decoded and re-encoded as 16-bit mono wav before saving,
+because that is what the renderer handles reliably.
 
 ## How it fits together
 
