@@ -48,7 +48,9 @@ assume you know what a bar of music is, and a student who does not is quietly ex
 ## 1. The asset: Old Street Studios
 
 A 28-year-old recording studio in Hoxton (Grade II listed), SSL Matrix 2 console, vintage
-Neumann / Neve / API outboard. Separate project repo: `~/Desktop/old-street-studios`.
+Neumann / Neve / API outboard. Captured in
+[`REFERENCE-Old-Street-Studios.md`](REFERENCE-Old-Street-Studios.md) — this repo no longer
+depends on that project being present.
 
 What already exists there and is directly reusable as teaching material:
 
@@ -353,6 +355,6 @@ Research for section 2 (Ladder C), September 2026:
 - [Voice control with XIAO ESP32-S3 Sense and Edge Impulse](https://www.makerguides.com/voice-control-with-xiao-esp32-s3-sense-and-edge-impulse/)
 - [ESP32-S3 TinyML guide — image, audio and sensor models](https://openelab.io/blogs/learn/esp32-s3-tinyml-image-audio-sensor-models)
 
-Internal, in `~/Desktop/old-street-studios`: `ROADMAP.md` (v3 hardware track),
-`SPEC-V1-BOOKING-SPINE.md` §9, `KNOWLEDGE_BASE.md` decision log 2026-09-18,
-`web/src/pages/Lab.tsx` (the five existing Lab projects).
+Internal: [`REFERENCE-Old-Street-Studios.md`](REFERENCE-Old-Street-Studios.md), which records
+the hardware track, the five Lab projects and the architecture, so none of it depends on the
+studio project being on this machine.

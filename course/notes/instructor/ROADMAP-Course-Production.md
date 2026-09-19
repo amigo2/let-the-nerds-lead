@@ -53,7 +53,7 @@ STATE             →  Postgres                            →  migrate, never r
 |---|---|---|
 | **Naming** | `GUIDE-NN-Title-In-Kebab-Case.md`, `PROJECT-NN-`, `ASSIGNMENT-NN-` | English throughout. Sorts, greps, pairs. URLs are *derived*, so a retitle never breaks a shared link |
 | **Writing strategy** | Outline all 65 → write full guides just ahead of the students, 5–10 guide buffer | Real feedback per guide, always shippable, nothing wasted when the curriculum moves |
-| **Website stack** | FastAPI + React + TypeScript + Postgres, same architecture as Old Street Studios | Proven, already deployed once, and it *is* the course's own stack |
+| **Website stack** | FastAPI + React + TypeScript + Postgres, copying the architecture in [`REFERENCE-Old-Street-Studios.md`](REFERENCE-Old-Street-Studios.md) | Proven, already deployed once, and it *is* the course's own stack |
 | **Video** | Unchanged from the pipeline doc: 70–80% screencast, 10–15% diagrams, 10–15% face | Already decided, already correct |
 | **Own LLM** | **Parked** | Scripts are the cheapest layer in the cost table. Self-hosting optimises the wrong one |
 
@@ -61,7 +61,8 @@ STATE             →  Postgres                            →  migrate, never r
 
 ## Architecture — copied deliberately, not reinvented
 
-Mirrors `~/Desktop/old-street-studios`, which is deployed and understood:
+Mirrors the pattern recorded in [`REFERENCE-Old-Street-Studios.md`](REFERENCE-Old-Street-Studios.md),
+which is deployed and understood:
 
 ```
   ┌──────────────────── OVH VPS via Dokploy ────────────────────┐

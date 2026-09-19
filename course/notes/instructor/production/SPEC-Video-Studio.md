@@ -86,16 +86,20 @@ This is what makes re-recording cheap: you re-record scene 6, drop in the new `.
 timeline re-flows. Hardcode durations and every re-record becomes a manual re-edit — which is
 exactly how a course stops being maintained.
 
-### 4. The tool lives in its own repo; the scenes live with the guides
+### 4. The tool lives in this repo, beside the course
+
+> **Revised 19 September.** This originally said the tool should get its own repository, to keep
+> a Node toolchain out of the course repo. In practice the two are edited in the same sitting and
+> the split meant hardcoded sibling paths that broke if either folder moved. One repo, one clone.
 
 | Where | What |
 |---|---|
-| New repo, `course-video-studio` | The app: React, Remotion, render pipeline, node_modules, CI |
-| `LET_THE_NEERDS_LEAD/course/video/scenes/` | The scene specs — content, reviewed like guides |
-| `LET_THE_NEERDS_LEAD/course/video/audio/` | Voiceover, or a pointer to it if the files get large |
+| `video-studio/` | The app: React, Remotion, render pipeline. `node_modules` gitignored |
+| `video-studio/scenes/` | The scene specs — content, reviewed like guides |
+| `course/video/audio/` | Voiceover |
+| `course/video/out/` | Rendered video. Gitignored: derived, rebuilt on demand |
 
-Keeps the course repo free of a Node toolchain, and keeps content under the rule that content is
-rebuilt, never migrated.
+Content is still rebuilt rather than migrated; it just does not need a second clone to do it.
 
 ---
 

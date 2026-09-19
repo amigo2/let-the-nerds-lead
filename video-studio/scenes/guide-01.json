@@ -1,0 +1,506 @@
+{
+  "guide": "GUIDE-01",
+  "title": "What Is a Web App? Frontend and Backend",
+  "theme": "course-dark",
+  "scenes": [
+    {
+      "durationSeconds": 8.2,
+      "nodes": [],
+      "edges": [],
+      "id": "title",
+      "shot": 1,
+      "kind": "title",
+      "source": "GUIDE-01 title",
+      "title": "What Is a Web App?",
+      "subtitle": "Frontend, backend, and the conversation between them",
+      "audio": "guide-01/01-title.wav",
+      "script": "Guide one. What is a web app? Frontend, backend, and the conversation between them."
+    },
+    {
+      "id": "client-server",
+      "shot": 2,
+      "kind": "diagram",
+      "source": "GUIDE-01 §1 — The core idea: client and server",
+      "heading": "Two programs, talking over the internet",
+      "durationSeconds": 45.3,
+      "nodes": [
+        {
+          "id": "browser",
+          "label": "BROWSER",
+          "sublabel": "the client",
+          "caption": "YOUR COMPUTER",
+          "footnote": "what you SEE and TOUCH",
+          "at": [
+            150,
+            390
+          ],
+          "size": [
+            420,
+            260
+          ],
+          "accent": "blue",
+          "appearAt": 3.2
+        },
+        {
+          "id": "server",
+          "label": "SERVER",
+          "sublabel": "always on",
+          "caption": "A COMPUTER SOMEWHERE",
+          "footnote": "what you NEVER see",
+          "at": [
+            1350,
+            390
+          ],
+          "size": [
+            420,
+            260
+          ],
+          "accent": "green",
+          "appearAt": 6.4
+        }
+      ],
+      "edges": [
+        {
+          "id": "request",
+          "from": "browser",
+          "to": "server",
+          "label": "\"give me the videos\"",
+          "direction": "forward",
+          "offset": -46,
+          "appearAt": 14.92
+        },
+        {
+          "id": "response",
+          "from": "server",
+          "to": "browser",
+          "label": "\"here they are\"",
+          "direction": "backward",
+          "offset": 46,
+          "appearAt": 25.05
+        }
+      ],
+      "footer": {
+        "text": "The client asks. The server answers.",
+        "appearAt": 35.17
+      },
+      "audio": "guide-01/scene-02-client-server.wav",
+      "script": "Every web application is two separate programs, on two separate computers, talking to each other over the internet. On your side, the browser. That is the client - the one that asks. Somewhere else, a server. Powered on, waiting, ready to answer. When you open a site, the browser sends a request: give me the videos. And the server sends back a response: here they are. That is the whole shape of it. The client asks. The server answers. Everything else in this course is detail on top of those two boxes."
+    },
+    {
+      "durationSeconds": 43.4,
+      "nodes": [],
+      "edges": [],
+      "id": "restaurant",
+      "shot": 3,
+      "kind": "table",
+      "source": "GUIDE-01 §1 — the restaurant analogy",
+      "heading": "The restaurant analogy",
+      "audio": "guide-01/03-restaurant.wav",
+      "script": "It is the best analogy there is, and you will see it in every course. The dining room is the frontend - what the customer sees. The kitchen is the backend, where the real cooking happens and nobody watches. The pantry is the database. The order the waiter carries is the request. The dish that comes back is the response. And the service window, with its rules about how orders get passed - that is the API. Notice the important part. The diner never walks into the kitchen.",
+      "columns": [
+        "Restaurant",
+        "Web app"
+      ],
+      "rows": [
+        {
+          "cells": [
+            "The dining room",
+            "Frontend — what the customer sees"
+          ],
+          "accent": "blue",
+          "appearAt": 5.79
+        },
+        {
+          "cells": [
+            "The kitchen",
+            "Backend — the logic"
+          ],
+          "accent": "green",
+          "appearAt": 13.02
+        },
+        {
+          "cells": [
+            "The pantry",
+            "The database"
+          ],
+          "accent": "amber",
+          "appearAt": 18.81
+        },
+        {
+          "cells": [
+            "The order",
+            "The request"
+          ],
+          "appearAt": 24.59
+        },
+        {
+          "cells": [
+            "The dish that comes back",
+            "The response"
+          ],
+          "appearAt": 28.93
+        },
+        {
+          "cells": [
+            "The service window",
+            "The API"
+          ],
+          "accent": "slate",
+          "appearAt": 33.27
+        }
+      ],
+      "footer": {
+        "text": "The diner never walks into the kitchen.",
+        "appearAt": 38.19
+      }
+    },
+    {
+      "durationSeconds": 30.1,
+      "nodes": [
+        {
+          "id": "fe",
+          "label": "FRONTEND",
+          "caption": "RUNS IN THE BROWSER",
+          "at": [
+            130,
+            300
+          ],
+          "size": [
+            760,
+            480
+          ],
+          "accent": "blue",
+          "appearAt": 1.51,
+          "bullets": [
+            "How it looks",
+            "Reacting to clicks and typing",
+            "Asking the backend for data",
+            "Public — anyone can read it"
+          ]
+        },
+        {
+          "id": "be",
+          "label": "BACKEND",
+          "caption": "RUNS ON THE SERVER",
+          "at": [
+            1030,
+            300
+          ],
+          "size": [
+            760,
+            480
+          ],
+          "accent": "green",
+          "appearAt": 12.04,
+          "bullets": [
+            "Storing and retrieving data",
+            "Checking the password really is right",
+            "The business rules",
+            "Private — nobody sees the code"
+          ]
+        }
+      ],
+      "edges": [],
+      "id": "fe-be",
+      "shot": 4,
+      "kind": "diagram",
+      "source": "GUIDE-01 §2-3 — frontend and backend",
+      "heading": "Two halves, two jobs",
+      "audio": "guide-01/04-fe-be.wav",
+      "script": "The frontend is everything the user sees and touches. It runs on their computer, inside the browser - which means they can look at it, inspect it and change it. The backend is everything they never see. It runs on the server, so nobody can read its code. That is why the secrets live there: passwords, keys, the business rules."
+    },
+    {
+      "durationSeconds": 20.1,
+      "nodes": [],
+      "edges": [],
+      "id": "golden-rule",
+      "shot": 5,
+      "kind": "statement",
+      "source": "GUIDE-01 §3 — the golden rule",
+      "audio": "guide-01/05-golden-rule.wav",
+      "script": "If you remember one sentence from this whole guide, make it this one. Never trust the frontend. It runs on their computer. It is theirs. They can change it. The frontend is a suggestion. The backend is the law.",
+      "statement": "Never trust the frontend.",
+      "attribution": "It runs on their computer. It is theirs. They can change it.",
+      "footer": {
+        "text": "The frontend is a suggestion. The backend is the law.",
+        "appearAt": 12.28
+      }
+    },
+    {
+      "durationSeconds": 34.8,
+      "nodes": [
+        {
+          "id": "fe",
+          "label": "FRONTEND",
+          "at": [
+            150,
+            400
+          ],
+          "size": [
+            400,
+            240
+          ],
+          "accent": "blue",
+          "appearAt": 1.39
+        },
+        {
+          "id": "be",
+          "label": "BACKEND",
+          "at": [
+            1370,
+            400
+          ],
+          "size": [
+            400,
+            240
+          ],
+          "accent": "green",
+          "appearAt": 2.78
+        }
+      ],
+      "edges": [
+        {
+          "id": "req",
+          "from": "fe",
+          "to": "be",
+          "label": "GET  /api/users/7",
+          "direction": "forward",
+          "offset": -60,
+          "appearAt": 6.96
+        },
+        {
+          "id": "res",
+          "from": "be",
+          "to": "fe",
+          "label": "200 OK   {\"name\": \"Enmanuel\"}",
+          "direction": "backward",
+          "offset": 60,
+          "appearAt": 19.14
+        }
+      ],
+      "id": "request-response",
+      "shot": 6,
+      "kind": "diagram",
+      "source": "GUIDE-01 §4 — request and response",
+      "heading": "What actually travels",
+      "audio": "guide-01/06-request-response.wav",
+      "script": "Every conversation has the same shape. The frontend sends a request: a method, saying what it wants to do; an address, saying what it wants; headers, saying who it is; and a body, if it is sending data. The backend sends back a response: a status code saying how it went, and a body with the answer. And the frontend always starts. The backend never calls first - it waits.",
+      "footer": {
+        "text": "The frontend always starts. The backend waits.",
+        "appearAt": 27.84
+      }
+    },
+    {
+      "durationSeconds": 26,
+      "nodes": [],
+      "edges": [],
+      "id": "journey",
+      "shot": 7,
+      "kind": "steps",
+      "source": "GUIDE-01 §5 — the journey of a click",
+      "heading": "What happens when you open a site",
+      "audio": "guide-01/07-journey.wav",
+      "script": "Read it slowly, because understanding these steps puts you ahead of a lot of people who already write code.",
+      "steps": [
+        {
+          "text": "You type an address and press Enter.",
+          "appearAt": 1.5
+        },
+        {
+          "text": "DNS turns that name into a number — the phone book of the internet.",
+          "appearAt": 4.0
+        },
+        {
+          "text": "The browser connects to that address and asks for the page.",
+          "appearAt": 7.5
+        },
+        {
+          "text": "The server sends back HTML, CSS and JavaScript — the frontend arriving.",
+          "appearAt": 10.5
+        },
+        {
+          "text": "The browser draws it. You see something, maybe still loading.",
+          "appearAt": 13.5
+        },
+        {
+          "text": "That JavaScript asks the backend for the real data.",
+          "appearAt": 16.5
+        },
+        {
+          "text": "The backend queries its database and answers in JSON.",
+          "appearAt": 19.0
+        },
+        {
+          "text": "The JavaScript draws the content on screen.",
+          "appearAt": 21.5
+        }
+      ],
+      "footer": {
+        "text": "The grey boxes you see loading? Frontend arrived, backend hasn't answered.",
+        "appearAt": 23.5
+      }
+    },
+    {
+      "durationSeconds": 32.4,
+      "nodes": [],
+      "edges": [],
+      "id": "status-codes",
+      "shot": 8,
+      "kind": "table",
+      "source": "GUIDE-01 §6 — status codes",
+      "heading": "How it went",
+      "audio": "guide-01/08-status-codes.wav",
+      "script": "Every response carries a three digit number, and the first digit is the one that matters. Two hundreds mean it worked. Three hundreds mean it moved. Four hundreds mean you asked wrongly - that is your fault. Five hundreds mean the server broke - that is its fault. That last distinction will save you hours, because it tells you which side to go looking on.",
+      "columns": [
+        "Range",
+        "Meaning",
+        "Whose fault"
+      ],
+      "rows": [
+        {
+          "cells": [
+            "2xx",
+            "It worked",
+            "—"
+          ],
+          "accent": "green",
+          "appearAt": 4.32
+        },
+        {
+          "cells": [
+            "3xx",
+            "It moved somewhere else",
+            "—"
+          ],
+          "accent": "slate",
+          "appearAt": 9.72
+        },
+        {
+          "cells": [
+            "4xx",
+            "You asked wrongly",
+            "Yours"
+          ],
+          "accent": "amber",
+          "appearAt": 14.04
+        },
+        {
+          "cells": [
+            "5xx",
+            "The server broke",
+            "The server's"
+          ],
+          "accent": "red",
+          "appearAt": 19.44
+        }
+      ],
+      "footer": {
+        "text": "4xx — check your request. 5xx — check the server logs.",
+        "appearAt": 24.84
+      }
+    },
+    {
+      "durationSeconds": 31.5,
+      "nodes": [],
+      "edges": [],
+      "id": "devtools",
+      "shot": 9,
+      "kind": "screencast",
+      "source": "GUIDE-01 — the star exercise",
+      "heading": "See it happen, on a real site",
+      "audio": "guide-01/09-devtools.wav",
+      "script": "Now stop reading and watch it happen. Open any site, press F12, and go to the Network tab. Reload. Every line is a request. Filter by Fetch slash X H R and you are looking at the backend calls only. Click one, open Response, and that is JSON coming back from a server. Everything in this video, on a real site, right now.",
+      "placeholder": "F12 → Network → filter Fetch/XHR → click a request → Response"
+    },
+    {
+      "durationSeconds": 31.0,
+      "nodes": [
+        {
+          "id": "fe",
+          "label": "FRONTEND",
+          "sublabel": "HTML · CSS · JavaScript · React",
+          "at": [
+            460,
+            180
+          ],
+          "size": [
+            1000,
+            180
+          ],
+          "accent": "blue",
+          "appearAt": 1.41
+        },
+        {
+          "id": "be",
+          "label": "BACKEND",
+          "sublabel": "Python · FastAPI",
+          "at": [
+            460,
+            470
+          ],
+          "size": [
+            1000,
+            180
+          ],
+          "accent": "green",
+          "appearAt": 10.57
+        },
+        {
+          "id": "db",
+          "label": "DATABASE",
+          "sublabel": "PostgreSQL",
+          "at": [
+            460,
+            760
+          ],
+          "size": [
+            1000,
+            180
+          ],
+          "accent": "amber",
+          "appearAt": 19.73
+        }
+      ],
+      "edges": [
+        {
+          "id": "http",
+          "from": "fe",
+          "to": "be",
+          "label": "HTTP + JSON",
+          "direction": "forward",
+          "vertical": true,
+          "appearAt": 7.75
+        },
+        {
+          "id": "sql",
+          "from": "be",
+          "to": "db",
+          "label": "SQL",
+          "direction": "forward",
+          "vertical": true,
+          "appearAt": 16.91
+        }
+      ],
+      "id": "the-map",
+      "shot": 10,
+      "kind": "diagram",
+      "source": "GUIDE-01 §10 — the complete map",
+      "heading": "Where everything you'll learn fits",
+      "audio": "guide-01/10-the-map.wav",
+      "script": "All together now. The frontend runs in the browser - HTML, CSS and JavaScript, and that is where Bootstrap and React live. It talks to the backend over HTTP, in JSON. The backend is Python and FastAPI, applying the rules. And it talks to the database in SQL, where the data survives being switched off. Three layers. That is the whole course."
+    },
+    {
+      "durationSeconds": 10.5,
+      "nodes": [],
+      "edges": [],
+      "id": "close",
+      "shot": 11,
+      "kind": "title",
+      "source": "GUIDE-01 — close",
+      "audio": "guide-01/11-close.wav",
+      "script": "That is guide one. Next you meet the terminal, and you start running these things yourself. See you there.",
+      "title": "Next: the terminal",
+      "subtitle": "Where you stop reading about it and start running it"
+    }
+  ]
+}

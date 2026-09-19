@@ -1,0 +1,30 @@
+{
+  "name": "course-video-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Turns a bootcamp guide into a YouTube lesson video. M0: one scene, hand-written spec, rendered to MP4.",
+  "scripts": {
+    "preview": "remotion studio",
+    "render": "remotion render Lesson ../course/video/out/guide-01-lesson.mp4",
+    "still": "remotion still",
+    "typecheck": "tsc --noEmit",
+    "capture": "vite",
+    "render:shot": "remotion render"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "@remotion/media-utils": "^4.0.526",
+    "@remotion/player": "^4.0.526",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "reactflow": "^11.11.4",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react-swc": "^4.3.3",
+    "typescript": "^5.6.0",
+    "vite": "^8.3.0"
+  }
+}

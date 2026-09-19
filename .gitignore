@@ -44,3 +44,6 @@ CLAUDE.local.md
 # Rendered video output — derived artefacts, rebuilt with `npm run render`
 # in ../course-video-studio. The scene spec is the source of truth, not the mp4.
 course/video/out/
+
+# Video studio dependencies — reinstall with `npm install` in video-studio/
+video-studio/node_modules/
