@@ -32,10 +32,8 @@
       "Bash(npm test:*)",
       "Bash(npx vitest:*)",
       "Bash(docker ps)",
-      "Bash(docker compose ps)",
-      "Bash(git check-ignore *)",
-      "Bash(git fetch *)",
-      "Bash(git rev-list *)"
+      "Bash(docker compose ps)"
+
     ],
     "deny": [
       "Bash(sudo:*)",
