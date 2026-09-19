@@ -81,8 +81,8 @@ Fits the existing curriculum with **no changes at all**.
 | Course day | Already teaches | Music version of the same exercise |
 |---:|---|---|
 | 04–08 | Python foundations | Parse a MIDI file. Count notes, find the key, transpose it |
-| 07 | Lists and dictionaries | A song is a list of bars; a bar is a dict of events. Same shape as `MEALS` |
-| 08 | Files and errors | Read a `.wav` header by hand. Discover that audio is just numbers |
+| 06 | Lists, dictionaries, sets, and tuples | A song is a list of bars; a bar is a dict of events. Same shape as `MEALS` |
+| 08 | Errors, files, environments, and logging | Read a `.wav` header by hand. Discover that audio is just numbers |
 | 09–14 | FastAPI | An API that returns the studio's availability |
 | 15–19 | PostgreSQL | Model sessions, tracks, takes, stems. Foreign keys with a reason to exist |
 | 25–30 | React | A waveform that draws itself from an array |

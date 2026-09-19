@@ -60,68 +60,70 @@
 | 02 | [Local workflow with Claude-assisted terminal and Git](../guides/GUIA-02-Terminal-y-Primeros-Proyectos.md) | TXT | Open, run, inspect, stop, and save a project |
 | 03 | [First guided project: architecture before syntax](../guides/GUIA-03-Conceptos-Para-Tu-Primer-Proyecto.md) | TXT | Build and explain a small end-to-end feature |
 
-> [TAREA-01 — La Cesta](../projects/TAREA-01-La-Cesta-FE-BE-y-GitHub.md) and [PROYECTO-01 — App de Salud](../projects/PROYECTO-01-App-de-Salud-Paso-a-Paso.md) are existing practical material. They must be reviewed so they fit as progressive projects of the new track rather than as misaligned prerequisites.
+> **Day 03 is built as [PROYECTO-01 — My Health App](../projects/PROYECTO-01-App-de-Salud-Paso-a-Paso.md).** Its only prerequisite is GUIA-02, and it is deliberately ahead of the student's syntax: they assemble a working end-to-end system with heavy scaffolding while [GUIA-03](../guides/GUIA-03-Conceptos-Para-Tu-Primer-Proyecto.md) explains each concept as it appears. The two are read side by side — the project says what to write, the guide says why it works.
+>
+> [TAREA-01 — The Basket](../projects/TAREA-01-La-Cesta-FE-BE-y-GitHub.md) is **not** Phase 0 material; it is the Phase 7 project. See day 36.
 
 ### Phase 1 — Python foundations
 
 | # | Major topic | State | Practical outcome |
 |---:|---|---|---|
-| 04 | Variables, types, and basic operations | — | Read and predict a small program |
-| 05 | Conditionals, loops, and program flow | — | Solve a problem with controlled flow |
-| 06 | Functions, arguments, and return values | — | Break a problem into reusable functions |
-| 07 | Lists, dictionaries, and data structures | — | Model real data in memory |
-| 08 | Files, errors, and modules | — | Read, write, and handle failures safely |
+| 04 | Values, variables, types, and expressions | — | Transform input data |
+| 05 | Decisions, loops, and program flow | — | Implement small business rules |
+| 06 | Lists, dictionaries, sets, and tuples | — | Process a collection of records |
+| 07 | Functions, modules, and readable structure | — | Split a program into understandable units |
+| 08 | Errors, files, environments, dependencies, and logging | — | Run and diagnose a resilient application |
 
 ### Phase 2 — FastAPI and backend engineering
 
 | # | Major topic | State | Practical outcome |
 |---:|---|---|---|
-| 09 | What an API is and what FastAPI does | — | Serve a first endpoint |
-| 10 | Routes, parameters, and responses | — | Build a readable route surface |
-| 11 | Pydantic: validation and data contracts | — | Reject invalid input with clear errors |
-| 12 | Project structure, routers, and dependencies | — | Organize a growing API |
-| 13 | Authentication, authorization, and secrets | — | Protect an endpoint and keep secrets out of Git |
-| 14 | Errors, logging, and API documentation | — | Debug and document the API from evidence |
+| 09 | FastAPI application and first endpoint | — | Run and inspect an API |
+| 10 | Routes, parameters, and Pydantic validation | — | Accept and reject data correctly |
+| 11 | REST resources, verbs, responses, and status codes | — | Design a coherent CRUD contract |
+| 12 | Backend structure and service boundaries | — | Organise a maintainable API |
+| 13 | Authentication, authorization, and security | — | Protect a route and its permissions |
+| 14 | Errors, middleware, async, logging, and observability | — | Diagnose requests and predictable failures |
 
 ### Phase 3 — PostgreSQL and persistence
 
 | # | Major topic | State | Practical outcome |
 |---:|---|---|---|
-| 15 | Relational databases and data modeling | — | Design tables and relationships |
-| 16 | SQL: queries, filters, and joins | — | Answer real questions with SQL |
-| 17 | SQLAlchemy and the ORM | — | Persist API data |
-| 18 | Migrations with Alembic | — | Evolve the schema without losing data |
-| 19 | Indexes, transactions, and performance | — | Diagnose and fix a slow query |
+| 15 | Tables, keys, relationships, and constraints | — | Design the data model |
+| 16 | Essential SQL: CRUD, filters, joins, and aggregations | — | Answer useful questions in SQL |
+| 17 | SQLAlchemy, sessions, and transactions | — | Persist data from the API |
+| 18 | Alembic migrations and seed data | — | Evolve the database reproducibly |
+| 19 | Indexes, performance, connections, and backups | — | Improve and protect one data workflow |
 
 ### Phase 4 — TypeScript as the second language
 
 | # | Major topic | State | Practical outcome |
 |---:|---|---|---|
-| 20 | From Python to TypeScript: the minimum JavaScript needed | — | Read typed code without guessing |
-| 21 | Types, interfaces, and type safety | — | Model the API contract in types |
-| 22 | Functions, async, and promises | — | Consume the backend from typed code |
-| 23 | Node, npm, and the project toolchain | — | Set up and explain a frontend project |
-| 24 | HTML and CSS, condensed and practical | — | Build a usable, accessible layout |
+| 20 | Values, inference, operators, and the minimum JavaScript context | — | Write a small typed program |
+| 21 | Typed functions, control flow, arrays, and objects | — | Transform API data safely |
+| 22 | Interfaces, unions, generics, and narrowing | — | Model states and responses |
+| 23 | Async/await, Fetch, HTTP, and typed responses | — | Consume the API from TypeScript |
+| 24 | Events, forms, tooling, and DevTools | — | Build and debug a browser interaction |
 
 ### Phase 5 — React with TypeScript
 
 | # | Major topic | State | Practical outcome |
 |---:|---|---|---|
-| 25 | Components, props, and JSX | — | Compose a first interface |
-| 26 | State and events | — | Make the interface react to the user |
-| 27 | Effects and data fetching | — | Display real backend data |
-| 28 | Forms, validation, and error states | — | Submit and validate data end to end |
-| 29 | Routing and application structure | — | Navigate a multi-screen application |
-| 30 | Shared state, authentication, and sessions | — | Keep an authenticated user across the app |
+| 25 | JSX, components, props, and composition | — | Build the first typed interface |
+| 26 | State, events, lists, conditions, and feedback | — | Create a complete interactive screen |
+| 27 | Forms, validation, and essential accessibility | — | Submit valid data through a usable form |
+| 28 | Effects and API integration | — | Connect React to FastAPI |
+| 29 | Routing, authentication, and shared state | — | Navigate protected areas |
+| 30 | Hooks, organisation, essential styling, and production UI | — | Deliver a coherent frontend without building a design system |
 
 ### Phase 6 — Testing and quality
 
 | # | Major topic | State | Practical outcome |
 |---:|---|---|---|
-| 31 | Why testing exists and what to test | — | Choose what deserves a test |
-| 32 | Backend testing with pytest | — | Cover the API with meaningful tests |
-| 33 | Frontend testing and component tests | — | Validate interface behavior |
-| 34 | End-to-end tests and code quality | — | Validate one complete user flow |
+| 31 | Test strategy, risk, and the pyramid | — | Create the project's test plan |
+| 32 | Pytest and FastAPI integration | — | Validate backend behaviour |
+| 33 | Vitest and React Testing Library | — | Validate behaviour visible to the user |
+| 34 | Playwright and practical TDD | — | Automate one complete critical journey |
 
 ### Phase 7 — Containers, DevOps, and deployment
 
@@ -143,6 +145,8 @@ The hands-on track is **Dokploy on an OVH VPS**: infrastructure the student prov
 | 46 | AWS depth: IAM, VPC, ALB, RDS, ECS Fargate, and Lambda | — | Compare VPS vs managed AWS on cost, latency, and operational burden |
 
 > Every student pays for their own OVH VPS and AWS sandbox, and is taught to tear both down. Cost control is part of the phase, not an afterthought.
+
+> **[TAREA-01 — The Basket](../projects/TAREA-01-La-Cesta-FE-BE-y-GitHub.md) is the project for this phase**, startable from day 36. It needs Docker Compose (36), PostgreSQL and SQLAlchemy (17–19), React hooks (25–28) and FastAPI dependency injection (12) — which is why it cannot sit in Phase 0. Its Part 0 (GitHub from scratch) is revision by this point and can be skimmed.
 
 ### Phase 8 — Applied AI engineering
 
