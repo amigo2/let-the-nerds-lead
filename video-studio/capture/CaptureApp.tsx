@@ -73,6 +73,12 @@ function reveal(scene: Scene, count: number, now: number): Scene {
   }
 }
 
+/** Matches the id Root.tsx registers: shot 2 "client-server" -> S02ClientServer. */
+function compositionIdOf(scene: Scene, index: number): string {
+  const name = scene.id.split('-').map((p) => p.charAt(0).toUpperCase() + p.slice(1)).join('')
+  return `S${String(scene.shot ?? index + 1).padStart(2, '0')}${name}`
+}
+
 export const CaptureApp: React.FC = () => {
   const [shot, setShot] = useState(0)
   const [beat, setBeat] = useState(1)      // how many things are showing
@@ -185,8 +191,27 @@ export const CaptureApp: React.FC = () => {
       body: JSON.stringify({ file: 'guide-01.json', contents: updated }),
     })
     const json = await specRes.json()
-    setStatus(json.ok ? `kept — ${file}` : `spec failed: ${json.error}`)
+    if (!json.ok) return setStatus(`spec failed: ${json.error}`)
     setTake(null)
+
+    // The take is only really kept once there is a movie with the voice in it.
+    setStatus('rendering the shot…')
+    const composition = compositionIdOf(scene, shot)
+    const started = await fetch('/__render', {
+      method: 'POST',
+      body: JSON.stringify({ composition, out: `${composition}.mp4` }),
+    }).then((r) => r.json())
+
+    const poll = setInterval(async () => {
+      const job = await fetch(`/__render?id=${started.id}`).then((r) => r.json())
+      if (job.status === 'running') return
+      clearInterval(poll)
+      setStatus(
+        job.status === 'done'
+          ? `done — course/video/out/${composition}.mp4`
+          : `render failed — ${job.log.split('\n').filter(Boolean).slice(-1)[0] ?? 'see the terminal'}`,
+      )
+    }, 1500)
   }, [take, scene, shot, times])
 
   useEffect(() => {
@@ -336,6 +361,29 @@ export const CaptureApp: React.FC = () => {
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10 }}>
           {status && <span style={{ fontSize: 12.5, color: '#34D399' }}>{status}</span>}
 
+          {!rec && !take && (
+            <button
+              onClick={async () => {
+                setStatus('rendering the whole lesson…')
+                const started = await fetch('/__render', {
+                  method: 'POST',
+                  body: JSON.stringify({ composition: 'Lesson', out: 'guide-01-lesson.mp4' }),
+                }).then((r) => r.json())
+                const poll = setInterval(async () => {
+                  const job = await fetch(`/__render?id=${started.id}`).then((r) => r.json())
+                  if (job.status === 'running') return
+                  clearInterval(poll)
+                  setStatus(job.status === 'done'
+                    ? 'done — course/video/out/guide-01-lesson.mp4'
+                    : 'lesson render failed — see the terminal')
+                }, 2000)
+              }}
+              style={recBtn('#0F172A', '#94A3B8')}
+            >
+              Render lesson
+            </button>
+          )}
+
           {take ? (
             <>
               <span style={{ fontSize: 13, color: '#94A3B8' }}>
@@ -343,7 +391,7 @@ export const CaptureApp: React.FC = () => {
               </span>
               <audio controls src={URL.createObjectURL(take.wav)} style={{ height: 32 }} />
               <button onClick={discard} style={recBtn('#0F172A', '#94A3B8')}>Discard</button>
-              <button onClick={keep} style={recBtn('#14432F', '#D1FAE5')}>Keep it</button>
+              <button onClick={keep} style={recBtn('#14432F', '#D1FAE5')}>Keep &amp; render</button>
             </>
           ) : rec ? (
             <button onClick={stopRecording} style={recBtn('#DC2626', 'white')}>

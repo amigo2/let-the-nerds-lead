@@ -56,7 +56,7 @@
             260
           ],
           "accent": "green",
-          "appearAt": 6.4
+          "appearAt": 11.23
         }
       ],
       "edges": [
@@ -67,7 +67,7 @@
           "label": "\"give me the videos\"",
           "direction": "forward",
           "offset": -46,
-          "appearAt": 14.92
+          "appearAt": 16.53
         },
         {
           "id": "response",
@@ -76,14 +76,14 @@
           "label": "\"here they are\"",
           "direction": "backward",
           "offset": 46,
-          "appearAt": 25.05
+          "appearAt": 19.2
         }
       ],
       "footer": {
         "text": "The client asks. The server answers.",
         "appearAt": 35.17
       },
-      "audio": "guide-01/scene-02-client-server.wav",
+      "audio": "guide-01/02-client-server.wav",
       "script": "Every web application is two separate programs, on two separate computers, talking to each other over the internet. On your side, the browser. That is the client - the one that asks. Somewhere else, a server. Powered on, waiting, ready to answer. When you open a site, the browser sends a request: give me the videos. And the server sends back a response: here they are. That is the whole shape of it. The client asks. The server answers. Everything else in this course is detail on top of those two boxes."
     },
     {
@@ -308,7 +308,7 @@
         },
         {
           "text": "DNS turns that name into a number — the phone book of the internet.",
-          "appearAt": 4.0
+          "appearAt": 4
         },
         {
           "text": "The browser connects to that address and asks for the page.",
@@ -328,7 +328,7 @@
         },
         {
           "text": "The backend queries its database and answers in JSON.",
-          "appearAt": 19.0
+          "appearAt": 19
         },
         {
           "text": "The JavaScript draws the content on screen.",
@@ -413,7 +413,7 @@
       "placeholder": "F12 → Network → filter Fetch/XHR → click a request → Response"
     },
     {
-      "durationSeconds": 31.0,
+      "durationSeconds": 31,
       "nodes": [
         {
           "id": "fe",

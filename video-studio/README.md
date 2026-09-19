@@ -68,8 +68,15 @@ from the same performance, so they are in sync by construction.
 **Stop** ends the take and gives you a player to listen back on. Then either:
 
 - **Discard** — nothing is written, go again
-- **Keep it** — the wav is saved to `course/video/audio/guide-01/NN-<shot>.wav`, and the spec
-  gets both the cue timings and the `audio` filename
+- **Keep & render** — three things, in order: the wav is saved to
+  `course/video/audio/guide-01/NN-<shot>.wav`, the spec gets the cue timings and the `audio`
+  filename, and then the shot is **rendered to MP4 with the voice in it**, landing in
+  `course/video/out/`. The footer reports progress and tells you where it went.
+
+**Render lesson** does the whole eleven-shot film the same way, without recording anything.
+
+Rendering is a Node job — headless browser plus ffmpeg — so it cannot run in the page. The
+button starts one on the dev server and polls it.
 
 Once a shot has audio, its length comes from the recording rather than the estimate — so the
 video follows your voice.
