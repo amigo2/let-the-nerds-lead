@@ -38,9 +38,13 @@ them, you drive the pace yourself:
 
 | Key | Does |
 |---|---|
-| `Enter` | start / stop the take |
-| `SPACE` | fire the next cue |
-| `[` `]` | previous / next shot (between takes) |
+| `←` `→` | step back / forward through the scene |
+| `[` `]` | previous / next shot |
+| `Enter` | start / stop a re-timing take |
+| `SPACE` | fire the next cue — **only during a take** |
+
+Stepping and recording are separate on purpose. Arrows walk a scene moment by moment and
+change nothing; a take only begins when you press Enter.
 
 The clock is the Player's own frame counter, not wall time, so a cue lands on exactly the
 frame the rendered video will show it on.

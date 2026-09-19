@@ -64,6 +64,29 @@ export const CaptureApp: React.FC = () => {
   const playerRef = useRef<PlayerRef>(null)
 
   const nextCue = cues.find((c) => fired[c.id] === undefined)
+
+  /** Every moment something appears in the scene as specced, in order. */
+  const marks = useMemo(() => {
+    const times = [
+      ...(scene.nodes ?? []).map((n) => n.appearAt),
+      ...(scene.edges ?? []).map((e) => e.appearAt),
+      ...(scene.rows ?? []).map((r) => r.appearAt),
+      ...(scene.steps ?? []).map((st) => st.appearAt),
+      ...(scene.footer ? [scene.footer.appearAt] : []),
+    ].filter((t) => t < 9000)
+    return Array.from(new Set([0, ...times])).sort((a, b) => a - b)
+  }, [scene])
+
+  const [mark, setMark] = useState(0)
+
+  /** Move to a moment and park there. Review, not playback. */
+  const goToMark = useCallback((i: number) => {
+    const clamped = Math.max(0, Math.min(marks.length - 1, i))
+    setMark(clamped)
+    playerRef.current?.pause()
+    // A shade past the cue, so the thing that lands on it has actually landed.
+    playerRef.current?.seekTo(Math.round((marks[clamped] + 0.45) * FPS))
+  }, [marks])
   const liveScene = useMemo(() => withCues(scene, fired), [scene, fired])
 
   const start = useCallback(() => {
@@ -91,22 +114,23 @@ export const CaptureApp: React.FC = () => {
     setFired({})
     setSaved(null)
     setRunning(false)
+    setMark(0)
   }, [])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.code === 'Space') {
-        e.preventDefault()
-        if (running) fire()
-        else start()   // idle: SPACE begins the take rather than doing nothing
-      }
+      // Arrows always step through the scene. This is the everyday interaction.
+      if (e.code === 'ArrowRight') { e.preventDefault(); goToMark(mark + 1) }
+      if (e.code === 'ArrowLeft') { e.preventDefault(); goToMark(mark - 1) }
+      // SPACE only means anything during a take, and a take only starts on Enter.
+      if (e.code === 'Space' && running) { e.preventDefault(); fire() }
       if (e.code === 'Enter') { e.preventDefault(); running ? stop() : start() }
       if (!running && e.code === 'BracketLeft') { e.preventDefault(); goTo(sceneIndex - 1) }
       if (!running && e.code === 'BracketRight') { e.preventDefault(); goTo(sceneIndex + 1) }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [fire, running, start, stop, goTo, sceneIndex])
+  }, [fire, running, start, stop, goTo, sceneIndex, goToMark, mark])
 
   // Once every cue has landed, the take is over.
   useEffect(() => {
@@ -183,6 +207,25 @@ export const CaptureApp: React.FC = () => {
           <div style={{ height: 520 }}><Interactive scene={scene} /></div>
         )}
 
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <button onClick={() => goToMark(mark - 1)} disabled={mark === 0} style={navBtn}>
+            ‹ Previous
+          </button>
+          <button
+            onClick={() => goToMark(mark + 1)}
+            disabled={mark >= marks.length - 1}
+            style={{ ...navBtn, background: mark >= marks.length - 1 ? '#0F172A' : '#2563EB', borderColor: 'transparent' }}
+          >
+            Next ›
+          </button>
+          <span style={{ fontSize: 13, color: '#64748B' }}>
+            step {mark + 1} of {marks.length} · at {marks[mark]?.toFixed(1)}s · ← → arrows
+          </span>
+          <button onClick={() => playerRef.current?.play()} style={{ ...navBtn, marginLeft: 'auto' }}>
+            ▶ Play it through
+          </button>
+        </div>
+
         <div style={{ fontSize: 21, lineHeight: 1.65, color: '#CBD5E1', overflowY: 'auto' }}>
           <div style={{ fontSize: 13, letterSpacing: 2, color: '#64748B', marginBottom: 8 }}>
             READ THIS ALOUD
@@ -209,6 +252,15 @@ export const CaptureApp: React.FC = () => {
           shot {sceneIndex + 1} of {spec.scenes.length} · <b>[</b> and <b>]</b> to move
         </div>
 
+        <div style={{ borderTop: '1px solid #1E293B', paddingTop: 12, marginTop: 4 }}>
+          <div style={{ fontSize: 11, letterSpacing: 1.5, color: '#475569', fontWeight: 700 }}>
+            RE-TIME THIS SHOT
+          </div>
+          <div style={{ fontSize: 12.5, color: '#64748B', marginTop: 3, lineHeight: 1.45 }}>
+            Only if you want to change when things land. Reads aloud, taps SPACE.
+          </div>
+        </div>
+
         <button
           onClick={running ? stop : start}
           style={{
@@ -216,7 +268,7 @@ export const CaptureApp: React.FC = () => {
             border: 'none', background: running ? '#DC2626' : '#2563EB', color: 'white',
           }}
         >
-          {running ? '● RECORDING — stop (Enter)' : 'Start take  (SPACE or Enter)'}
+          {running ? '● RECORDING — stop (Enter)' : 'Start take  (Enter)'}
         </button>
 
         <div style={{ fontSize: 13.5, color: '#94A3B8', lineHeight: 1.5 }}>
@@ -297,6 +349,12 @@ export const CaptureApp: React.FC = () => {
       </div>
     </div>
   )
+}
+
+const navBtn: React.CSSProperties = {
+  padding: '9px 16px', borderRadius: 8, border: '1px solid #334155',
+  background: '#0F172A', color: '#F1F5F9', fontSize: 14, cursor: 'pointer',
+  fontFamily: 'inherit',
 }
 
 const stepBtn: React.CSSProperties = {
