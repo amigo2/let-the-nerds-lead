@@ -3,264 +3,150 @@ import { Player, type PlayerRef } from '@remotion/player'
 import { SceneRenderer } from '../src/scenes/SceneRenderer'
 import { FPS, HEIGHT, WIDTH } from '../src/theme'
 import type { GuideSpec, Scene } from '../src/types'
-import { Interactive } from './Interactive'
 import rawSpec from '../scenes/guide-01.json'
 
 /**
- * Step through a scene with the arrow keys. That is the whole interaction.
+ * The lesson, driven by arrow keys.
  *
- * → reveals the next thing. ← takes it back. Nothing else is needed, and
- * because each press is timestamped against the player's own clock, reading
- * the script aloud while you step *is* the timing pass — there is no separate
- * record mode to remember to turn on.
+ * It opens on the title card. → reveals the next thing; when a shot has nothing
+ * left to reveal, → moves to the next shot. ← walks back. That is everything.
+ *
+ * Built for practising the read: the script for the current shot sits under the
+ * picture, and you set the pace yourself.
  */
 
 const UNFIRED = 10_000
-const TAIL_SECONDS = 1.2
 const CANVAS_FRAMES = 90 * FPS
 
 const spec = rawSpec as unknown as GuideSpec
 
-interface Cue {
-  id: string
-  label: string
-}
-
-function cuesOf(scene: Scene): Cue[] {
+function cueIdsOf(scene: Scene): string[] {
   return [
-    ...(scene.nodes ?? []).map((n) => ({ id: n.id, label: n.label })),
-    ...(scene.edges ?? []).map((e) => ({ id: e.id, label: e.label ?? e.id })),
-    ...(scene.rows ?? []).map((r, i) => ({ id: `row-${i}`, label: r.cells[0] })),
-    ...(scene.steps ?? []).map((st, i) => ({ id: `step-${i}`, label: st.text })),
-    ...(scene.footer ? [{ id: '__footer', label: scene.footer.text }] : []),
+    ...(scene.nodes ?? []).map((n) => n.id),
+    ...(scene.edges ?? []).map((e) => e.id),
+    ...(scene.rows ?? []).map((_, i) => `row-${i}`),
+    ...(scene.steps ?? []).map((_, i) => `step-${i}`),
+    ...(scene.footer ? ['__footer'] : []),
   ]
 }
 
-/** The scene as it looks given the steps taken so far. */
-function withCues(scene: Scene, at: Record<string, number>): Scene {
+/** How many arrow presses a shot is worth. A title card is one. */
+function beatsOf(scene: Scene): number {
+  return Math.max(1, cueIdsOf(scene).length)
+}
+
+/** The scene with the first `reveal` things shown, the newest one arriving now. */
+function reveal(scene: Scene, count: number, now: number): Scene {
+  const ids = cueIdsOf(scene)
+  const at = (id: string) => {
+    const i = ids.indexOf(id)
+    if (i < 0 || i >= count) return UNFIRED
+    // Everything before the newest is simply already there.
+    return i === count - 1 ? now : 0
+  }
   return {
     ...scene,
     audio: undefined,
-    nodes: scene.nodes?.map((n) => ({ ...n, appearAt: at[n.id] ?? UNFIRED })),
-    edges: scene.edges?.map((e) => ({ ...e, appearAt: at[e.id] ?? UNFIRED })),
-    rows: scene.rows?.map((r, i) => ({ ...r, appearAt: at[`row-${i}`] ?? UNFIRED })),
-    steps: scene.steps?.map((st, i) => ({ ...st, appearAt: at[`step-${i}`] ?? UNFIRED })),
-    footer: scene.footer ? { ...scene.footer, appearAt: at.__footer ?? UNFIRED } : undefined,
+    nodes: scene.nodes?.map((n) => ({ ...n, appearAt: at(n.id) })),
+    edges: scene.edges?.map((e) => ({ ...e, appearAt: at(e.id) })),
+    rows: scene.rows?.map((r, i) => ({ ...r, appearAt: at(`row-${i}`) })),
+    steps: scene.steps?.map((st, i) => ({ ...st, appearAt: at(`step-${i}`) })),
+    footer: scene.footer ? { ...scene.footer, appearAt: at('__footer') } : undefined,
   }
 }
 
 export const CaptureApp: React.FC = () => {
   const [shot, setShot] = useState(0)
-  const scene = spec.scenes[shot]
-  const cues = useMemo(() => cuesOf(scene), [scene])
-
-  const [at, setAt] = useState<Record<string, number>>({})
-  const [mode, setMode] = useState<'video' | 'interactive'>('video')
-  const [saved, setSaved] = useState<string | null>(null)
+  const [beat, setBeat] = useState(1)      // how many things are showing
+  const [arrivedAt, setArrivedAt] = useState(0) // when the newest one landed
   const playerRef = useRef<PlayerRef>(null)
 
-  const taken = cues.filter((c) => at[c.id] !== undefined).length
-  const next = cues[taken]
-  const live = useMemo(() => withCues(scene, at), [scene, at])
+  const scene = spec.scenes[shot]
+  const beats = beatsOf(scene)
+  const live = useMemo(() => reveal(scene, beat, arrivedAt), [scene, beat, arrivedAt])
 
-  const reset = useCallback((i = shot) => {
-    setShot(i)
-    setAt({})
-    setSaved(null)
-    playerRef.current?.pause()
+  const total = spec.scenes.length
+  const isFirst = shot === 0 && beat === 1
+  const isLast = shot === total - 1 && beat === beats
+
+  const enter = useCallback((index: number, showAll: boolean) => {
+    setShot(index)
+    setBeat(showAll ? beatsOf(spec.scenes[index]) : 1)
+    setArrivedAt(0)
     playerRef.current?.seekTo(0)
-  }, [shot])
+    playerRef.current?.play()
+  }, [])
 
-  /** → reveal the next thing, at the moment you asked for it. */
   const forward = useCallback(() => {
-    if (!next) return
-    if (taken === 0) {
-      playerRef.current?.seekTo(0)
-      playerRef.current?.play()
-      setAt({ [next.id]: 0 })
-      return
+    if (beat < beats) {
+      const frame = playerRef.current?.getCurrentFrame() ?? 0
+      setArrivedAt(frame / FPS)
+      setBeat((b) => b + 1)
+    } else if (shot < total - 1) {
+      enter(shot + 1, false)
     }
-    const frame = playerRef.current?.getCurrentFrame() ?? 0
-    setAt((prev) => ({ ...prev, [next.id]: Number((frame / FPS).toFixed(2)) }))
-  }, [next, taken])
+  }, [beat, beats, shot, total, enter])
 
-  /** ← take the last one back. */
   const back = useCallback(() => {
-    if (taken === 0) return
-    const last = cues[taken - 1]
-    setAt((prev) => {
-      const { [last.id]: _drop, ...rest } = prev
-      return rest
-    })
-  }, [cues, taken])
+    if (beat > 1) {
+      setBeat((b) => b - 1)
+      setArrivedAt(0)
+    } else if (shot > 0) {
+      enter(shot - 1, true)   // step back into the previous shot, fully shown
+    }
+  }, [beat, shot, enter])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.code === 'ArrowRight') { e.preventDefault(); forward() }
       if (e.code === 'ArrowLeft') { e.preventDefault(); back() }
-      if (e.code === 'BracketRight') { e.preventDefault(); if (shot < spec.scenes.length - 1) reset(shot + 1) }
-      if (e.code === 'BracketLeft') { e.preventDefault(); if (shot > 0) reset(shot - 1) }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [forward, back, reset, shot])
+  }, [forward, back])
 
-  const complete = taken === cues.length
-  const last = Math.max(0, ...Object.values(at))
-  const length = Number((last + TAIL_SECONDS).toFixed(2))
-
-  // Stop the clock once everything has landed, so the timing is what you did.
-  useEffect(() => {
-    if (complete) playerRef.current?.pause()
-  }, [complete])
-
-  const save = async () => {
-    const updated: GuideSpec = {
-      ...spec,
-      scenes: spec.scenes.map((s, i) =>
-        i !== shot ? s : {
-          ...s,
-          durationSeconds: length,
-          nodes: s.nodes?.map((n) => ({ ...n, appearAt: at[n.id] ?? n.appearAt })),
-          edges: s.edges?.map((e) => ({ ...e, appearAt: at[e.id] ?? e.appearAt })),
-          rows: s.rows?.map((r, j) => ({ ...r, appearAt: at[`row-${j}`] ?? r.appearAt })),
-          steps: s.steps?.map((st, j) => ({ ...st, appearAt: at[`step-${j}`] ?? st.appearAt })),
-          footer: s.footer ? { ...s.footer, appearAt: at.__footer ?? s.footer.appearAt } : undefined,
-        },
-      ),
-    }
-    const res = await fetch('/__write-spec', {
-      method: 'POST',
-      body: JSON.stringify({ file: 'guide-01.json', contents: updated }),
-    })
-    const json = await res.json()
-    setSaved(json.ok ? 'saved' : `failed: ${json.error}`)
-  }
+  // Start playing so the first thing animates in rather than snapping.
+  useEffect(() => { playerRef.current?.play() }, [])
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 380px', height: '100%', overflow: 'hidden' }}>
-      <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14, minWidth: 0, overflowY: 'auto' }}>
-        <div style={{ display: 'flex', gap: 8 }}>
-          {(['video', 'interactive'] as const).map((m) => (
-            <button key={m} onClick={() => setMode(m)} style={{
-              padding: '7px 14px', borderRadius: 8, fontSize: 13, cursor: 'pointer',
-              border: '1px solid #334155', fontFamily: 'inherit',
-              background: mode === m ? '#2563EB' : '#0F172A',
-              color: mode === m ? 'white' : '#94A3B8',
-            }}>
-              {m === 'video' ? 'Video' : 'Interactive'}
-            </button>
-          ))}
-        </div>
+    <div style={{
+      height: '100%', display: 'flex', flexDirection: 'column',
+      padding: '20px 24px 0', gap: 14, overflow: 'hidden',
+    }}>
+      <Player
+        ref={playerRef}
+        component={SceneRenderer}
+        inputProps={{ scene: live }}
+        durationInFrames={CANVAS_FRAMES}
+        fps={FPS}
+        compositionWidth={WIDTH}
+        compositionHeight={HEIGHT}
+        style={{ width: '100%', flexShrink: 0, borderRadius: 12, overflow: 'hidden' }}
+      />
 
-        {mode === 'video' ? (
-          <Player
-            ref={playerRef}
-            component={SceneRenderer}
-            inputProps={{ scene: live }}
-            durationInFrames={CANVAS_FRAMES}
-            fps={FPS}
-            compositionWidth={WIDTH}
-            compositionHeight={HEIGHT}
-            style={{ width: '100%', borderRadius: 12, overflow: 'hidden' }}
-          />
-        ) : (
-          <div style={{ height: 500 }}><Interactive scene={scene} /></div>
-        )}
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <button onClick={back} disabled={taken === 0} style={navBtn}>←</button>
-          <button onClick={forward} disabled={!next} style={{
-            ...navBtn, flex: 1, fontWeight: 700,
-            background: next ? '#2563EB' : '#0F172A', borderColor: 'transparent',
-            color: next ? 'white' : '#475569',
-          }}>
-            {taken === 0 ? 'Start  →' : next ? `Next  →   ${next.label}` : 'Done'}
-          </button>
-          <span style={{ fontSize: 13, color: '#64748B', whiteSpace: 'nowrap' }}>
-            {taken} / {cues.length}
-          </span>
-        </div>
-
-        <div style={{ fontSize: 20, lineHeight: 1.6, color: '#CBD5E1' }}>
-          <div style={{ fontSize: 12, letterSpacing: 2, color: '#64748B', marginBottom: 6 }}>
-            READ THIS ALOUD AS YOU STEP
-          </div>
-          {scene.script ?? <em>No script for this shot.</em>}
-        </div>
+      <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', fontSize: 19, lineHeight: 1.6, color: '#CBD5E1' }}>
+        {scene.script}
       </div>
 
-      <div style={{ borderLeft: '1px solid #1E293B', padding: 20, display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0, overflowY: 'auto' }}>
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-          <button onClick={() => shot > 0 && reset(shot - 1)} disabled={shot === 0} style={stepBtn}>‹</button>
-          <select value={shot} onChange={(e) => reset(Number(e.target.value))} style={{
-            flex: 1, padding: 8, borderRadius: 8, background: '#0F172A',
-            color: '#F1F5F9', border: '1px solid #334155',
-          }}>
-            {spec.scenes.map((s, i) => (
-              <option key={s.id} value={i}>{s.shot ? `Shot ${s.shot} — ` : ''}{s.id}</option>
-            ))}
-          </select>
-          <button onClick={() => shot < spec.scenes.length - 1 && reset(shot + 1)} disabled={shot === spec.scenes.length - 1} style={stepBtn}>›</button>
-        </div>
-        <div style={{ fontSize: 12, color: '#64748B', textAlign: 'center' }}>
-          <b>←</b> <b>→</b> to step · <b>[</b> <b>]</b> to change shot
-        </div>
-
-        <div style={{ flex: 1, overflowY: 'auto', marginTop: 6 }}>
-          {cues.map((c, i) => {
-            const done = at[c.id] !== undefined
-            const isNext = i === taken
-            return (
-              <div key={c.id} style={{
-                display: 'flex', alignItems: 'center', gap: 8, padding: '8px 6px',
-                borderBottom: '1px solid #1E293B', borderRadius: 6,
-                background: isNext ? '#14263D' : 'transparent',
-                opacity: done || isNext ? 1 : 0.45,
-              }}>
-                <span style={{ color: done ? '#34D399' : '#475569', fontSize: 13, width: 14 }}>
-                  {done ? '✓' : '○'}
-                </span>
-                <span style={{ fontSize: 13, flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  {c.label}
-                </span>
-                <span style={{ fontVariantNumeric: 'tabular-nums', fontSize: 13, flexShrink: 0, color: done ? '#38BDF8' : '#475569' }}>
-                  {done ? `${at[c.id].toFixed(1)}s` : '—'}
-                </span>
-              </div>
-            )
-          })}
-        </div>
-
-        <button onClick={() => reset()} style={stepBtn}>Start over</button>
-
-        <div style={{ fontSize: 13, color: '#94A3B8' }}>
-          Length: <b style={{ color: '#F1F5F9' }}>{complete ? `${length}s` : '—'}</b>
-        </div>
-
-        <button onClick={save} disabled={!complete} style={{
-          padding: '12px 16px', fontSize: 15, fontWeight: 600, borderRadius: 10,
-          border: '1px solid #334155', background: complete ? '#14432F' : '#0F172A',
-          color: complete ? '#D1FAE5' : '#475569', cursor: complete ? 'pointer' : 'not-allowed',
-          fontFamily: 'inherit',
-        }}>
-          Save timings to spec
-        </button>
-
-        {saved && <div style={{ fontSize: 12, color: '#34D399' }}>{saved}</div>}
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 14,
+        borderTop: '1px solid #1E293B', padding: '12px 0 16px', flexShrink: 0,
+      }}>
+        <button onClick={back} disabled={isFirst} style={arrow(isFirst)}>←</button>
+        <button onClick={forward} disabled={isLast} style={arrow(isLast)}>→</button>
+        <span style={{ fontSize: 14, color: '#94A3B8' }}>
+          Shot {shot + 1} of {total}
+          <span style={{ color: '#475569' }}>
+            {beats > 1 ? ` · ${beat} of ${beats}` : ''} · {scene.id}
+          </span>
+        </span>
       </div>
     </div>
   )
 }
 
-const navBtn: React.CSSProperties = {
-  padding: '11px 16px', borderRadius: 8, border: '1px solid #334155',
-  background: '#0F172A', color: '#F1F5F9', fontSize: 14, cursor: 'pointer',
-  fontFamily: 'inherit',
-}
-
-const stepBtn: React.CSSProperties = {
-  padding: '8px 12px', borderRadius: 8, border: '1px solid #334155',
-  background: '#0F172A', color: '#F1F5F9', fontSize: 14, cursor: 'pointer',
-  fontFamily: 'inherit',
-}
+const arrow = (disabled: boolean): React.CSSProperties => ({
+  padding: '10px 22px', borderRadius: 8, border: '1px solid #334155',
+  background: '#0F172A', color: disabled ? '#334155' : '#F1F5F9',
+  fontSize: 18, cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: 'inherit',
+})

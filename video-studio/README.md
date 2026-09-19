@@ -20,28 +20,24 @@ Renders land in the course repo, in `course/video/out/`, which is gitignored the
 It assumes the two repos are siblings — both directly on the Desktop. The output is a
 derived artefact: the scene spec is the source of truth, and the mp4 is rebuilt on demand.
 
-## Stepping through a scene
+## Presenting the lesson
 
 ```bash
 npm run capture     # http://localhost:5174
 ```
 
-**Arrows. That is the whole interaction.**
+Opens on the title card. **Arrows move through the whole lesson.**
 
 | Key | Does |
 |---|---|
-| `→` | reveal the next thing |
-| `←` | take the last one back |
-| `[` `]` | previous / next shot |
+| `→` | reveal the next thing — and at the end of a shot, move to the next shot |
+| `←` | back |
 
-Press `→` and the next box or arrow appears. Press it again for the one after. Read the
-script aloud while you step and you are doing two jobs at once: **each press is timestamped
-against the player's own clock**, so the pace you set becomes the scene's timing. There is
-no record mode to remember to switch on.
+42 presses takes you from the title card to the close, through all eleven shots. The script
+for whatever is on screen sits under the picture, so this is what you practise the read with.
 
-When the last thing has landed, **Save timings to spec** writes those moments and the scene
-length into `scenes/guide-01.json`. **Start over** throws the take away. Nothing is written
-until you press save, so step through it as often as you like.
+Nothing is recorded and nothing is written. It is a presenter — step through it as often as
+you like.
 
 ## How it fits together
 
