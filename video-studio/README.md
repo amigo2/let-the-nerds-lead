@@ -33,8 +33,26 @@ Opens on the title card. **Arrows move through the whole lesson.**
 | `→` | reveal the next thing — and at the end of a shot, move to the next shot |
 | `←` | back |
 
-42 presses takes you from the title card to the close, through all eleven shots. The script
-for whatever is on screen sits under the picture, so this is what you practise the read with.
+42 presses takes you from the title card to the close, through all eleven shots.
+
+```
+┌──────────────┬────────────────────────────┐
+│  all eleven  │                            │
+│  shots, the  │        the picture         │
+│  current one │                            │
+│  open to     │                            │
+│  show what   │                            │
+│  lands next  │                            │
+├──────────────┴────────────────────────────┤
+│  the script for this shot                 │
+├───────────────────────────────────────────┤
+│  ←  →     Shot 2 of 11 · 3 of 5           │
+└───────────────────────────────────────────┘
+```
+
+The left column is the outline: every shot, with the current one opened to show what is
+coming. Ticked things have landed, the highlighted one is next. The script for whatever is on
+screen sits along the bottom, so this is what you practise the read with.
 
 Nothing is recorded and nothing is written. It is a presenter — step through it as often as
 you like.
