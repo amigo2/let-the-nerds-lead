@@ -1,0 +1,47 @@
+/**
+ * tokens.css — the single source of truth for colour.
+ *
+ * Adapted from the slate token set used in the other product, so the two look
+ * like they came from the same place. Every surface consumes a variable rather
+ * than a hex, which is what lets the brand change in one file.
+ */
+:root {
+  /* Brand — slate */
+  --primary: #475569;             /* slate-600 */
+  --primary-strong: #334155;      /* slate-700, hover/active */
+  --primary-foreground: #fafafa;  /* text on primary */
+  --primary-subtle: #e2e8f0;      /* slate-200 */
+  --primary-subtle-2: #f1f5f9;    /* slate-100 */
+  --ring: rgba(71, 85, 105, 0.15);
+
+  /* Neutrals */
+  --foreground: #0a0a0a;
+  --muted-foreground: #737373;
+  --background: #ffffff;
+  --card: #ffffff;
+  --muted: #f5f5f5;
+  --border: #e5e5e5;
+  --border-hover: #d4d4d4;
+  --surface-subtle: #fafafa;
+
+  /* Sidebar */
+  --sidebar: #fafafa;
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-hover: #e2e8f0;
+  --sidebar-active: #475569;
+  --sidebar-border: #e5e5e5;
+
+  /* Semantic */
+  --destructive: #dc2626;
+  --success: #16a34a;
+  --warning: #b45309;
+
+  /* Course accents — one per layer of the stack, used by the diagrams and
+     anywhere a guide needs to colour-code frontend / backend / data. */
+  --accent-fe: #0284c7;
+  --accent-fe-bg: #e0f2fe;
+  --accent-be: #059669;
+  --accent-be-bg: #d1fae5;
+  --accent-data: #b45309;
+  --accent-data-bg: #fef3c7;
+}
