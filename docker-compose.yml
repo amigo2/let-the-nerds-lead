@@ -1,0 +1,20 @@
+# Local check that the real image works before it goes to OVH.
+# Day-to-day development is `make dev`, which is faster — this proves the
+# container itself.
+services:
+  app:
+    build: .
+    container_name: course-app
+    restart: unless-stopped
+    environment:
+      PORT: 8000
+    ports:
+      - "${APP_PORT:-8011}:8000"   # host port configurable; 8000 is taken on this machine
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request;urllib.request.urlopen('http://localhost:8000/api/health')\""]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+# No database service. The app has no state to store yet: no accounts, no
+# progress, no quiz answers. Postgres arrives with login, and not before.

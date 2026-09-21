@@ -126,16 +126,38 @@ if printf '%s' "$scan" | grep -Eq '(curl|wget)[^|]*\|[[:space:]]*(sudo[[:space:]
 fi
 
 # --- Secret exposure -------------------------------------------------------
-if printf '%s' "$scan" | grep -Eq '(cat|less|more|head|tail|bat|grep|strings)[[:space:]]+[^|]*(\.env|\.pem|\.key|id_rsa|credentials|\.aws/|\.ssh/)'; then
+#
+# `.env.example` is the file this course tells students to create and commit —
+# dummy values, no secrets, the whole point of it. Matching plain `.env` caught
+# it too, so reading the safe file was blocked while the real one stayed
+# readable by a dozen other means. Templates are exempt; `.env` and
+# `.env.local` are not.
+is_env_template() {
+  printf '%s' "$1" | grep -Eq '\.env\.(example|sample|template|dist)'
+}
+
+if printf '%s' "$scan" | grep -Eq '(cat|less|more|head|tail|bat|grep|strings)[[:space:]]+[^|]*(\.env|\.pem|\.key|id_rsa|credentials|\.aws/|\.ssh/)' \
+   && ! is_env_template "$scan"; then
   block "reading a secret file" "Credentials must never enter the transcript. Use a .env.example with dummy values to discuss configuration."
 fi
 
-if printf '%s' "$scan" | grep -Eq '^[[:space:]]*(env|printenv)([[:space:]]|$)'; then
+# `env` as a command dumps every variable, tokens included. Three things are
+# not that, and all three were being blocked:
+#   env = [...]              somebody naming a variable
+#   env=production cmd       setting one variable for one command
+#   git commit -m "...env"   writing *about* it
+# So this looks only at the command position — the start of the command line,
+# or straight after a pipe or separator — and only on the first line, because
+# anything below that is an argument, a heredoc or prose.
+env_line="$(printf '%s' "$scan" | head -1)"
+if printf '%s' "$env_line" | grep -Eq '(^|\||;|&&)[[:space:]]*(env|printenv)([[:space:]]*$|[[:space:]]+[^=])'; then
   block "dumping environment variables" "This can print tokens into the chat. Check one specific non-secret variable instead."
 fi
 
-# Committing a secret file directly.
-if printf '%s' "$scan" | grep -Eq 'git[[:space:]]+add[^&;|]*(\.env|\.pem|\.key|id_rsa|credentials)'; then
+# Committing a secret file directly. Committing the template is correct and
+# expected, so it is exempt for the same reason as above.
+if printf '%s' "$scan" | grep -Eq 'git[[:space:]]+add[^&;|]*(\.env|\.pem|\.key|id_rsa|credentials)' \
+   && ! is_env_template "$scan"; then
   block "staging a credential file" "Add this pattern to .gitignore instead. Commit .env.example with empty values."
 fi
 

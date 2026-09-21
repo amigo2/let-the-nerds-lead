@@ -1,0 +1,37 @@
+# Build context. Order matters: a later rule beats an earlier one, so nothing
+# below may re-include course/notes.
+
+.git
+.venv
+__pycache__
+*.pyc
+
+node_modules
+web/node_modules
+web/dist
+video-studio/node_modules
+video-studio/out
+
+# The renderer and its working files. Only video-studio/scenes ships, and the
+# Dockerfile copies that path explicitly.
+video-studio/capture
+video-studio/src
+video-studio/package.json
+video-studio/package-lock.json
+video-studio/tsconfig.json
+video-studio/vite.config.ts
+video-studio/remotion.config.ts
+video-studio/README.md
+
+# Rendered video and voiceover: large, derived, and served from elsewhere.
+course/video/out
+course/video/audio
+
+# INSTRUCTOR ONLY — business, pricing, correspondence, planning.
+# This must never reach a public image. Nothing below re-includes it.
+course/notes
+
+# Agent configuration and local scratch.
+.claude
+Z-notes.md
+Makefile
