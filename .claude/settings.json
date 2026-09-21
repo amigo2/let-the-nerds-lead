@@ -41,14 +41,8 @@
       "Bash(npm install:*)",
       "Bash(npm i:*)",
       "Bash(npx create-:*)",
-      "Bash(cp /private/tmp/claude-501/-Users-fernandocabello-Desktop-LET-THE-NEERDS-LEAD/bad294f2-a0cf-403b-9c5a-19b5d1165c3e/scratchpad/hook_regression.py .claude/hooks/test-guard.py)",
-      "Bash(sed -i '' 's|HOOK = \"/Users/fernandocabello/Desktop/LET_THE_NEERDS_LEAD/.claude/hooks/guard-dangerous-command.sh\"|import os\\\\nHOOK = os.path.join\\(os.path.dirname\\(os.path.abspath\\(__file__\\)\\), \"guard-dangerous-command.sh\"\\)|' .claude/hooks/test-guard.py)",
       "Bash(python3 .claude/hooks/test-guard.py)",
-      "Bash(python3 -c ' *)",
-      "Bash(python3 -c \"import json,sys;print\\(' %d interactive diagrams on GUIDE-01' % len\\(json.load\\(sys.stdin\\)\\)\\)\")",
-      "Bash(lsof -nP -iTCP:5173 -iTCP:5174 -sTCP:LISTEN)",
-      "Bash(xargs -I{} echo \"  raw @tailwind directives left in served css: {} \\(0 = compiled\\)\")",
-      "Bash(xargs -I{} echo \" database-related log lines: {}\")"
+      "Bash(python3 -)"
     ],
     "deny": [
       "Bash(sudo:*)",
