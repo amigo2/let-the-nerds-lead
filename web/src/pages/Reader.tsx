@@ -35,11 +35,18 @@ export const Reader: React.FC<{
         <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--primary-subtle-2)]">
           <BookOpen size={22} strokeWidth={1.5} className="text-[var(--primary)]" />
         </div>
-        <h1 className="text-2xl font-semibold">Pick a guide</h1>
+        <h1 className="text-2xl font-semibold">Full Stack + AI Bootcamp</h1>
         <p className="mt-3 text-[var(--muted-foreground)]">
-          Everything on the left is read straight from the markdown in this repository.
-          Edit a guide, reload, and the change is here — there is no second copy of the
-          course in a database.
+          Learn to design, build, test and validate software with AI as your copilot —
+          not as a replacement for your judgment.
+        </p>
+        <p className="mt-4 text-sm text-[var(--muted-foreground)]">
+          Sixty-five guides, one per day. Python first, then FastAPI and PostgreSQL,
+          TypeScript and React, testing, containers and DevOps, applied AI, mobile, and a
+          final project. Deployment is taught hands-on on a real VPS rather than described.
+        </p>
+        <p className="mt-6 text-sm text-[var(--muted-foreground)]">
+          Pick a guide on the left to begin.
         </p>
       </div>
     )
